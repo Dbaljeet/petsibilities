@@ -1,0 +1,117 @@
+.img{
+    z-index: -1;
+    top: 0%;
+    position: absolute;
+    width: 100%;
+}
+.title{
+    font-size: 3.5rem;
+    text-align: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.grid_form{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 30px;
+  padding: 15px;
+}
+
+.input{
+    max-width: 700px;
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.384);
+    padding: 15px;
+    font-size: 1.5rem;
+}
+.input3{
+  max-width: 700px;
+  width: 100%;
+  border-radius: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.384);
+  padding: 15px;
+  font-size: 1.5rem;
+  grid-area: 2 / 1 / 3 / 3;
+}
+.submit{
+    cursor: pointer;
+    min-width: 200px;
+    font-size: 2rem;
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #FFC727 0%, #FF9900 100%);
+}
+/*_________________________________________________________________*/
+.wrap {
+    position: relative;
+    width: 33.33%;
+    margin: -72px 0;
+    top: 50%;
+    float: left;
+  }
+  
+  .inputBox {
+    position: absolute;
+    left: -9999px;
+  }
+  .space{
+    margin-top: 50px;
+  }
+  .slider {
+    margin: 20px;
+    position: relative;
+    display: block;
+    width: 5.5em;
+    height: 3em;
+    cursor: pointer;
+    border-radius: 1.5em;
+    transition: 350ms;
+    background: #ddd2d2;
+    box-shadow: inset 1px 1px 20px 1px rgb(0 0 0 / 38%);
+  }
+  
+  .slider::before {
+    position: absolute;
+    content: '';
+    width: 2em;
+    height: 2em;
+    top: 0.5em;
+    left: 0.5em;
+    border-radius: 50%;
+    transition: 250ms ease-in-out;
+    background: linear-gradient(#f5f5f5 10%, #eee);
+    box-shadow: 0 0.1em 0.15em -0.05em rgba(#fff, 0.9) inset,
+      0 0.5em 0.3em -0.1em rgba(#000, 0.25);
+  }
+  /*pto no verde*/
+  .slider::after {
+    position: absolute;
+    content: '';
+    width: 1em;
+    height: 1em;
+    top: 1em;
+    left: 6em;
+    border-radius: 50%;
+    transition: 250ms ease-in;
+    background: linear-gradient(rgba(#000, 0.07), rgba(#fff, 0.1)), #ddd;
+    box-shadow:inset 0 0.08em 6px 4px rgb(173, 171, 171);
+  }
+  /*pto verde*/
+  .inputBox:checked + .slider::after {
+    background-color:  #4c6;
+    box-shadow: inset 0 0.08em 6px 4px rgba(173, 171, 171, 0.24)
+  }
+  
+  .inputBox:checked + .slider::before {
+    left: 3em;
+  }
+  
