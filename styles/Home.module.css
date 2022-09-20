@@ -15,8 +15,8 @@
 .Content{
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.205);
+  height: 65vh;
+  background-color: rgba(48, 48, 48, 0.205);
 }
 .GeneralContainer{
   text-align: center;
@@ -41,25 +41,34 @@
 
 .button1{
   display: block;
-  border: 3px solid #ECA944;
+  border: 3px solid #724B0D;
   border-radius: 5px;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   padding: 10px;
   cursor: pointer;
+  transition: background .5s ease;
+}
+.button1:hover{
+  background-color: #724B0D;
+  color: #fff;
 }
 .button2{
   color:#fff;
   display: block;
   border-radius: 5px;
-  border: 3px solid #ECA944;
-  background-color: #ECA944;
-  font-size: 1.4rem;
+  border: 3px solid #724B0D;
+  background-color: #724B0D;
+  font-size: 1.6rem;
   padding: 10px;
   cursor: pointer;
+  transition: background .5s ease;
 }
-
+.button2:hover{
+  background-color: transparent;
+  color: #000;
+}
 .ContainerImageDog{
-  background-image: url('../public/DogAndGirl.jpg');
+  background-image: url('../public/DogAndGirl2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -71,6 +80,9 @@
     opacity: .5;
     z-index: -1;
     width: 100%;
+    height: 100vh;
+  }
+  .Content{
     height: 100vh;
   }
   .Title{
@@ -88,8 +100,12 @@
     position: absolute;
     opacity: .4;
     z-index: -1;
-    width: 100%;
-    height: 100vh;
+    width: 80%;
+
+    left: 50%;
+    transform: translate(-50%,0%);
+    height: 65vh;
+    max-width: 100%;
   }
   .Title{
     text-align: center;
@@ -129,9 +145,54 @@
   padding: 6px;
   border-radius: 5px;
 }
+/*___________________________*/
+
 
 .section2{
   display: flex;
   flex-direction: column;
   text-align: center;
+  align-items: center;
+  flex-wrap: wrap;
+  min-width: 300px;
+}
+
+.p{
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+.section2_ul{
+  margin-top: 40px;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+}
+.section2_ul_li{
+  width: 300px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.15);
+  flex-direction: column;
+}
+
+.li_label{
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+}
+
+.li_label1{
+  color: #fff;
+  position: absolute;
+  font-size: 50px;
+  transform: translate3d(10px,-118px,0);
+  width: 200px;
+  background-color: rgba(12, 12, 12, 0.103);
+}
+.li_label2{
+  transform: translateY(0px);
 }
