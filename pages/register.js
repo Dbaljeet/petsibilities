@@ -71,6 +71,7 @@ export default function register() {
           />
         </div>
         <div className={styles.space}>
+          <p className={styles.space_p}>Ver contraseña</p>
           <div className={styles.wrap}>
             <input
               onClick={showPassword}

@@ -1,3 +1,9 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-bottom: 12vh;
+}
 .img{
     z-index: -1;
     top: 0%;
@@ -10,7 +16,6 @@
 }
 
 .form{
-    margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,6 +30,10 @@
     padding: 15px;
     font-size: 1.5rem;
 }
+.input:-webkit-autofill  {
+  -webkit-box-shadow:200px 200px 100px white inset; 
+  box-shadow:200px 200px 100px white inset; 
+}
 .submit{
     cursor: pointer;
     min-width: 200px;
@@ -32,7 +41,8 @@
     padding: 20px;
     border: none;
     border-radius: 5px;
-    background: linear-gradient(180deg, #FFC727 0%, #FF9900 100%);
+    color:#fff;
+    background: linear-gradient(to bottom, #724b0d, #765012, #7b5416, #7f591b, #835e1f, #896421, #8e6923, #946f25, #9d7725, #a68025, #ae8825, #b79125);
 }
 
 /*_________________________________________________________________*/
