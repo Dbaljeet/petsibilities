@@ -28,10 +28,14 @@ export default function login() {
       <Head>
         <title>Petsibilities - Iniciar sesión</title>
       </Head>
+
       <div className={styles.container}>
         <main className={styles.main}>
           <section className={styles.section1}>
-            <h2 className={styles.title}>Iniciar sesión</h2>
+            <header className={styles.section1_header}>
+              <img className={styles.Logoimg} src="/Logo.png" />
+              <h2 className={styles.title}>Iniciar sesión</h2>
+            </header>
             <form className={styles.form} onSubmit={handleSubmit}>
               <input
                 className={styles.input}
