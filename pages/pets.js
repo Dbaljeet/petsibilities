@@ -1,6 +1,7 @@
 import data from '../public/data.json'
 import Pet from '../components/Pet'
 import styled from '../styles/Pets.module.css'
+import Head from 'next/head'
 import { useState } from 'react'
 export default function pet() {
   const pets = data.pets
@@ -11,6 +12,9 @@ export default function pet() {
   }
   return (
     <>
+      <Head>
+        <title>Petsibilities - Mascotas disponibles</title>
+      </Head>
       {selectedCatergories}
 
       <select onChange={handleChange} name="categoria">

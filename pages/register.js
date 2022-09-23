@@ -26,7 +26,7 @@ export default function register() {
   return (
     <>
       <Head>
-        <title>Live Or Live - Register</title>
+        <title>Petsibilities - Registrarse</title>
       </Head>
       <img
         className={styles.img}

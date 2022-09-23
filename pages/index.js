@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Inicio</title>
+        <title>Petsibilities - Inicio</title>
         <meta name="description" content="Adopta máscotas en todo Chile" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
