@@ -3,6 +3,7 @@ import useUser from '../hooks/useUser'
 import styles from '../styles/Login.module.css'
 import Link from 'next/link'
 import Head from 'next/head'
+import Image from 'next/image'
 export default function login() {
   const { Login } = useUser()
 
@@ -33,7 +34,11 @@ export default function login() {
         <main className={styles.main}>
           <section className={styles.section1}>
             <header className={styles.section1_header}>
-              <img className={styles.Logoimg} src="/Logo.png" />
+              <img
+                className={styles.Logoimg}
+                alt="Pestisibilities logo"
+                src="/Logo.png"
+              />
               <h2 className={styles.title}>Iniciar sesión</h2>
             </header>
             <form className={styles.form} onSubmit={handleSubmit}>
@@ -66,7 +71,12 @@ export default function login() {
             </form>
           </section>
           <section className={styles.section2}>
-            <img className={styles.section2_img} src="/dogl.jpg" />
+            <Image
+              className={styles.section2_img}
+              src="/dogl.jpg"
+              width={1200}
+              height={2100}
+            />
             <div className={styles.section2_info}>
               ¿Aún no tienes una cuenta?
               <Link href="/register">

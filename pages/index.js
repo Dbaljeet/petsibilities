@@ -49,7 +49,7 @@ export default function Home() {
               Tanto para los que adoptan como para quienes ponen en adopción
               otorgamos y disponemos de :
             </p>
-            <div className={styles.section2_ul}>
+            <ul className={styles.section2_ul}>
               <li className={styles.section2_ul_li}>
                 <Image
                   alt="punto 1, visibilidad para cada mascota"
@@ -94,7 +94,7 @@ export default function Home() {
                   <p className={styles.li_label2}>Condiciones de adopción</p>
                 </label>
               </li>
-            </div>
+            </ul>
             <div>entre otras que puedes probar</div>
             <p className={styles.pp}>Entregamos un espacio seguro para todos</p>
             <Link href="">

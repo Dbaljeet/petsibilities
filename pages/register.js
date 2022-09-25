@@ -6,8 +6,9 @@ export default function register() {
   const { Register } = useUser()
   const [registerForm, setRegisterForm] = useState({
     name: '',
-    lastname: '',
     email: '',
+    city: '',
+    region: '',
     password: '',
     confirmPassword: '',
   })
@@ -42,18 +43,25 @@ export default function register() {
             placeholder="nombre*"
             name="name"
           />
+
           <input
             className={styles.input}
-            onChange={handleChange}
-            placeholder="apellido*"
-            name="lastname"
-          />
-          <input
-            className={styles.input3}
             onChange={handleChange}
             type="email"
             placeholder="correo*"
             name="email"
+          />
+          <input
+            className={styles.input}
+            onChange={handleChange}
+            placeholder="ciudad*"
+            name="city"
+          />
+          <input
+            className={styles.input}
+            onChange={handleChange}
+            placeholder="región*"
+            name="region"
           />
           <input
             className={styles.input}
