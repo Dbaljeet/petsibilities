@@ -9,6 +9,12 @@ function useUser() {
   }
   const Login = ({ email, password }) => {
     LoginService({ email, password })
+      .then((res) => {
+        console.log('funciona')
+      })
+      .catch((err) => {
+        console.log('error login', err)
+      })
   }
   return { jwt, setJwt, Register, Login }
 }
