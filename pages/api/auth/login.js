@@ -14,7 +14,8 @@ export default async function (req, res) {
       return res.json()
     })
     .then((res) => {
-      const { token } = res
-      return token
+      console.log(res)
+      const { accessToken } = res
+      return accessToken
     })
 }
