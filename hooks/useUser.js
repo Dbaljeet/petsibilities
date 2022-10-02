@@ -13,7 +13,7 @@ function useUser() {
         console.log('funciona')
       })
       .catch((err) => {
-        console.log('error login', err)
+        console.log(err.message)
       })
   }
   return { jwt, setJwt, Register, Login }

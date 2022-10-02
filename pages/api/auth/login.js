@@ -1,4 +1,4 @@
-const ENDPOINT = "http://localhost:3000/api/v1";
+const ENDPOINT = 'http://localhost:3000/api/v1'
 
 export default async function (req, res) {
   const { email, password } = req.body

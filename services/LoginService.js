@@ -9,10 +9,11 @@ export default function login({ email, password }) {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
-      if (!res.ok) throw new Error('error response')
+      if (!res.ok) throw new Error('error, correo o contraseña incorrectas')
       return res.json()
     })
     .then((res) => {
+      console.log(res)
       const { token } = res
       return token
     })
