@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Register.module.css'
 import { useState } from 'react'
 import useUser from '../hooks/useUser'
+import Switch from '../components/ui/Switch'
 export default function register() {
   const { Register } = useUser()
   const [registerForm, setRegisterForm] = useState({
@@ -78,18 +79,8 @@ export default function register() {
             name="confirmPassword"
           />
         </div>
-        <div className={styles.space}>
-          <p className={styles.space_p}>Ver contraseña</p>
-          <div className={styles.wrap}>
-            <input
-              onClick={showPassword}
-              className={styles.inputBox}
-              type="checkbox"
-              id="s2"
-            />
-            <label className={styles.slider} htmlFor="s2"></label>
-          </div>
-        </div>
+
+        <Switch text={'Ver contraseña'} showPassword={showPassword} />
 
         <input className={styles.submit} type="submit" value="Enviar" />
       </form>

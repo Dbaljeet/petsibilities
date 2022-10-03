@@ -1,0 +1,67 @@
+.wrap {
+    position: relative;
+    width: 33.33%;
+    margin: -72px 0;
+    top: 50%;
+    float: left;
+  }
+  
+  .inputBox {
+    position: absolute;
+    left: -9999px;
+  }
+  .space{
+    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .slider {
+    margin: 20px;
+    position: relative;
+    display: block;
+    width: 5.5em;
+    height: 3em;
+    cursor: pointer;
+    border-radius: 1.5em;
+    transition: 350ms;
+    background: #ddd2d2;
+    box-shadow: inset 1px 1px 20px 1px rgb(0 0 0 / 38%);
+  }
+  
+  .slider::before {
+    position: absolute;
+    content: '';
+    width: 2em;
+    height: 2em;
+    top: 0.5em;
+    left: 0.5em;
+    border-radius: 50%;
+    transition: 250ms ease-in-out;
+    background: linear-gradient(#f5f5f5 10%, #eee);
+    box-shadow: 0 0.1em 0.15em -0.05em rgba(#fff, 0.9) inset,
+      0 0.5em 0.3em -0.1em rgba(#000, 0.25);
+  }
+  /*pto no verde*/
+  .slider::after {
+    position: absolute;
+    content: '';
+    width: 1em;
+    height: 1em;
+    top: 1em;
+    left: 6em;
+    border-radius: 50%;
+    transition: 250ms ease-in;
+    background: linear-gradient(rgba(#000, 0.07), rgba(#fff, 0.1)), #ddd;
+    box-shadow:inset 0 0.08em 6px 4px rgb(173, 171, 171);
+  }
+  /*pto verde*/
+  .inputBox:checked + .slider::after {
+    background-color:  #4c6;
+    box-shadow: inset 0 0.08em 6px 4px rgba(173, 171, 171, 0.24)
+  }
+  
+  .inputBox:checked + .slider::before {
+    left: 3em;
+  }
+  
