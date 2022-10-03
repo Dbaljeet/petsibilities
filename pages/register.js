@@ -1,8 +1,10 @@
-import Head from 'next/head'
 import styles from '../styles/Register.module.css'
 import { useState } from 'react'
 import useUser from '../hooks/useUser'
 import Switch from '../components/ui/Switch'
+import { PetLayout } from '../components/layouts'
+import ButtonSubmit from '../components/ui/ButtonSubmit'
+import Image from 'next/image'
 export default function register() {
   const { Register } = useUser()
   const [registerForm, setRegisterForm] = useState({
@@ -27,63 +29,73 @@ export default function register() {
 
   return (
     <>
-      <Head>
-        <title>Petsibilities - Registrarse</title>
-      </Head>
-      <img
-        className={styles.img}
-        alt="Imagen de fondo decorativa"
-        src="/wave.svg"
-      />
-      <h2 className={styles.title}>Registro</h2>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <div className={styles.grid_form}>
-          <input
-            className={styles.input}
-            onChange={handleChange}
-            placeholder="nombre*"
-            name="name"
-          />
+      <PetLayout title={'Petsibilities - Registrarse'}>
+        <h2 className={styles.title}>Registro</h2>
+        <section className={styles.section}>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.grid_form}>
+              <input
+                className={styles.input}
+                onChange={handleChange}
+                placeholder="nombre*"
+                name="name"
+              />
 
-          <input
-            className={styles.input}
-            onChange={handleChange}
-            type="email"
-            placeholder="correo*"
-            name="email"
-          />
-          <input
-            className={styles.input}
-            onChange={handleChange}
-            placeholder="ciudad*"
-            name="city"
-          />
-          <input
-            className={styles.input}
-            onChange={handleChange}
-            placeholder="región*"
-            name="region"
-          />
-          <input
-            className={styles.input}
-            type={`${isVisiblePassword ? 'text' : 'password'}`}
-            onChange={handleChange}
-            placeholder="contraseña*"
-            name="password"
-          />
-          <input
-            className={styles.input}
-            type={`${isVisiblePassword ? 'text' : 'password'}`}
-            onChange={handleChange}
-            placeholder="repetir contraseña*"
-            name="confirmPassword"
-          />
-        </div>
+              <input
+                className={styles.input}
+                onChange={handleChange}
+                type="email"
+                placeholder="correo*"
+                name="email"
+              />
+              <input
+                className={styles.input}
+                onChange={handleChange}
+                placeholder="ciudad*"
+                name="city"
+              />
+              <input
+                className={styles.input}
+                onChange={handleChange}
+                placeholder="región*"
+                name="region"
+              />
+              <input
+                className={styles.input}
+                type={`${isVisiblePassword ? 'text' : 'password'}`}
+                onChange={handleChange}
+                placeholder="contraseña*"
+                name="password"
+              />
+              <input
+                className={styles.input}
+                type={`${isVisiblePassword ? 'text' : 'password'}`}
+                onChange={handleChange}
+                placeholder="repetir contraseña*"
+                name="confirmPassword"
+              />
+            </div>
 
-        <Switch text={'Ver contraseña'} showPassword={showPassword} />
+            <Switch text={'Ver contraseña'} showPassword={showPassword} />
 
-        <input className={styles.submit} type="submit" value="Enviar" />
-      </form>
+            <ButtonSubmit />
+          </form>
+          <div className={styles.containerImgText}>
+            <div className={styles.containerImg}>
+              <Image
+                src="/eri.jpg"
+                width={1200}
+                height={1000}
+                layout="responsive"
+              />
+            </div>
+            <p className={styles.textimg}>
+              Sé parte de nuestra web,<br></br>queremos que encuentres <br></br>
+              a tu próxima mascota
+            </p>
+          </div>
+        </section>
+      </PetLayout>
     </>
   )
 }

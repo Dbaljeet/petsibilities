@@ -1,22 +1,19 @@
-.img{
-    z-index: -1;
-    top: 0%;
-    position: absolute;
-    width: 100%;
+.container {
+  display: flex;
+  flex-direction: column;
 }
-.title{
-    font-size: 3.5rem;
-    text-align: center;
+.img {
+  z-index: -1;
+  top: 0%;
+  position: absolute;
+  width: 100%;
 }
-.form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    justify-content: space-between;
+.title {
+  font-size: 4.5rem;
+  text-align: center;
+  font-style: italic;
 }
-
-.grid_form{
+.grid_form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,95 +22,85 @@
   gap: 40px;
   padding: 15px;
 }
-.input{
-    max-width: 700px;
-    width: 100%;
-    border-radius: 8px;
-    border: 2px solid rgba(0, 0, 0, 0.384);
-    padding: 15px;
-    font-size: 1.5rem;
+.input {
+  max-width: 700px;
+  width: 70%;
+  min-width: 250px;
+  border-radius: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.384);
+  padding: 15px;
+  font-size: 1.5rem;
 }
+/*
 .input:-webkit-autofill  {
   -webkit-box-shadow:200px 200px 100px white inset; 
   box-shadow:200px 200px 100px white inset; 
+}*/
+.submit {
+  cursor: pointer;
+  min-width: 200px;
+  font-size: 2rem;
+  padding: 20px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #ffc727 0%, #ff9900 100%);
 }
-.submit{
-    cursor: pointer;
-    min-width: 200px;
-    font-size: 2rem;
-    padding: 20px;
-    border: none;
-    border-radius: 5px;
-    background: linear-gradient(180deg, #FFC727 0%, #FF9900 100%);
-}
-.space_p{
+.space_p {
   font-size: 1.5rem;
 }
 /*_________________________________________________________________*/
-.wrap {
-    position: relative;
-    width: 33.33%;
-    margin: -72px 0;
-    top: 50%;
-    float: left;
+.section {
+  background-color: #aaa8a527;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+}
+/*_____________*/
+.containerImgText{
+  width: 40%;
+  display: flex;
+  justify-content: center;
+}
+.containerImg {
+  width: 100%;
+  display: inline-block;
+  min-width: 320px;
+  padding: 20px;
+  background-color: #9b886b;
+}
+.textimg{
+  text-align: center;
+  font-size: 2rem;
+  position: absolute;
+  background-color: rgba(238, 234, 234, 0.589);
+  border-radius: 30px;
+  padding: 10px;
+}
+/*_____________*/
+.form {
+  padding: 40px;
+  width: 50%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+  background-color: rgba(185, 183, 183, 0.205);
+  min-width: 320px;
+}
+@media screen and (max-width:800px){
+  .form{
+    width: 100%;
   }
-  
-  .inputBox {
-    position: absolute;
-    left: -9999px;
+  .containerImgText{
+    width: 100%;
   }
-  .space{
-    margin-top: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .textimg{
+    padding: 0;
+    font-size: 1.5rem;
   }
-  .slider {
-    margin: 20px;
-    position: relative;
-    display: block;
-    width: 5.5em;
-    height: 3em;
-    cursor: pointer;
-    border-radius: 1.5em;
-    transition: 350ms;
-    background: #ddd2d2;
-    box-shadow: inset 1px 1px 20px 1px rgb(0 0 0 / 38%);
-  }
-  
-  .slider::before {
-    position: absolute;
-    content: '';
-    width: 2em;
-    height: 2em;
-    top: 0.5em;
-    left: 0.5em;
-    border-radius: 50%;
-    transition: 250ms ease-in-out;
-    background: linear-gradient(#f5f5f5 10%, #eee);
-    box-shadow: 0 0.1em 0.15em -0.05em rgba(#fff, 0.9) inset,
-      0 0.5em 0.3em -0.1em rgba(#000, 0.25);
-  }
-  /*pto no verde*/
-  .slider::after {
-    position: absolute;
-    content: '';
-    width: 1em;
-    height: 1em;
-    top: 1em;
-    left: 6em;
-    border-radius: 50%;
-    transition: 250ms ease-in;
-    background: linear-gradient(rgba(#000, 0.07), rgba(#fff, 0.1)), #ddd;
-    box-shadow:inset 0 0.08em 6px 4px rgb(173, 171, 171);
-  }
-  /*pto verde*/
-  .inputBox:checked + .slider::after {
-    background-color:  #4c6;
-    box-shadow: inset 0 0.08em 6px 4px rgba(173, 171, 171, 0.24)
-  }
-  
-  .inputBox:checked + .slider::before {
-    left: 3em;
-  }
-  
+}

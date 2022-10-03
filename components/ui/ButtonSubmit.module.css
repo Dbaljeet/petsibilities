@@ -1,0 +1,17 @@
+.submit {
+    cursor: pointer;
+    min-width: 200px;
+    font-size: 2rem;
+    padding: 20px;
+    border: none;
+    border-radius: 40px;
+    color: #fff;
+    background-image: linear-gradient(
+      to bottom,
+      #837119,
+      #88792c,
+      #8e823d,
+      #938a4e,
+      #99925e
+    );
+  }

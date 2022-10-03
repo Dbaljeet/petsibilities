@@ -1,3 +1,10 @@
+.all{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+}
 .wrap {
     position: relative;
     width: 33.33%;
@@ -16,7 +23,12 @@
     justify-content: center;
     align-items: center;
   }
+  .space_p{
+    font-size: 1.5rem;
+    padding: 10px;
+  }
   .slider {
+    transform: translateX(-20px);
     margin: 20px;
     position: relative;
     display: block;
