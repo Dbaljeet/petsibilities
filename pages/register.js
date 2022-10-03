@@ -5,6 +5,7 @@ import Switch from '../components/ui/Switch'
 import { PetLayout } from '../components/layouts'
 import ButtonSubmit from '../components/ui/ButtonSubmit'
 import Image from 'next/image'
+import Link from 'next/link'
 export default function register() {
   const { Register } = useUser()
   const [registerForm, setRegisterForm] = useState({
@@ -93,6 +94,14 @@ export default function register() {
               Sé parte de nuestra web,<br></br>queremos que encuentres <br></br>
               a tu próxima mascota
             </p>
+            <nav className={styles.nav}>
+              <Link href="/">
+                <a className={styles.anav}>Inicio</a>
+              </Link>
+              <Link href="/login">
+                <a className={styles.anav}>Iniciar sesión</a>
+              </Link>
+            </nav>
           </div>
         </section>
       </PetLayout>
