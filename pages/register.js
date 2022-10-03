@@ -52,15 +52,16 @@ export default function register() {
               <input
                 className={styles.input}
                 onChange={handleChange}
-                placeholder="ciudad*"
-                name="city"
+                placeholder="región*"
+                name="region"
               />
               <input
                 className={styles.input}
                 onChange={handleChange}
-                placeholder="región*"
-                name="region"
+                placeholder="ciudad*"
+                name="city"
               />
+
               <input
                 className={styles.input}
                 type={`${isVisiblePassword ? 'text' : 'password'}`}
