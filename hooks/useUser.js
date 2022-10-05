@@ -3,13 +3,21 @@ import LoginService from '../services/LoginService'
 
 function useUser() {
   const { jwt, setJwt } = useUserContext()
-  const Register = ({ name, lastname, email, password, confirmPassword }) => {
-    console.log(name, lastname, email)
+  const Register = ({
+    name,
+    email,
+    region,
+    city,
+    password,
+    confirmPassword,
+  }) => {
+    console.log(name, email, region)
     //service - fetch
   }
   const Login = ({ email, password }) => {
     LoginService({ email, password })
       .then((res) => {
+        console.log(res)
         console.log('funciona')
       })
       .catch((err) => {

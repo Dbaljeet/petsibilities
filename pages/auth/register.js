@@ -1,9 +1,8 @@
-import styles from '../styles/Register.module.css'
+import styles from '../../styles/Register.module.css'
 import { useState } from 'react'
-import useUser from '../hooks/useUser'
-import Switch from '../components/ui/Switch'
-import { PetLayout } from '../components/layouts'
-import ButtonSubmit from '../components/ui/ButtonSubmit'
+import useUser from '../../hooks/useUser'
+import { PetLayout } from '../../components/layouts'
+import { ButtonSubmit, Switch } from '../../components/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 export default function register() {
@@ -11,8 +10,8 @@ export default function register() {
   const [registerForm, setRegisterForm] = useState({
     name: '',
     email: '',
-    city: '',
     region: '',
+    city: '',
     password: '',
     confirmPassword: '',
   })
@@ -99,7 +98,7 @@ export default function register() {
               <Link href="/">
                 <a className={styles.anav}>Inicio</a>
               </Link>
-              <Link href="/login">
+              <Link href="/auth/login">
                 <a className={styles.anav}>Iniciar sesión</a>
               </Link>
             </nav>

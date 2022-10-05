@@ -1,5 +1,5 @@
 import styles from './Switch.module.css'
-export default function Switch({ text, showPassword }) {
+export function Switch({ text, showPassword }) {
   return (
     <>
       <div className={styles.all}>

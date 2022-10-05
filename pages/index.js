@@ -15,10 +15,10 @@ export default function Home() {
               <h1 className={styles.Title}>Petsibilities</h1>
               <h2 className={styles.SubTitle}>Adopta una mascota</h2>
               <div className={styles.buttonContainer}>
-                <Link href="/login">
+                <Link href="/auth/login">
                   <div className={styles.button1}>Iniciar Sesión</div>
                 </Link>
-                <Link href="/register">
+                <Link href="/auth/register">
                   <div className={styles.button2}>Registrarse</div>
                 </Link>
               </div>

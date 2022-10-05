@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Navbar from '../ui/Navbar'
+import { Navbar } from '../ui'
 export const PetLayout = ({
   children,
   title,
@@ -15,7 +15,6 @@ export const PetLayout = ({
         <meta name="og:description" content={pageDescription} />
         {imageFullUrl && <meta name="og:image" content={imageFullUrl} />}
       </Head>
-
       <main>{children}</main>
       <footer></footer>
     </>

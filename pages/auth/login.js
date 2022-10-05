@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import useUser from '../hooks/useUser'
-import styles from '../styles/Login.module.css'
+import useUser from '../../hooks/useUser'
+import styles from '../../styles/Login.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
-import { PetLayout } from '../components/layouts'
-import Switch from '../components/ui/Switch'
-import ButtonSubmit from '../components/ui/ButtonSubmit'
+import { PetLayout } from '../../components/layouts'
+import { ButtonSubmit, Switch } from '../../components/ui'
 export default function login() {
   const { Login } = useUser()
 
@@ -38,6 +37,7 @@ export default function login() {
                 onChange={handleChange}
                 placeholder="correo"
                 name="email"
+                type="email"
               />
               <input
                 className={styles.input}
@@ -59,7 +59,7 @@ export default function login() {
             />
             <div className={styles.section2_info}>
               ¿Aún no tienes una cuenta?
-              <Link href="/register">
+              <Link href="/auth/register">
                 <a className={styles.goRegister}>Regístrate</a>
               </Link>
               <Link href="/">

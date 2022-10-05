@@ -1,11 +1,11 @@
-import home from '../../public/NavbarElements/home.svg'
-import search from '../../public/NavbarElements/search.svg'
-import profile from '../../public/NavbarElements/profile.svg'
+import home from '../../../public/NavbarElements/home.svg'
+import search from '../../../public/NavbarElements/search.svg'
+import profile from '../../../public/NavbarElements/profile.svg'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Navbar.module.css'
 
-export default function Navbar() {
+export function Navbar() {
   return (
     <>
       <Image
