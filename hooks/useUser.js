@@ -1,8 +1,12 @@
+import Router from 'next/router'
+import { useState } from 'react'
 import { useUserContext } from '../Context/UserContext'
 import LoginService from '../services/LoginService'
-
+import RegisterService from '../services/RegisterService'
 function useUser() {
   const { jwt, setJwt } = useUserContext()
+  const [error, setError] = useState(false)
+  const [infoResponse, setInfoResponse] = useState('')
   const Register = ({
     name,
     email,
@@ -11,19 +15,40 @@ function useUser() {
     password,
     confirmPassword,
   }) => {
-    console.log(name, email, region)
-    //service - fetch
-  }
-  const Login = ({ email, password }) => {
-    LoginService({ email, password })
+    RegisterService({
+      name,
+      email,
+      region,
+      city,
+      password,
+      confirmPassword,
+    })
       .then((res) => {
         console.log(res)
-        console.log('funciona')
+        setInfoResponse(res)
       })
       .catch((err) => {
-        console.log(err.message)
+        console.log(err)
+        setError(true)
+        setInfoResponse(err.message)
+        setTimeout(() => setError(false), 4000)
       })
   }
-  return { jwt, setJwt, Register, Login }
+
+  const Login = ({ email, password }) => {
+    /*
+    LoginService({ email, password })
+      .then((res) => {
+        Router.replace('/')
+      })
+      .catch((err) => {
+        setError(true)
+        setInfoResponse(err.message)
+        setTimeout(() => setError(false), 4000)
+      })
+      */
+    Router.replace('/')
+  }
+  return { jwt, setJwt, Register, Login, error, infoResponse }
 }
 export default useUser

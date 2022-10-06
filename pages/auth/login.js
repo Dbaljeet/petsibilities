@@ -6,8 +6,7 @@ import Image from 'next/image'
 import { PetLayout } from '../../components/layouts'
 import { ButtonSubmit, Switch } from '../../components/ui'
 export default function login() {
-  const { Login } = useUser()
-
+  const { Login, error, infoResponse } = useUser()
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
@@ -24,7 +23,6 @@ export default function login() {
   const showPassword = () => {
     setIsVisiblePassword(!isVisiblePassword)
   }
-
   return (
     <>
       <PetLayout title={'Petsibilities - Iniciar sesión'}>
@@ -46,6 +44,7 @@ export default function login() {
                 placeholder="contraseña"
                 name="password"
               />
+              {error && <span className={styles.spann}>{infoResponse}</span>}
               <Switch text={'Ver contraseña'} showPassword={showPassword} />
               <ButtonSubmit />
             </form>

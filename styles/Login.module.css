@@ -122,3 +122,18 @@
     width: 80%;
   }
 }
+
+.spann{
+  background-color: rgb(255, 255, 255);
+  border-radius: 40px;
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 10px 20px;
+  position: absolute;
+  color: #4b4b4b;
+}
+@media screen and (max-width:700px){
+  .spann{
+    max-width: 330px;
+  }
+}

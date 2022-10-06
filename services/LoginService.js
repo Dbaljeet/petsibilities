@@ -13,8 +13,8 @@ export default function login({ email, password }) {
       return res.json()
     })
     .then((res) => {
-      console.log(res)
-      const { token } = res
-      return token
+      console.log('funciona en services')
+      const { accessToken } = res
+      return accessToken
     })
 }

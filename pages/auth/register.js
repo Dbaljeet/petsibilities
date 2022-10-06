@@ -6,7 +6,7 @@ import { ButtonSubmit, Switch } from '../../components/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 export default function register() {
-  const { Register } = useUser()
+  const { Register, error, infoResponse } = useUser()
   const [registerForm, setRegisterForm] = useState({
     name: '',
     email: '',
@@ -75,6 +75,7 @@ export default function register() {
                 placeholder="repetir contraseña*"
                 name="confirmPassword"
               />
+              {error && <span className={styles.spann}>{infoResponse}</span>}
             </div>
 
             <Switch text={'Ver contraseña'} showPassword={showPassword} />

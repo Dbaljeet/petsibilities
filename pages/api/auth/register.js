@@ -1,13 +1,20 @@
 const ENDPOINT = 'http://localhost:3000/api/v1'
 
 export default async function (req, res) {
-  const { email, password } = req.body
-  return fetch(`${ENDPOINT}/auth/login`, {
+  const { name, email, region, city, password, repeatPassword } = req.body
+  return fetch(`${ENDPOINT}/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({
+      name,
+      email,
+      region,
+      city,
+      password,
+      repeatPassword,
+    }),
   })
     .then((res) => {
       if (!res.ok)
@@ -16,7 +23,6 @@ export default async function (req, res) {
     })
     .then((res) => {
       console.log(res)
-      const { accessToken } = res
-      return accessToken
+      return res
     })
 }
