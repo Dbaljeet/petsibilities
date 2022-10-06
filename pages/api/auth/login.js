@@ -16,7 +16,7 @@ export default async function (req, res) {
     })
     .then((res) => {
       console.log(res)
-      const { accessToken } = res
-      return accessToken
+      const { accessToken, refreshToken } = res
+      return { accessToken, refreshToken }
     })
 }

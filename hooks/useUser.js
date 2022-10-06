@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useUserContext } from '../Context/UserContext'
 import LoginService from '../services/LoginService'
 import RegisterService from '../services/RegisterService'
+import Cookies from 'js-cookie'
 function useUser() {
   const { jwt, setJwt } = useUserContext()
   const [error, setError] = useState(false)
@@ -36,7 +37,6 @@ function useUser() {
   }
 
   const Login = ({ email, password }) => {
-    /*
     LoginService({ email, password })
       .then((res) => {
         Router.replace('/')
@@ -46,8 +46,13 @@ function useUser() {
         setInfoResponse(err.message)
         setTimeout(() => setError(false), 4000)
       })
-      */
+
+    /*
+    const refreshToken = 'test'
     Router.replace('/')
+    Cookies.set('token', refreshToken, { expires: 365 })
+    //Cookies.set('authtoken', accesToken)
+    */
   }
   return { jwt, setJwt, Register, Login, error, infoResponse }
 }
