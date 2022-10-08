@@ -11,12 +11,10 @@ export default async function (req, res) {
   })
     .then((res) => {
       if (!res.ok)
-        //throw new Error('error response')
+        throw new Error('error response')
         return res.json()
     })
     .then((res) => {
-      console.log(res)
-      const { accessToken, refreshToken } = res
-      return { accessToken, refreshToken }
+      return res.status(200)
     })
 }

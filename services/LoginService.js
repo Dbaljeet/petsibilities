@@ -1,6 +1,7 @@
 const ENDPOINT = '/api/auth'
 
 export default function login({ email, password }) {
+  
   return fetch(`${ENDPOINT}/login`, {
     method: 'POST',
     headers: {
@@ -9,12 +10,12 @@ export default function login({ email, password }) {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
+      console.log(res,'1')
       if (!res.ok) throw new Error('error, correo o contraseña incorrectas')
       return res.json()
     })
     .then((res) => {
-      console.log('funciona en services')
-      const { accessToken } = res
-      return accessToken
+      console.log(res)
+      return res.json()
     })
 }
