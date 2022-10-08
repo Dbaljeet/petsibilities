@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import { ThemeProvider } from '@mui/material'
 import { lightTheme } from '../themes'
-import { UiProvider, AuthProvider } from '../Context'
+import { UiProvider, AuthProvider } from '../context'
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>

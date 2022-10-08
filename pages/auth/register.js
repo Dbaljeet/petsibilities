@@ -1,12 +1,12 @@
 import styles from '../../styles/Register.module.css'
 import { useState } from 'react'
-import useUser from '../../hooks/useUser'
+//import useUser from '../../hooks/useUser'
 import { GeneralLayout } from '../../components/layouts'
 import { ButtonSubmit, Switch } from '../../components/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 export default function register() {
-  const { Register, error, infoResponse } = useUser()
+  //const { Register, error, infoResponse } = useUser()
   const [registerForm, setRegisterForm] = useState({
     name: '',
     email: '',
@@ -18,7 +18,7 @@ export default function register() {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false)
   const handleSubmit = (ev) => {
     ev.preventDefault()
-    Register(registerForm)
+    //Register(registerForm)
   }
   const handleChange = (ev) => {
     setRegisterForm({ ...registerForm, [ev.target.name]: ev.target.value })
@@ -75,7 +75,9 @@ export default function register() {
                 placeholder="repetir contraseña*"
                 name="confirmPassword"
               />
-              {error && <span className={styles.spann}>{infoResponse}</span>}
+              {
+                ' {error && <span className={styles.spann}>{infoResponse}</span>}'
+              }
             </div>
 
             <Switch text={'Ver contraseña'} showPassword={showPassword} />

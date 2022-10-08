@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { useContext } from 'react'
-import { UiContext } from '../../../Context'
+import { UiContext } from '../../../context'
 import {
   AppBar,
   Badge,

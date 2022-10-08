@@ -22,7 +22,7 @@ import {
 } from '@mui/icons-material'
 
 import { useContext } from 'react'
-import { UiContext } from '../../Context'
+import { UiContext } from '../../context'
 import { useRouter } from 'next/router'
 
 export const SideMenu = () => {
