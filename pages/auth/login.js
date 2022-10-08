@@ -5,7 +5,9 @@ import Image from 'next/image'
 import { GeneralLayout } from '../../components/layouts'
 import { ButtonSubmit, Switch } from '../../components/ui'
 import { AuthContext } from '../../context'
+import { useRouter } from 'next/router'
 export default function login() {
+  const router = useRouter()
   const { loginUser } = useContext(AuthContext)
   const [error, setError] = useState(false)
   const [loginForm, setLoginForm] = useState({
@@ -22,10 +24,10 @@ export default function login() {
     const res = await loginUser(loginForm)
     if (res) {
       setError(false)
-    } else {
-      setError(true)
+      router.replace('/')
+      return
     }
-    //Login(loginForm)
+    setError(true)
   }
   const showPassword = () => {
     setIsVisiblePassword(!isVisiblePassword)

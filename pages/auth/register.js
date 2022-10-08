@@ -6,8 +6,9 @@ import { ButtonSubmit, Switch } from '../../components/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 import { AuthContext } from '../../context'
-
+import { useRouter } from 'next/router'
 export default function register() {
+  const router = useRouter()
   //const { Register, error, infoResponse } = useUser()
   const { registerUser } = useContext(AuthContext)
   const [error, setError] = useState(false)
@@ -28,7 +29,10 @@ export default function register() {
       setError(true)
       setMessageError(message)
       setTimeout(() => setError(false), 4000)
+      return
     }
+    setError(false)
+    router.replace('/')
   }
   const handleChange = (ev) => {
     setRegisterForm({ ...registerForm, [ev.target.name]: ev.target.value })

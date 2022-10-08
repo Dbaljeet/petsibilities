@@ -19,15 +19,18 @@ import {
   ConfirmationNumberOutlined,
   LoginOutlined,
   VpnKeyOutlined,
+  HomeOutlined,
+  AppRegistrationOutlined,
 } from '@mui/icons-material'
 
 import { useContext } from 'react'
-import { UiContext } from '../../context'
+import { UiContext, AuthContext } from '../../context'
 import { useRouter } from 'next/router'
 
 export const SideMenu = () => {
   const router = useRouter()
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext)
+  const { isLoggedIn } = useContext(AuthContext)
   const navigateTo = (url) => {
     toggleSideMenu()
     router.push(url)
@@ -60,11 +63,12 @@ export const SideMenu = () => {
             />
           </ListItem>
 */}
-          <ListItem button onClick={() => navigateTo('/profile/1')}>
+
+          <ListItem button onClick={() => navigateTo('/')}>
             <ListItemIcon>
-              <AccountCircleOutlined />
+              <HomeOutlined />
             </ListItemIcon>
-            <ListItemText primary={'Perfil'} />
+            <ListItemText primary={'Inicio'} />
           </ListItem>
 
           <ListItem button onClick={() => navigateTo('/pets')}>
@@ -74,51 +78,71 @@ export const SideMenu = () => {
             <ListItemText primary={'Mascotas'} />
           </ListItem>
 
-          <ListItem button onClick={() => navigateTo('/auth/login')}>
-            <ListItemIcon>
-              <VpnKeyOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Ingresar'} />
-          </ListItem>
-
           {/*Logeado*/}
-          <ListItem button onClick={() => navigateTo('/')}>
-            <ListItemIcon>
-              <ConfirmationNumberOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Mis solicitudes'} />
-          </ListItem>
+          {isLoggedIn ? (
+            <>
+              <ListItem button onClick={() => navigateTo('/profile/1')}>
+                <ListItemIcon>
+                  <AccountCircleOutlined />
+                </ListItemIcon>
+                <ListItemText primary={'Perfil'} />
+              </ListItem>
 
-          <ListItem button onClick={() => logout()}>
-            <ListItemIcon>
-              <LoginOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Salir'} />
-          </ListItem>
+              <ListItem button onClick={() => navigateTo('/')}>
+                <ListItemIcon>
+                  <ConfirmationNumberOutlined />
+                </ListItemIcon>
+                <ListItemText primary={'Mis solicitudes'} />
+              </ListItem>
 
-          {/* Admin */}
-          <Divider />
-          <ListSubheader>Admin Panel</ListSubheader>
+              <ListItem button onClick={() => logout()}>
+                <ListItemIcon>
+                  <LoginOutlined />
+                </ListItemIcon>
+                <ListItemText primary={'Salir'} />
+              </ListItem>
 
-          <ListItem button onClick={() => navigateTo('/')}>
-            <ListItemIcon>
-              <CategoryOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Adopciones'} />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ConfirmationNumberOutlined />
-            </ListItemIcon>
-            <ListItemText primary={'Solicitudes para ser adoptante'} />
-          </ListItem>
+              {/* Admin user.role==='admin'*/}
+              <Divider />
+              <ListSubheader>Admin Panel</ListSubheader>
 
-          <ListItem button onClick={() => navigateTo('/')}>
-            <ListItemIcon>
-              <AdminPanelSettings />
-            </ListItemIcon>
-            <ListItemText primary={'Usuarios'} />
-          </ListItem>
+              <ListItem button onClick={() => navigateTo('/')}>
+                <ListItemIcon>
+                  <CategoryOutlined />
+                </ListItemIcon>
+                <ListItemText primary={'Adopciones'} />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <ConfirmationNumberOutlined />
+                </ListItemIcon>
+                <ListItemText primary={'Solicitudes para ser adoptante'} />
+              </ListItem>
+
+              <ListItem button onClick={() => navigateTo('/')}>
+                <ListItemIcon>
+                  <AdminPanelSettings />
+                </ListItemIcon>
+                <ListItemText primary={'Usuarios'} />
+              </ListItem>
+              {/* fin  Admin user.role==='admin'*/}
+            </>
+          ) : (
+            <>
+              <ListItem button onClick={() => navigateTo('/auth/login')}>
+                <ListItemIcon>
+                  <VpnKeyOutlined />
+                </ListItemIcon>
+                <ListItemText primary={'Ingresar'} />
+              </ListItem>
+              <ListItem button onClick={() => navigateTo('/auth/register')}>
+                <ListItemIcon>
+                  <AppRegistrationOutlined />
+                </ListItemIcon>
+                <ListItemText primary={'Crear cuenta'} />
+              </ListItem>
+            </>
+          )}
         </List>
       </Box>
     </Drawer>

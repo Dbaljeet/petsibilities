@@ -70,11 +70,11 @@ export const AuthProvider = ({ children }) => {
         message: error.message,
       }
       //}
-
+      /*
       return {
         hasError: true,
         message: 'No se pudo crear el usuario - intente de nuevo',
-      }
+      }*/
     }
   }
 
