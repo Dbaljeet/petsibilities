@@ -1,12 +1,17 @@
 import styles from '../../styles/Register.module.css'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 //import useUser from '../../hooks/useUser'
 import { GeneralLayout } from '../../components/layouts'
 import { ButtonSubmit, Switch } from '../../components/ui'
 import Image from 'next/image'
 import Link from 'next/link'
+import { AuthContext } from '../../context'
+
 export default function register() {
   //const { Register, error, infoResponse } = useUser()
+  const { registerUser } = useContext(AuthContext)
+  const [error, setError] = useState(false)
+  const [messageError, setMessageError] = useState('')
   const [registerForm, setRegisterForm] = useState({
     name: '',
     email: '',
@@ -16,9 +21,14 @@ export default function register() {
     confirmPassword: '',
   })
   const [isVisiblePassword, setIsVisiblePassword] = useState(false)
-  const handleSubmit = (ev) => {
+  const handleSubmit = async (ev) => {
     ev.preventDefault()
-    //Register(registerForm)
+    const { hasError, message } = await registerUser(registerForm)
+    if (hasError) {
+      setError(true)
+      setMessageError(message)
+      setTimeout(() => setError(false), 4000)
+    }
   }
   const handleChange = (ev) => {
     setRegisterForm({ ...registerForm, [ev.target.name]: ev.target.value })
@@ -75,9 +85,7 @@ export default function register() {
                 placeholder="repetir contraseña*"
                 name="confirmPassword"
               />
-              {
-                ' {error && <span className={styles.spann}>{infoResponse}</span>}'
-              }
+              {error && <span className={styles.spann}>{messageError}</span>}
             </div>
 
             <Switch text={'Ver contraseña'} showPassword={showPassword} />

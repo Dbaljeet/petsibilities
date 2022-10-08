@@ -6,6 +6,7 @@ import { GeneralLayout } from '../../components/layouts'
 import { ButtonSubmit, Switch } from '../../components/ui'
 import { AuthContext } from '../../context'
 export default function login() {
+  const { loginUser } = useContext(AuthContext)
   const [error, setError] = useState(false)
   const [loginForm, setLoginForm] = useState({
     email: '',
@@ -16,8 +17,14 @@ export default function login() {
     setLoginForm({ ...loginForm, [ev.target.name]: ev.target.value })
   }
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = async (ev) => {
     ev.preventDefault()
+    const res = await loginUser(loginForm)
+    if (res) {
+      setError(false)
+    } else {
+      setError(true)
+    }
     //Login(loginForm)
   }
   const showPassword = () => {
@@ -44,7 +51,11 @@ export default function login() {
                 placeholder="contraseña"
                 name="password"
               />
-              {error && <span className={styles.spann}>{infoResponse}</span>}
+              {error && (
+                <span className={styles.spann}>
+                  {'Error nombre o contraseña incorrectas'}
+                </span>
+              )}
               <Switch text={'Ver contraseña'} showPassword={showPassword} />
               <ButtonSubmit />
             </form>
