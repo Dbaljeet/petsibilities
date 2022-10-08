@@ -1,3 +1,4 @@
+/*
 import Router from 'next/router'
 import { useState } from 'react'
 import { useUserContext } from '../Context/UserContext'
@@ -39,6 +40,8 @@ function useUser() {
   const Login = ({ email, password }) => {
     LoginService({ email, password })
       .then((res) => {
+        const { refreshToken, accesToken } = res
+        Cookies.set('token', refreshToken, { expires: 365 })
         Router.replace('/')
       })
       .catch((err) => {
@@ -53,7 +56,3 @@ function useUser() {
     Cookies.set('token', refreshToken, { expires: 365 })
     //Cookies.set('authtoken', accesToken)
     */
-  }
-  return { jwt, setJwt, Register, Login, error, infoResponse }
-}
-export default useUser

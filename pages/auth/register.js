@@ -1,7 +1,7 @@
 import styles from '../../styles/Register.module.css'
 import { useState } from 'react'
 import useUser from '../../hooks/useUser'
-import { PetLayout } from '../../components/layouts'
+import { GeneralLayout } from '../../components/layouts'
 import { ButtonSubmit, Switch } from '../../components/ui'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,7 +29,7 @@ export default function register() {
 
   return (
     <>
-      <PetLayout title={'Petsibilities - Registrarse'}>
+      <GeneralLayout title={'Registrarse-Petsibilities'}>
         <h2 className={styles.title}>Registro</h2>
         <section className={styles.section}>
           <form className={styles.form} onSubmit={handleSubmit}>
@@ -105,7 +105,7 @@ export default function register() {
             </nav>
           </div>
         </section>
-      </PetLayout>
+      </GeneralLayout>
     </>
   )
 }

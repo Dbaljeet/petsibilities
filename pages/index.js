@@ -1,12 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
-import { PetLayout } from '../components/layouts'
+import { GeneralLayout } from '../components/layouts'
 export default function Home() {
   return (
     <div className={styles.container}>
-      <PetLayout
-        title={'Petsibilities - Inicio'}
+      <GeneralLayout
+        title={'Inicio-Petsibilities'}
         pageDescription={'Adopta máscotas en todo Chile'}
       >
         <main className={styles.main}>
@@ -95,7 +95,7 @@ export default function Home() {
             </section>
           </section>
         </main>
-      </PetLayout>
+      </GeneralLayout>
     </div>
   )
 }

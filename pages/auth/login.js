@@ -1,12 +1,12 @@
-import { useState } from 'react'
-import useUser from '../../hooks/useUser'
+import { useState, useContext } from 'react'
 import styles from '../../styles/Login.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
-import { PetLayout } from '../../components/layouts'
+import { GeneralLayout } from '../../components/layouts'
 import { ButtonSubmit, Switch } from '../../components/ui'
+import { AuthContext } from '../../context'
 export default function login() {
-  const { Login, error, infoResponse } = useUser()
+  const [error, setError] = useState(false)
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
@@ -18,14 +18,14 @@ export default function login() {
 
   const handleSubmit = (ev) => {
     ev.preventDefault()
-    Login(loginForm)
+    //Login(loginForm)
   }
   const showPassword = () => {
     setIsVisiblePassword(!isVisiblePassword)
   }
   return (
     <>
-      <PetLayout title={'Petsibilities - Iniciar sesión'}>
+      <GeneralLayout title={'Iniciar sesión-Petsibilities'}>
         <h2 className={styles.title}>Iniciar sesión</h2>
         <main className={styles.main}>
           <section className={styles.section1}>
@@ -67,7 +67,7 @@ export default function login() {
             </div>
           </section>
         </main>
-      </PetLayout>
+      </GeneralLayout>
     </>
   )
 }

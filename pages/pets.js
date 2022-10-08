@@ -1,8 +1,8 @@
 import data from '../public/data.json'
 import Pet from '../components/Pet'
 import styled from '../styles/Pets.module.css'
-import Head from 'next/head'
 import { useState } from 'react'
+import { UserLayout } from '../components/layouts'
 export default function pet() {
   const pets = data.pets
   const categories = ['edad', 'genero']
@@ -12,21 +12,20 @@ export default function pet() {
   }
   return (
     <>
-      <Head>
-        <title>Petsibilities - Mascotas disponibles</title>
-      </Head>
-      {selectedCatergories}
+      <UserLayout title={'Mascotas disponibles-Petsibilities'}>
+        {selectedCatergories}
 
-      <select onChange={handleChange} name="categoria">
-        {categories.map((category) => (
-          <option key={category}>{category}</option>
-        ))}
-      </select>
-      <div className={styled.div}>
-        {pets.map((pet) => (
-          <Pet key={pet._id} props={pet} />
-        ))}
-      </div>
+        <select onChange={handleChange} name="categoria">
+          {categories.map((category) => (
+            <option key={category}>{category}</option>
+          ))}
+        </select>
+        <div className={styled.div}>
+          {pets.map((pet) => (
+            <Pet key={pet._id} props={pet} />
+          ))}
+        </div>
+      </UserLayout>
     </>
   )
 }

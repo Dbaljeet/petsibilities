@@ -1,10 +1,16 @@
 import '../styles/globals.css'
-import { UserProvider } from '../Context/UserContext'
+import { ThemeProvider } from '@mui/material'
+import { lightTheme } from '../themes'
+import { UiProvider, AuthProvider } from '../Context'
 function MyApp({ Component, pageProps }) {
   return (
-    <UserProvider>
-      <Component {...pageProps} />
-    </UserProvider>
+    <AuthProvider>
+      <UiProvider>
+        <ThemeProvider theme={lightTheme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </UiProvider>
+    </AuthProvider>
   )
 }
 
