@@ -15,8 +15,6 @@ export default function login({ email, password }) {
       return res.json()
     })
     .then((res) => {
-      //
-      console.log('2)de services (todo ok)', res)
       return res
     })
 }

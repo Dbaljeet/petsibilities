@@ -35,8 +35,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await LoginService({ email, password })
       console.log('no hubo error', res)
-      const { data } = res
-      const { refreshToken, user } = data
+      const { message } = res
+      const { refreshToken, user } = message
       Cookies.set('token', refreshToken)
       dispatch({ type: '[Auth] - Login', payload: user })
       return true
