@@ -9,7 +9,7 @@ const AUTH_INITIAL_STATE = {
 }
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE)
-
+  /*
   useEffect(() => {
     checkToken()
   }, [])
@@ -23,19 +23,25 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       Cookies.remove('token')
     }
+  }*/
+
+  const logout = () => {
+    const router = useRouter()
+    Cookies.remove('token')
+    router.reload()
   }
 
-  const loginUser = async ({email, password}) => {
+  const loginUser = async ({ email, password }) => {
     try {
-      const { data } = await LoginService({ email, password })
-      const { token, user } = data
-      Cookies.set('token', token)
+      const res = await LoginService({ email, password })
+      console.log('no hubo error', res)
+      const { data } = res
+      const { refreshToken, user } = data
+      Cookies.set('token', refreshToken)
       dispatch({ type: '[Auth] - Login', payload: user })
-      console.log('no error')
-
       return true
     } catch (error) {
-      console.log('error')
+      console.log('hubo un error:', error)
       return false
     }
   }
@@ -86,6 +92,7 @@ export const AuthProvider = ({ children }) => {
         // Methods
         loginUser,
         registerUser,
+        logout,
       }}
     >
       {children}

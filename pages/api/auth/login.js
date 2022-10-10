@@ -9,12 +9,10 @@ export default async function (req, res) {
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((res) => {
-      if (!res.ok)
-        throw new Error('error response')
-        return res.json()
+    .then((response) => {
+      return res.status(200).json({ message: 'respuesta ok' })
     })
-    .then((res) => {
-      return res.status(200)
+    .catch((err) => {
+      return res.status(400).json({ message: 'malxd' })
     })
 }

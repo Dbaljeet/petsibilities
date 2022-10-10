@@ -30,13 +30,13 @@ import { useRouter } from 'next/router'
 export const SideMenu = () => {
   const router = useRouter()
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext)
-  const { isLoggedIn } = useContext(AuthContext)
+  const { isLoggedIn, logout } = useContext(AuthContext)
   const navigateTo = (url) => {
     toggleSideMenu()
     router.push(url)
   }
-  const logout = () => {
-    router.push('')
+  const Logout = () => {
+    logout()
   }
 
   return (
@@ -95,7 +95,7 @@ export const SideMenu = () => {
                 <ListItemText primary={'Mis solicitudes'} />
               </ListItem>
 
-              <ListItem button onClick={() => logout()}>
+              <ListItem button onClick={() => Logout()}>
                 <ListItemIcon>
                   <LoginOutlined />
                 </ListItemIcon>
