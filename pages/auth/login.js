@@ -1,12 +1,16 @@
 import { useState, useContext } from 'react'
-import styles from '../../styles/Login.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+
+import styles from '../../styles/Login.module.css'
+
 import { GeneralLayout } from '../../components/layouts'
 import { ButtonSubmit, Switch } from '../../components/ui'
 import { AuthContext } from '../../context'
-import { useRouter } from 'next/router'
+
 export default function login() {
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { loginUser } = useContext(AuthContext)
   const [error, setError] = useState(false)
@@ -21,13 +25,17 @@ export default function login() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
+    setLoading(true)
     const res = await loginUser(loginForm)
     if (res) {
+      setLoading(false)
       setError(false)
-      router.replace('/')
+      const destination = router.query.p?.toString() || '/pets'
+      router.replace(destination)
       return
     }
     setError(true)
+    setLoading(false)
   }
   const showPassword = () => {
     setIsVisiblePassword(!isVisiblePassword)
@@ -35,6 +43,7 @@ export default function login() {
   return (
     <>
       <GeneralLayout title={'Iniciar sesión-Petsibilities'}>
+        {loading && <h2>Loading...</h2>}
         <h2 className={styles.title}>Iniciar sesión</h2>
         <main className={styles.main}>
           <section className={styles.section1}>
@@ -71,7 +80,9 @@ export default function login() {
             />
             <div className={styles.section2_info}>
               ¿Aún no tienes una cuenta?
-              <Link href="/auth/register">
+              <Link
+                href={`/auth/register?=${router.query.p?.toString() || ''}`}
+              >
                 <a className={styles.goRegister}>Regístrate</a>
               </Link>
               <Link href="/">

@@ -37,6 +37,7 @@ export const SideMenu = () => {
   }
   const Logout = () => {
     logout()
+    router.reload()
   }
 
   return (
@@ -129,13 +130,19 @@ export const SideMenu = () => {
             </>
           ) : (
             <>
-              <ListItem button onClick={() => navigateTo('/auth/login')}>
+              <ListItem
+                button
+                onClick={() => navigateTo(`/auth/login?p=${router.asPath}`)}
+              >
                 <ListItemIcon>
                   <VpnKeyOutlined />
                 </ListItemIcon>
                 <ListItemText primary={'Ingresar'} />
               </ListItem>
-              <ListItem button onClick={() => navigateTo('/auth/register')}>
+              <ListItem
+                button
+                onClick={() => navigateTo(`/auth/register?p=${router.asPath}`)}
+              >
                 <ListItemIcon>
                   <AppRegistrationOutlined />
                 </ListItemIcon>

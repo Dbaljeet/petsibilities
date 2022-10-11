@@ -113,7 +113,7 @@ export default function register() {
               <Link href="/">
                 <a className={styles.anav}>Inicio</a>
               </Link>
-              <Link href="/auth/login">
+              <Link href={`/auth/login?p=${router.query.p?.toString() || ''}`}>
                 <a className={styles.anav}>Iniciar sesión</a>
               </Link>
             </nav>

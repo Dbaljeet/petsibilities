@@ -26,9 +26,7 @@ export const AuthProvider = ({ children }) => {
   }*/
 
   const logout = () => {
-    const router = useRouter()
     Cookies.remove('token')
-    router.reload()
   }
 
   const loginUser = async ({ email, password }) => {
