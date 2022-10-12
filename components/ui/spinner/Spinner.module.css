@@ -1,0 +1,634 @@
+/*_____cat loading_____*/
+
+@-webkit-keyframes rotating {
+  0% {
+    transform: rotate(45deg);
+  }
+  10% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(765deg);
+  }
+}
+@keyframes rotating {
+  0% {
+    transform: rotate(45deg);
+  }
+  10% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(765deg);
+  }
+}
+@-webkit-keyframes rotating-ass {
+  0% {
+    transform: rotate(-65deg);
+  }
+  90% {
+    transform: rotate(655deg);
+  }
+  100% {
+    transform: rotate(655deg);
+  }
+}
+@keyframes rotating-ass {
+  0% {
+    transform: rotate(-65deg);
+  }
+  90% {
+    transform: rotate(655deg);
+  }
+  100% {
+    transform: rotate(655deg);
+  }
+}
+@-webkit-keyframes mouth {
+  0% {
+    height: 0px;
+    border-weight: 0;
+  }
+  16% {
+    height: 0px;
+    border-weight: 0;
+  }
+  30% {
+    height: 2px;
+    border-weight: 3px;
+  }
+  50% {
+    height: 2px;
+    border-weight: 3px;
+  }
+  100% {
+    height: 0px;
+    border-weight: 0;
+  }
+}
+@keyframes mouth {
+  0% {
+    height: 0px;
+    border-weight: 0;
+  }
+  16% {
+    height: 0px;
+    border-weight: 0;
+  }
+  30% {
+    height: 2px;
+    border-weight: 3px;
+  }
+  50% {
+    height: 2px;
+    border-weight: 3px;
+  }
+  100% {
+    height: 0px;
+    border-weight: 0;
+  }
+}
+
+
+.wrapper {
+  opacity: .8;
+  position: fixed;
+  z-index: 3;
+  top: 80%;
+  left:50%;
+  width: 300px;
+  height: 300px;
+  padding: 50px;
+  transform: translate(-50%, -50%);
+}
+
+.catMask {
+  border: 7px solid #000;
+  box-sizing: content-box;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}
+
+.cat {
+  box-sizing: content-box;
+  position: relative;
+  width: 250px;
+  height: 250px;
+  border: 5px solid 0.323246;
+  border-radius: 50%;
+}
+.shapeMask {
+  box-sizing: content-box;
+  position: absolute;
+  width: 270px;
+  height: 135px;
+  top: -10px;
+  left: -10px;
+  border-radius: 135px 135px 0 0;
+  background: #e6dcdc;
+  transform-origin: center bottom;
+  transform: rotate(-65deg);
+  -webkit-animation-name: rotating-ass;
+  animation-name: rotating-ass;
+  -webkit-animation-duration: 2.79s;
+  animation-duration: 2.79s;
+  animation-direction: reverse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.shapeMaskSecond {
+  position: absolute;
+  width: 270px;
+  height: 135px;
+  top: -10px;
+  left: -10px;
+  border-radius: 135px 135px 0 0;
+  background: #e6dcdc;
+  transform-origin: center bottom;
+  transform: rotate(-65deg);
+  -webkit-animation-name: rotating-ass;
+  animation-name: rotating-ass;
+  -webkit-animation-duration: 2.79s;
+  animation-duration: 2.79s;
+  animation-direction: reverse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  box-sizing: content-box;
+
+  transform: rotate(45deg);
+  -webkit-animation-name: rotating;
+  animation-name: rotating;
+  -webkit-animation-duration: 2.79s;
+  animation-duration: 2.79s;
+  animation-direction: reverse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.bodyUp,
+.bodyDown {
+  box-sizing: content-box;
+  width: 250px;
+  height: 125px;
+  border-radius: 125px 125px 0 0;
+  background: #e6a564;
+}
+.bodyDown {
+  box-sizing: content-box;
+  transform: rotate(180deg);
+}
+.bodyInside {
+  box-sizing: content-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: #f0be78;
+}
+.bodyInsideWrapper {
+  box-sizing: content-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-65deg);
+  -webkit-animation-name: rotating-ass;
+  animation-name: rotating-ass;
+  -webkit-animation-duration: 2.79s;
+  animation-duration: 2.79s;
+  animation-direction: reverse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.bodyInsideWrapperEnd {
+  box-sizing: content-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-65deg);
+  -webkit-animation-name: rotating-ass;
+  animation-name: rotating-ass;
+  -webkit-animation-duration: 2.79s;
+  animation-duration: 2.79s;
+  animation-direction: reverse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+  -webkit-animation-name: rotating;
+  animation-name: rotating;
+  -webkit-animation-duration: 2.79s;
+  animation-duration: 2.79s;
+  animation-direction: reverse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.bodyInsideFix {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  transform: translateY(-50%);
+  background: #e6a564;
+}
+.bodyInsideFixEnd {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  transform: translateY(-50%);
+  background: #e6a564;
+  box-sizing: content-box;
+
+  left: auto;
+  right: 10px;
+}
+.bodyInsideFixEnd:after {
+  left: auto;
+  right: 9px;
+}
+.bodyInsideFix:after {
+  content: ' ';
+  position: absolute;
+  top: 36px;
+  left: 9px;
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #f0be78;
+}
+.bodyMask {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: #e6a564;
+}
+.catHeadWrapper {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+  -webkit-animation-name: rotating;
+  animation-name: rotating;
+  -webkit-animation-duration: 2.79s;
+  animation-duration: 2.79s;
+  animation-direction: reverse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.catHead {
+  box-sizing: content-box;
+  position: absolute;
+  top: 91px;
+  right: -5px;
+  width: 55px;
+  height: 30px;
+  border: 5px solid #323246;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  background: #e6a564;
+}
+.catEar {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 81px;
+  right: 43px;
+  width: 7px;
+  height: 10px;
+  border: 5px solid #323246;
+  border-bottom: none;
+  border-radius: 5px 20px 0 0;
+  background: #e6a564;
+}
+.catEarRight {
+  position: absolute;
+  top: 81px;
+  right: 43px;
+  width: 7px;
+  height: 10px;
+  border: 5px solid #323246;
+  border-bottom: none;
+  border-radius: 5px 20px 0 0;
+  background: #e6a564;
+  box-sizing: content-box;
+  right: -5px;
+  border-radius: 20px 5px 0 0;
+}
+.catEye {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 10px;
+  left: 11px;
+  width: 5px;
+  height: 6px;
+  border-radius: 50%;
+  background: #323246;
+}
+.catEyeRight {
+  position: absolute;
+  top: 10px;
+  left: 11px;
+  width: 5px;
+  height: 6px;
+  border-radius: 50%;
+  background: #323246;
+  left: 39px;
+}
+.catMouthWrapper {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 23px;
+  left: 23px;
+}
+.catMouth {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 0px;
+  left: 2px;
+  width: 2px;
+  height: 3px;
+  border: 2px solid #323246;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  -webkit-animation-name: mouth;
+  animation-name: mouth;
+  -webkit-animation-duration: 2.79s;
+  animation-duration: 2.79s;
+  animation-direction: reverse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.catMouthUp {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 1px;
+  height: 2px;
+  border: 2px solid #323246;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+}
+.catMouthUpRight {
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 1px;
+  height: 2px;
+  border: 2px solid #323246;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  box-sizing: content-box;
+
+  left: 5px;
+}
+.catBeard {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 0;
+  left: -33px;
+  height: 1px;
+  width: 15px;
+  border-top: 2px solid #323246;
+  border-radius: 15px;
+  background: black;
+}
+.catBeardRight {
+  position: absolute;
+  top: 0;
+  left: -33px;
+  height: 1px;
+  width: 15px;
+  border-top: 2px solid #323246;
+  border-radius: 15px;
+  background: black;
+  box-sizing: content-box;
+
+  left: auto;
+  right: -43px;
+}
+.catBeardUp {
+  position: absolute;
+  top: 0;
+  left: -33px;
+  height: 1px;
+  width: 15px;
+  border-top: 2px solid #323246;
+  border-radius: 15px;
+  background: black;
+  box-sizing: content-box;
+
+  top: -5px;
+  transform: rotate(5deg);
+}
+.catBeardUpRight {
+  position: absolute;
+  top: 0;
+  left: -33px;
+  height: 1px;
+  width: 15px;
+  border-top: 2px solid #323246;
+  border-radius: 15px;
+  background: black;
+  top: -5px;
+  transform: rotate(5deg);
+  box-sizing: content-box;
+
+  transform: rotate(-5deg);
+}
+.catBeardDown {
+  position: absolute;
+  top: 0;
+  left: -33px;
+  height: 1px;
+  width: 15px;
+  border-top: 2px solid #323246;
+  border-radius: 15px;
+  background: black;
+  box-sizing: content-box;
+
+  top: 5px;
+  transform: rotate(-5deg);
+}
+.catBeardRightDown {
+  position: absolute;
+  top: 0;
+  left: -33px;
+  height: 1px;
+  width: 15px;
+  border-top: 2px solid #323246;
+  border-radius: 15px;
+  background: black;
+  top: 5px;
+  transform: rotate(-5deg);
+  box-sizing: content-box;
+
+  transform: rotate(5deg);
+}
+.catHand {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 155px;
+  right: 5px;
+  width: 13px;
+  height: 30px;
+  transform: rotate(21deg);
+  border: 5px solid #323246;
+  border-top: none;
+  border-radius: 0 5px 15px 15px;
+  background: #e6a564;
+}
+.catHandRight {
+  position: absolute;
+  top: 155px;
+  right: 5px;
+  width: 13px;
+  height: 30px;
+  transform: rotate(21deg);
+  border: 5px solid #323246;
+  border-top: none;
+  border-radius: 0 5px 15px 15px;
+  background: #e6a564;
+  box-sizing: content-box;
+
+  top: 140px;
+  right: 45px;
+}
+.catAssWrapper {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-65deg);
+  -webkit-animation-name: rotating-ass;
+  animation-name: rotating-ass;
+  -webkit-animation-duration: 2.79s;
+  animation-duration: 2.79s;
+  animation-direction: reverse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.catLeg {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 95px;
+  left: -5px;
+  width: 13px;
+  height: 30px;
+  border: 5px solid #323246;
+  border-bottom: none;
+  border-radius: 15px 15px 0 0;
+  background: #e6a564;
+}
+.catLegRight {
+  position: absolute;
+  top: 95px;
+  left: -5px;
+  width: 13px;
+  height: 30px;
+  border: 5px solid #323246;
+  border-bottom: none;
+  border-radius: 15px 15px 0 0;
+  background: #e6a564;
+  box-sizing: content-box;
+
+  left: auto;
+  right: 190px;
+}
+.catAss {
+  box-sizing: content-box;
+
+  position: absolute;
+  top: 115px;
+  left: 13px;
+  width: 18px;
+  height: 5px;
+  border: 5px solid #323246;
+  border-bottom: none;
+  border-radius: 30px 30px 0 0;
+  background: #e6a564;
+}
+.catTail {
+  box-sizing: content-box;
+  position: absolute;
+  top: 75px;
+  left: 17px;
+  width: 12px;
+  height: 40px;
+  border: 5px solid #323246;
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  background: #be8250;
+}
+.innerMask {
+  box-sizing: content-box;
+  position: absolute;
+  box-sizing: border-box;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border: 5px solid #323246;
+  border-radius: 50%;
+  background: #e6dcdc;
+}

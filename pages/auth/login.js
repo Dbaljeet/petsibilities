@@ -8,6 +8,7 @@ import styles from '../../styles/Login.module.css'
 import { GeneralLayout } from '../../components/layouts'
 import { ButtonSubmit, Switch } from '../../components/ui'
 import { AuthContext } from '../../context'
+import { Spinner } from '../../components/ui'
 
 export default function login() {
   const [loading, setLoading] = useState(false)
@@ -43,7 +44,7 @@ export default function login() {
   return (
     <>
       <GeneralLayout title={'Iniciar sesión-Petsibilities'}>
-        {loading && <h2>Loading...</h2>}
+        {loading && <Spinner />}
         <h2 className={styles.title}>Iniciar sesión</h2>
         <main className={styles.main}>
           <section className={styles.section1}>
