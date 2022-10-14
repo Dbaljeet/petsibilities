@@ -30,7 +30,7 @@ import { useRouter } from 'next/router'
 export const SideMenu = () => {
   const router = useRouter()
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext)
-  const { isLoggedIn, logout } = useContext(AuthContext)
+  const { isLoggedIn, logout, user } = useContext(AuthContext)
   const navigateTo = (url) => {
     toggleSideMenu()
     router.push(url)
@@ -102,30 +102,35 @@ export const SideMenu = () => {
                 </ListItemIcon>
                 <ListItemText primary={'Salir'} />
               </ListItem>
-
-              {/* Admin user.role==='admin'*/}
               <Divider />
-              <ListSubheader>Admin Panel</ListSubheader>
+              {/* Admin user.role==='admin'*/}
+              {user.roleId == 1 ? (
+                <>
+                  <ListSubheader>Admin Panel</ListSubheader>
+                  <ListItem button onClick={() => navigateTo('/')}>
+                    <ListItemIcon>
+                      <CategoryOutlined />
+                    </ListItemIcon>
+                    <ListItemText primary={'Adopciones'} />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <ConfirmationNumberOutlined />
+                    </ListItemIcon>
+                    <ListItemText primary={'Solicitudes para ser adoptante'} />
+                  </ListItem>
 
-              <ListItem button onClick={() => navigateTo('/')}>
-                <ListItemIcon>
-                  <CategoryOutlined />
-                </ListItemIcon>
-                <ListItemText primary={'Adopciones'} />
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon>
-                  <ConfirmationNumberOutlined />
-                </ListItemIcon>
-                <ListItemText primary={'Solicitudes para ser adoptante'} />
-              </ListItem>
+                  <ListItem button onClick={() => navigateTo('/')}>
+                    <ListItemIcon>
+                      <AdminPanelSettings />
+                    </ListItemIcon>
+                    <ListItemText primary={'Usuarios'} />
+                  </ListItem>
+                </>
+              ) : (
+                <></>
+              )}
 
-              <ListItem button onClick={() => navigateTo('/')}>
-                <ListItemIcon>
-                  <AdminPanelSettings />
-                </ListItemIcon>
-                <ListItemText primary={'Usuarios'} />
-              </ListItem>
               {/* fin  Admin user.role==='admin'*/}
             </>
           ) : (

@@ -1,19 +1,54 @@
 import { initialData } from '../../database/pets'
-import { Box, CardActionArea, CardMedia, Grid, Typography } from '@mui/material'
-import NextLink from 'next/link'
+import {
+  Button,
+  CardActionArea,
+  CardMedia,
+  Grid,
+  Typography,
+} from '@mui/material'
+import { UserLayout } from '../../components/layouts'
+import { Starf } from '../../components/ui'
 const pet = initialData.pets[0]
 export default function Test() {
-  console.log(pet)
-
   return (
     <>
-      <Grid container>
-        <Grid item>
-          <h1>{pet.name}</h1>
+      <UserLayout
+        title={`${pet.name} | Petsibilities`}
+        pageDescription={`Adopta a ${pet.name}`}
+      >
+        <Grid container spacing={4} sx={{ marginTop: '70px', padding: '10px' }}>
+          <Grid
+            item
+            xs={7}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            sx={{ gap: '30px' }}
+          >
+            <Typography variant="h2" fontWeight={500}>
+              {pet.name}
+            </Typography>
+            <Typography variant="h3">{`Edad: ${pet.age} años`}</Typography>
+            <Typography variant="h4">{`Sexo: ${pet.gender}`}</Typography>
+          </Grid>
 
-          <NextLink href="/pet/test" passHref prefetch={false}>
-            <CardActionArea>
+          <Grid
+            item
+            xs={5}
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            gap={3}
+            alignItems="center"
+          >
+            <CardActionArea sx={{ borderRadius: '10px', maxWidth: '400px' }}>
               <CardMedia
+                sx={{
+                  borderRadius: '10px',
+                  maxWidth: '400px',
+                  minWidth: '250px',
+                }}
                 height="440"
                 className="fadeIn"
                 component="img"
@@ -21,12 +56,13 @@ export default function Test() {
                 alt={pet.name}
               />
             </CardActionArea>
-          </NextLink>
+            <Button variant="outlined" color="info">
+              Adoptar
+            </Button>
+          </Grid>
         </Grid>
-        <Box sx={{ mt: 1 }} className="fadeIn">
-          <Typography fontWeight={700}>{pet.name}</Typography>
-        </Box>
-      </Grid>
+        <Starf />
+      </UserLayout>
     </>
   )
 }

@@ -37,8 +37,16 @@ export const lightTheme = createTheme({
           fontWeight: 600,
         },
         h2: {
+          fontSize: 25,
+          fontWeight: 400,
+        },
+        h3: {
           fontSize: 20,
           fontWeight: 400,
+        },
+        h4: {
+          fontSize: 20,
+          fontWeight: 200,
         },
         subtitle1: {
           fontSize: 18,

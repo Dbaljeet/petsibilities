@@ -9,21 +9,24 @@ const AUTH_INITIAL_STATE = {
 }
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE)
-  /*
+
   useEffect(() => {
     checkToken()
   }, [])
 
   const checkToken = async () => {
     try {
+      /*
+      obtener nuevo accessToken
       const { data } = await CheckToken()
       const { token, user } = data
-      Cookies.set('token', token)
-      dispatch({ type: '[Auth] - Login', payload: user })
+      Cookies.set('token', token)*/
+      console.log(Cookies.get('token'))
+      //dispatch({ type: '[Auth] - Login', payload: user })
     } catch (error) {
       Cookies.remove('token')
     }
-  }*/
+  }
 
   const logout = () => {
     Cookies.remove('token')

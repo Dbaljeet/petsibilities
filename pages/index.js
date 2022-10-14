@@ -16,10 +16,14 @@ export default function Home() {
               <h2 className={styles.SubTitle}>Adopta una mascota</h2>
               <div className={styles.buttonContainer}>
                 <Link href="/auth/login">
-                  <div className={styles.button1}>Iniciar Sesión</div>
+                  <a className={styles.linkA}>
+                    <div className={styles.button1}>Iniciar Sesión</div>
+                  </a>
                 </Link>
                 <Link href="/auth/register">
-                  <div className={styles.button2}>Registrarse</div>
+                  <a className={styles.linkA}>
+                    <div className={styles.button2}>Registrarse</div>
+                  </a>
                 </Link>
               </div>
             </div>

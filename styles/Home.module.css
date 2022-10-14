@@ -1,7 +1,10 @@
 .main{
   width: 100%;
 }
-
+.linkA{
+  width: 250px;
+  margin: auto;
+}
 .HomeBar{
   display: flex;
   padding: 10px;
