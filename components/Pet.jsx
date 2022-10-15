@@ -13,7 +13,7 @@ export default function Pet({ props }) {
           </button>
           <div className={styled.shadow}></div>
         </div>
-        <img className={styled.img} src={props.picture} />
+        <img className={styled.img} src={props.picture} alt={props.name} />
       </picture>
     </>
   )

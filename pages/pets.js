@@ -9,7 +9,7 @@ import {
   Select,
   Box,
 } from '@mui/material'
-export default function pet() {
+export default function Pet() {
   return (
     <>
       <UserLayout title={'Mascotas disponibles-Petsibilities'}>

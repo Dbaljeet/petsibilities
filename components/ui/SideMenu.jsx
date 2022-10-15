@@ -37,7 +37,7 @@ export const SideMenu = () => {
   }
   const Logout = () => {
     logout()
-    router.reload()
+    //router.reload()
   }
 
   return (

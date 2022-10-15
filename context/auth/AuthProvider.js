@@ -1,8 +1,12 @@
 import { useReducer, useEffect } from 'react'
 import { authReducer, AuthContext } from './'
 import Cookies from 'js-cookie'
-import LoginService from '../../services/LoginService'
-import RegisterService from '../../services/RegisterService'
+import {
+  LoginService,
+  RegisterService,
+  LogoutService,
+  CheckTokenService,
+} from '../../services'
 const AUTH_INITIAL_STATE = {
   isLoggedIn: false,
   user: undefined,
@@ -21,7 +25,8 @@ export const AuthProvider = ({ children }) => {
       const { data } = await CheckToken()
       const { token, user } = data
       Cookies.set('token', token)*/
-      console.log(Cookies.get('token'))
+      console.log(Cookies.get('refresh'))
+      CheckTokenService()
       //dispatch({ type: '[Auth] - Login', payload: user })
     } catch (error) {
       Cookies.remove('token')
@@ -29,7 +34,12 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logout = () => {
-    Cookies.remove('token')
+    try {
+      LogoutService()
+    } catch (err) {
+      console.log('error')
+    }
+    //Cookies.remove('token')
   }
 
   const loginUser = async ({ email, password }) => {

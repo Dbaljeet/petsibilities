@@ -1,16 +1,16 @@
 const ENDPOINT = '/api/auth'
 
-export function LoginService({ email, password }) {
-  return fetch(`${ENDPOINT}/login`, {
+export function LogoutService() {
+  return fetch(`${ENDPOINT}/logout`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify(),
   })
     .then((res) => {
       if (!res.ok) {
-        throw new Error('error, correo o contraseña incorrectas')
+        throw new Error('error, no se pudo cerrar sesión')
       }
       return res.json()
     })

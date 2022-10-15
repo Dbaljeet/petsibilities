@@ -1,6 +1,6 @@
 const ENDPOINT = '/api/auth'
 
-export default function register({
+export default function RegisterService({
   name,
   region,
   city,

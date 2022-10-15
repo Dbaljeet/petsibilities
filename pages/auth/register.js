@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { AuthContext } from '../../context'
 import { useRouter } from 'next/router'
-export default function register() {
+export default function Register() {
   const router = useRouter()
   //const { Register, error, infoResponse } = useUser()
   const { registerUser } = useContext(AuthContext)
@@ -103,6 +103,7 @@ export default function register() {
                 width={1200}
                 height={1000}
                 layout="responsive"
+                alt="Si ya tienes una cuenta inicia sesión, también puede volver al inicio de sesión para saber más de Petsibilities"
               />
             </div>
             <p className={styles.textimg}>

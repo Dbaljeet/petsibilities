@@ -10,7 +10,7 @@ import { ButtonSubmit, Switch } from '../../components/ui'
 import { AuthContext } from '../../context'
 import { Spinner } from '../../components/ui'
 
-export default function login() {
+export default function Login() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { loginUser } = useContext(AuthContext)
@@ -78,6 +78,7 @@ export default function login() {
               src="/dogl.jpg"
               width={1200}
               height={2100}
+              alt="Regístrate o vuelve al inicio de sesión"
             />
             <div className={styles.section2_info}>
               ¿Aún no tienes una cuenta?
