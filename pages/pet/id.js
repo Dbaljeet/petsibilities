@@ -1,5 +1,6 @@
 import { initialData } from '../../database/pets'
 import {
+  Box,
   Button,
   CardActionArea,
   CardMedia,
@@ -8,7 +9,9 @@ import {
 } from '@mui/material'
 import { UserLayout } from '../../components/layouts'
 import { Starf } from '../../components/ui'
+import { PetSlideShow } from '../../components/pets/PetSlideShow'
 const pet = initialData.pets[0]
+
 export default function Pet() {
   return (
     <>
@@ -16,10 +19,16 @@ export default function Pet() {
         title={`${pet.name} | Petsibilities`}
         pageDescription={`Adopta a ${pet.name}`}
       >
-        <Grid container spacing={4} sx={{ marginTop: '70px', padding: '10px' }}>
+        <Grid
+          container
+          spacing={4}
+          sx={{ marginTop: '70px', padding: '40px' }}
+          justifyContent="center"
+        >
           <Grid
             item
-            xs={7}
+            xs={12}
+            sm={9}
             display="flex"
             flexDirection="column"
             alignItems="center"
@@ -31,34 +40,15 @@ export default function Pet() {
             </Typography>
             <Typography variant="h3">{`Edad: ${pet.age} años`}</Typography>
             <Typography variant="h4">{`Sexo: ${pet.gender}`}</Typography>
-          </Grid>
-
-          <Grid
-            item
-            xs={5}
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            gap={3}
-            alignItems="center"
-          >
-            <CardActionArea sx={{ borderRadius: '10px', maxWidth: '400px' }}>
-              <CardMedia
-                sx={{
-                  borderRadius: '10px',
-                  maxWidth: '400px',
-                  minWidth: '250px',
-                }}
-                height="440"
-                className="fadeIn"
-                component="img"
-                image={pet.picture}
-                alt={pet.name}
-              />
-            </CardActionArea>
             <Button variant="outlined" color="info">
               Adoptar
             </Button>
+          </Grid>
+
+          <Grid item xs={12} sm={3} sx={{ minWidth: '320px' }}>
+            <Box sx={{ maxWidth: '400px', margin: 'auto' }}>
+              <PetSlideShow images={pet.pictures} />
+            </Box>
           </Grid>
         </Grid>
         <Starf />

@@ -9,7 +9,17 @@ import {
   Select,
   Box,
 } from '@mui/material'
+import { useState } from 'react'
 export default function Pet() {
+  const [valueRegion, setValueRegion] = useState('')
+  const [valueCity, setValueCity] = useState('')
+
+  const handleChange = (ev) => {
+    ev.target.name === 'InputRegion'
+      ? setValueRegion(ev.target.value)
+      : setValueCity(ev.target.value)
+  }
+
   return (
     <>
       <UserLayout title={'Mascotas disponibles-Petsibilities'}>
@@ -41,7 +51,9 @@ export default function Pet() {
                   id="labelRegion-select"
                   variant="filled"
                   label="Región"
-                  value={''}
+                  value={valueRegion}
+                  onChange={handleChange}
+                  name="InputRegion"
                 >
                   <MenuItem value={1}>1 reg</MenuItem>
                   <MenuItem value={2}>2 reg</MenuItem>
@@ -61,7 +73,8 @@ export default function Pet() {
                   id="labelCity-select"
                   variant="filled"
                   label="Ciudad"
-                  value={''}
+                  value={valueCity}
+                  onChange={handleChange}
                 >
                   <MenuItem value={1}>1 ciudad</MenuItem>
                   <MenuItem value={2}>2 ciudad</MenuItem>

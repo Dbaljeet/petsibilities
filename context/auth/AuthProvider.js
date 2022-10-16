@@ -7,7 +7,6 @@ import {
   LogoutService,
   CheckTokenService,
 } from '../../services'
-import { useRouter } from 'next/router'
 const AUTH_INITIAL_STATE = {
   isLoggedIn: false,
   user: undefined,
@@ -29,7 +28,11 @@ export const AuthProvider = ({ children }) => {
       console.log(Cookies.get('refresh'))
       const res = await CheckTokenService()
       console.log(res)
-      //dispatch({ type: '[Auth] - Login', payload: user })
+      /*
+      const { message } = res
+      const { user } = message
+      dispatch({ type: '[Auth] - Login', payload: user })
+      */
     } catch (error) {
       console.log(error)
       Cookies.remove('token')

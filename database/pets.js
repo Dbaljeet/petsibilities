@@ -5,6 +5,10 @@ export const initialData = {
       isActive: false,
       picture:
         'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
+      pictures: [
+        'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
+        'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       age: 6,
       name: 'Darla Hendrix',
       gender: 'female',
@@ -37,6 +41,10 @@ export const initialData = {
       isActive: true,
       picture:
         'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
+      pictures: [
+        'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
+        'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       age: 17,
       name: 'Tanisha Mcfadden',
       gender: 'female',
@@ -69,6 +77,10 @@ export const initialData = {
       isActive: false,
       picture:
         'https://images.pexels.com/photos/179237/pexels-photo-179237.jpeg?auto=compress&cs=tinysrgb&w=300',
+      pictures: [
+        'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
+        'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       age: 18,
       name: 'Adrian Bender',
       gender: 'female',
@@ -101,6 +113,10 @@ export const initialData = {
       isActive: false,
       picture:
         'https://images.pexels.com/photos/51439/pexels-photo-51439.jpeg?auto=compress&cs=tinysrgb&w=300',
+      pictures: [
+        'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
+        'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       age: 4,
       name: 'Charmaine Gray',
       gender: 'female',
@@ -141,6 +157,10 @@ export const initialData = {
       isActive: true,
       picture:
         'https://images.pexels.com/photos/6729951/pexels-photo-6729951.jpeg?auto=compress&cs=tinysrgb&w=300',
+      pictures: [
+        'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
+        'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       age: 6,
       name: 'Zamora Glenn',
       gender: 'male',
@@ -181,6 +201,10 @@ export const initialData = {
       isActive: true,
       picture:
         'https://images.pexels.com/photos/4555468/pexels-photo-4555468.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      pictures: [
+        'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
+        'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       age: 8,
       name: 'Zamora Glenn',
       gender: 'male',
