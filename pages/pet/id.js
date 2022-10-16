@@ -9,7 +9,7 @@ import {
 import { UserLayout } from '../../components/layouts'
 import { Starf } from '../../components/ui'
 const pet = initialData.pets[0]
-export default function Test() {
+export default function Pet() {
   return (
     <>
       <UserLayout

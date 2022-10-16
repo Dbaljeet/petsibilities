@@ -17,7 +17,9 @@ export default function Home() {
               <div className={styles.buttonContainer}>
                 <Link href="/auth/login">
                   <a className={styles.linkA}>
-                    <div className={styles.button1}>Iniciar Sesión</div>
+                    <div className={styles.button1} data-testid="login">
+                      Iniciar Sesión
+                    </div>
                   </a>
                 </Link>
                 <Link href="/auth/register">

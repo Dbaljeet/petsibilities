@@ -5,7 +5,7 @@ export const PetCard = ({ pet }) => {
   return (
     <>
       <Grid item minWidth={310} xs={6} sm={1}>
-        <NextLink href="/pet/test" passHref prefetch={false}>
+        <NextLink href={`/pet/slug`} passHref prefetch={false}>
           <CardActionArea>
             <CardMedia
               height="440"
