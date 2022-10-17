@@ -11,7 +11,7 @@ export const initialData = {
       ],
       age: 6,
       name: 'Darla Hendrix',
-      gender: 'female',
+      gender: 'hembra',
       email: 'darlahendrix@plasmosis.com',
       phone: '+1 (936) 548-3444',
       about:

@@ -37,6 +37,7 @@ export const PetSlideShow = ({ images }) => {
       </button>
     ),
   }
+
   return (
     <>
       <Slide {...properties} easing="ease" duration={7000} indicators>
