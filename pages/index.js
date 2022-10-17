@@ -95,8 +95,8 @@ export default function Home() {
               <p className={styles.pp}>
                 Entregamos un espacio seguro para todos
               </p>
-              <Link href="">
-                Más información sobre cómo funciona Petsibilities
+              <Link href="/about">
+                <a>Más información sobre cómo funciona Petsibilities</a>
               </Link>
             </section>
           </section>
