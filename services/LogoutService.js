@@ -1,4 +1,4 @@
-const ENDPOINT = '/api/auth'
+const ENDPOINT = '/api/user'
 
 export function LogoutService() {
   return fetch(`${ENDPOINT}/logout`, {

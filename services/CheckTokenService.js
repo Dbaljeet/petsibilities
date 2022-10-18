@@ -1,4 +1,4 @@
-const ENDPOINT = '/api/auth'
+const ENDPOINT = '/api/user'
 
 export function CheckTokenService() {
   return fetch(`${ENDPOINT}/check`, {

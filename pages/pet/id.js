@@ -61,8 +61,8 @@ export default function Pet() {
               <PetSlideShow images={pet.pictures} />
               <Typography
                 sx={{ textAlign: 'center' }}
-              >{`valoración dueño(a) ${3.8}`}</Typography>
-              <StarList cant={3.8} />
+              >{`valoración dueño(a) ${3}`}</Typography>
+              <StarList cant={3} />
               <Button
                 sx={{
                   margin: '20px 0',

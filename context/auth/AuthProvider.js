@@ -25,7 +25,6 @@ export const AuthProvider = ({ children }) => {
       const { data } = await CheckToken()
       const { token, user } = data
       Cookies.set('token', token)*/
-      console.log(Cookies.get('refresh'))
       const res = await CheckTokenService()
       console.log(res)
       /*
@@ -35,15 +34,21 @@ export const AuthProvider = ({ children }) => {
       */
     } catch (error) {
       console.log(error)
-      Cookies.remove('token')
+      //Cookies.remove('token')
     }
   }
 
-  const logout = () => {
+  const logout = async () => {
     try {
-      LogoutService()
+      const res = await LogoutService()
+      const { message } = res.message
+      if (message === 'Log out') {
+        return true
+      }
+      return false
     } catch (err) {
       console.log('error')
+      return false
     }
     //Cookies.remove('token')
   }
@@ -52,9 +57,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await LoginService({ email, password })
       console.log('no hubo error', res)
-      const { message } = res
-      const { refreshToken, user } = message
-      Cookies.set('token', refreshToken)
+      const { user } = res
       dispatch({ type: '[Auth] - Login', payload: user })
       return true
     } catch (error) {

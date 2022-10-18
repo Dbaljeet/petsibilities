@@ -2,9 +2,6 @@ import {
   Box,
   Divider,
   Drawer,
-  IconButton,
-  Input,
-  InputAdornment,
   List,
   ListItem,
   ListItemIcon,
@@ -30,16 +27,20 @@ import { useRouter } from 'next/router'
 export const SideMenu = () => {
   const router = useRouter()
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext)
-  const { isLoggedIn, logout, user } = useContext(AuthContext)
+  const { isLoggedIn, logout, user = '' } = useContext(AuthContext)
+  const roleId = user.roleId
   const navigateTo = (url) => {
     toggleSideMenu()
     router.push(url)
   }
-  const Logout = () => {
-    logout()
-    //router.reload()
+  const Logout = async () => {
+    const res = await logout()
+    console.log(res)
+    if (res) {
+      router.reload()
+    }
   }
-
+  console.log(roleId, 'user')
   return (
     <Drawer
       open={isMenuOpen}
@@ -104,7 +105,7 @@ export const SideMenu = () => {
               </ListItem>
               <Divider />
               {/* Admin user.role==='admin'*/}
-              {user.roleId == 1 ? (
+              {roleId === 1 ? (
                 <>
                   <ListSubheader>Admin Panel</ListSubheader>
                   <ListItem button onClick={() => navigateTo('/')}>
