@@ -67,13 +67,21 @@ export default function Pet({ pet }) {
 }
 
 export async function getStaticPaths() {
-  //fetch all pets
+  //fetch all pets---/82 v
   const res = await fetch('https://.../posts')
   const pets = await res.json()
 
+  if (!pets) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
   // Get the paths we want to pre-render based on posts
   const paths = pets.map((pet) => ({
-    params: { id: pet._id },
+    params: { _id: pet._id },
   }))
 
   // We'll pre-render only these paths at build time.

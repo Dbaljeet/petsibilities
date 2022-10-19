@@ -35,7 +35,6 @@ export const SideMenu = () => {
   }
   const Logout = async () => {
     const res = await logout()
-    console.log(res)
     if (res) {
       router.reload()
     }

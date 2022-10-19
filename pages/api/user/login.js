@@ -1,13 +1,12 @@
 import cookie from 'cookie'
 
-const ENDPOINT = 'http://localhost:3000/api/v1'
-
 export default async function login(req, res) {
   console.log('______________________________')
   console.log(req.cookies.refresh, 'cookie refresh login debería ser vacío')
   console.log('______________________________')
   const { email, password } = req.body
-  return fetch(`${ENDPOINT}/auth/login`, {
+  console.log(process.env.ENDPOINT)
+  return fetch(`${process.env.ENDPOINT}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -15,7 +14,7 @@ export default async function login(req, res) {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
-      if (!res.ok) throw new Error('error response')
+      if (!res.ok) throw new Error('error response to login')
       return res.json()
     })
     .then((resp) => {

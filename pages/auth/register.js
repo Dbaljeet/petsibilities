@@ -7,12 +7,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { AuthContext } from '../../context'
 import { useRouter } from 'next/router'
+import { Spinner } from '../../components/ui'
+
 export default function Register() {
   const router = useRouter()
   //const { Register, error, infoResponse } = useUser()
   const { registerUser } = useContext(AuthContext)
-  const [error, setError] = useState(false)
-  const [messageError, setMessageError] = useState('')
+
   const [registerForm, setRegisterForm] = useState({
     name: '',
     email: '',
@@ -22,17 +23,21 @@ export default function Register() {
     confirmPassword: '',
   })
   const [isVisiblePassword, setIsVisiblePassword] = useState(false)
+
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   const handleSubmit = async (ev) => {
     ev.preventDefault()
-    const { hasError, message } = await registerUser(registerForm)
-    if (hasError) {
-      setError(true)
-      setMessageError(message)
-      setTimeout(() => setError(false), 4000)
+    const res = await registerUser(registerForm)
+    if (res) {
+      setLoading(false)
+      setError(false)
+      router.replace('/login')
       return
     }
-    setError(false)
-    router.replace('/')
+    setError(true)
+    setTimeout(() => setError(false), 4000)
   }
   const handleChange = (ev) => {
     setRegisterForm({ ...registerForm, [ev.target.name]: ev.target.value })
@@ -44,6 +49,7 @@ export default function Register() {
   return (
     <>
       <GeneralLayout title={'Registrarse-Petsibilities'}>
+        {loading && <Spinner />}
         <h2 className={styles.title}>Registro</h2>
         <section className={styles.section}>
           <form className={styles.form} onSubmit={handleSubmit}>
@@ -89,7 +95,11 @@ export default function Register() {
                 placeholder="repetir contraseña*"
                 name="confirmPassword"
               />
-              {error && <span className={styles.spann}>{messageError}</span>}
+              {error && (
+                <span className={styles.spann}>
+                  Error, rellene bien los campos
+                </span>
+              )}
             </div>
 
             <Switch text={'Ver contraseña'} showPassword={showPassword} />

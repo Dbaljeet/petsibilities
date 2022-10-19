@@ -1,8 +1,11 @@
-const ENDPOINT = 'http://localhost:3000/api/v1'
-
 export default async function register(req, res) {
-  const { name, email, region, city, password, repeatPassword } = req.body
-  return fetch(`${ENDPOINT}/auth/register`, {
+  const { name, email, city, password, confirmPassword } = req.body
+
+  if (password != confirmPassword) {
+    return res.status(401).json({ message: 'Las contraseñas no son iguales' })
+  }
+
+  return fetch(`${process.env.ENDPOINT}/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -10,13 +13,15 @@ export default async function register(req, res) {
     body: JSON.stringify({
       name,
       email,
-      region,
-      city,
       password,
-      repeatPassword,
+      houseSize: 10,
+      roleId: 1,
+      cityId: city,
     }),
   })
     .then((res) => {
+      console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
+      console.log('res', res)
       if (!res.ok) throw new Error('error response')
       return res.json()
     })

@@ -26,14 +26,10 @@ export const AuthProvider = ({ children }) => {
       const { token, user } = data
       Cookies.set('token', token)*/
       const res = await CheckTokenService()
-      console.log(res)
-      /*
+
       const { message } = res
-      const { user } = message
-      dispatch({ type: '[Auth] - Login', payload: user })
-      */
+      dispatch({ type: '[Auth] - Login', payload: message.user })
     } catch (error) {
-      console.log(error)
       //Cookies.remove('token')
     }
   }
@@ -66,16 +62,16 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const registerUser = async (
+  const registerUser = async ({
     name,
     email,
     password,
     region,
     city,
-    confirmPassword
-  ) => {
+    confirmPassword,
+  }) => {
     try {
-      const { data } = await RegisterService({
+      const data = await RegisterService({
         name,
         region,
         city,
@@ -83,18 +79,20 @@ export const AuthProvider = ({ children }) => {
         password,
         confirmPassword,
       })
-      const { token, user } = data
+      console.log('data de regi', data)
+      /*const { token, user } = data
       Cookies.set('token', token)
       dispatch({ type: '[Auth] - Login', payload: user })
-      return {
-        hasError: false,
+      */
+      if (data) {
+        return true
+      } else {
+        return false
       }
     } catch (error) {
-      //if (axios.isAxiosError(error)) {
-      return {
-        hasError: true,
-        message: error.message,
-      }
+      console.log(error, '...registro fallido')
+      return false
+
       //}
       /*
       return {

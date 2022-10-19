@@ -1,12 +1,11 @@
 import cookie from 'cookie'
-const ENDPOINT = 'http://localhost:3000/api/v1'
 
 export default async function logout(req, res) {
   console.log('______________________________')
   console.log(req.cookies.refresh, 'refresh desde logout')
   console.log('______________________________')
 
-  return fetch(`${ENDPOINT}/auth/logout`, {
+  return fetch(`${process.env.ENDPOINT}/auth/logout`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
