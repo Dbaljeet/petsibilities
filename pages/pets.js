@@ -9,10 +9,19 @@ import {
   Select,
   Box,
 } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { getPetsService } from '../services'
 export default function Pet() {
   const [valueRegion, setValueRegion] = useState('')
   const [valueCity, setValueCity] = useState('')
+
+  const getPets = async () => {
+    const PETS = await getPetsService()
+  }
+
+  useEffect(() => {
+    getPets()
+  }, [])
 
   const handleChange = (ev) => {
     ev.target.name === 'InputRegion'

@@ -9,7 +9,6 @@ export default async function check(req, res) {
     },
   })
     .then((res) => {
-      console.log('response:', res)
       if (!res.ok) throw new Error('error response')
       return res.json()
     })

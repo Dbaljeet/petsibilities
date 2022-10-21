@@ -1,66 +1,84 @@
-import {
-  Button,
-  CardActionArea,
-  CardMedia,
-  Grid,
-  Typography,
-} from '@mui/material'
 import { UserLayout } from '../../components/layouts'
-import { Starf } from '../../components/ui'
+import { getPetService } from '../../services'
+import { initialData } from '../../database/pets'
+import { Box, Button, Grid, Typography } from '@mui/material'
+import { StarList } from '../../components/ui'
+import { PetSlideShow } from '../../components/pets/PetSlideShow'
+
+const petx = initialData.pets[0]
 
 export default function Pet({ pet }) {
+  console.log(pet)
   return (
     <>
-      <UserLayout
-        title={`${pet.name} | Petsibilities`}
-        pageDescription={`Adopta a ${pet.name}`}
-      >
-        <Grid container spacing={4} sx={{ marginTop: '70px', padding: '10px' }}>
+      <UserLayout title={`${pet.name} | Petsibilities`}>
+        <Grid
+          container
+          spacing={8}
+          sx={{ marginTop: '70px' }}
+          justifyContent="center"
+        >
           <Grid
             item
-            xs={7}
+            xs={12}
+            sm={8}
             display="flex"
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            sx={{ gap: '30px' }}
+            sx={{
+              gap: '30px',
+              padding: '10px',
+            }}
           >
-            <Typography variant="h2" fontWeight={500}>
+            <Typography variant="h2" fontWeight={500} textAlign="center">
               {pet.name}
             </Typography>
+            <Typography
+              component="h3"
+              variant="subtitle1"
+              color="text.secondary"
+              sx={{ textAlign: 'center', padding: '0 50px' }}
+            >
+              {pet.description}
+            </Typography>
+
             <Typography variant="h3">{`Edad: ${pet.age} años`}</Typography>
-            <Typography variant="h4">{`Sexo: ${pet.gender}`}</Typography>
+            <Typography variant="h3">{`Sexo: ${pet.gender.name}`}</Typography>
+            <Typography variant="h3">{`Desparasitado: ${
+              pet.wormed ? 'Sí' : 'No'
+            }`}</Typography>
+            <Typography variant="h3">{`Esterilizado: ${
+              pet.sterilized ? 'Sí' : 'No'
+            }`}</Typography>
           </Grid>
 
           <Grid
             item
-            xs={5}
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            gap={3}
-            alignItems="center"
+            xs={12}
+            sm={4}
+            sx={{
+              minWidth: '320px',
+            }}
           >
-            <CardActionArea sx={{ borderRadius: '10px', maxWidth: '400px' }}>
-              <CardMedia
+            <Box sx={{ maxWidth: '450px', margin: 'auto' }}>
+              <PetSlideShow images={petx.pictures} />
+              <Typography
+                sx={{ textAlign: 'center' }}
+              >{`valoración dueño(a) ${3}`}</Typography>
+              <StarList cant={3} />
+              <Button
                 sx={{
-                  borderRadius: '10px',
-                  maxWidth: '400px',
-                  minWidth: '250px',
+                  margin: '20px 0',
+                  width: '100%',
+                  border: '2px solid #0005',
                 }}
-                height="440"
-                className="fadeIn"
-                component="img"
-                image={pet.picture}
-                alt={pet.name}
-              />
-            </CardActionArea>
-            <Button variant="outlined" color="info">
-              Adoptar
-            </Button>
+              >
+                Adoptar
+              </Button>
+            </Box>
           </Grid>
         </Grid>
-        <Starf />
       </UserLayout>
     </>
   )
@@ -68,9 +86,13 @@ export default function Pet({ pet }) {
 
 export async function getStaticPaths() {
   //fetch all pets---/82 v
-  const res = await fetch('https://.../posts')
+  const res = await fetch('http://localhost:3000/api/v1/pets', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
   const pets = await res.json()
-
   if (!pets) {
     return {
       redirect: {
@@ -80,20 +102,21 @@ export async function getStaticPaths() {
     }
   }
   // Get the paths we want to pre-render based on posts
-  const paths = pets.map((pet) => ({
-    params: { _id: pet._id },
-  }))
+  return {
+    paths: pets.map((pet) => ({
+      params: { id: `${pet.id}` },
+    })),
 
-  // We'll pre-render only these paths at build time.
-  // { fallback: blocking } will server-render pages
-  // on-demand if the path doesn't exist.
-  return { paths, fallback: 'blocking' }
+    // We'll pre-render only these paths at build time.
+    // { fallback: blocking } will server-render pages
+    // on-demand if the path doesn't exist.
+    fallback: 'blocking',
+  }
 }
 
 export async function getStaticProps({ params }) {
-  const { _id = '' } = params
-  const pet = await fetch(`https://.../pet/${_id}`)
-
+  const { id = '' } = params
+  const { pet } = await getPetService({ id })
   if (!pet) {
     return {
       redirect: {
