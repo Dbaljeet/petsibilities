@@ -28,7 +28,7 @@ export const SideMenu = () => {
   const router = useRouter()
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext)
   const { isLoggedIn, logout, user = '' } = useContext(AuthContext)
-  const roleId = user.roleId
+  const roleId = user.role.id
   const navigateTo = (url) => {
     toggleSideMenu()
     router.push(url)
@@ -127,6 +127,13 @@ export const SideMenu = () => {
                     <ListItemText primary={'Usuarios'} />
                   </ListItem>
                 </>
+              ) : roleId === 3 ? (
+                <ListItem button onClick={() => navigateTo('/')}>
+                  <ListItemIcon>
+                    <ConfirmationNumberOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary={'Solicitudes'} />
+                </ListItem>
               ) : (
                 <></>
               )}

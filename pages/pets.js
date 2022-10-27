@@ -24,17 +24,22 @@ export default function Pet() {
   const [valueCity, setValueCity] = useState('')
 
   const getPets = async () => {
-    //const PETS = await getPetsService()
+    const PETS = await getPetsService()
+    console.log(PETS)
   }
 
   useEffect(() => {
-    //getPets()
+    getPets()
   }, [])
 
   const handleChange = (ev) => {
     ev.target.name === 'InputRegion'
       ? setValueRegion(ev.target.value)
       : setValueCity(ev.target.value)
+  }
+
+  const handleSubmit = () => {
+    console.log(valueCity, valueRegion)
   }
 
   return (
@@ -97,7 +102,7 @@ export default function Pet() {
                 id="labelCity-select"
                 onChange={handleChange}
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Comuna
                 </option>
                 {valueRegion
@@ -110,7 +115,7 @@ export default function Pet() {
                       return <ValueCity key={info.region} info={info} />
                     })}
               </select>
-              <Button>Buscar</Button>
+              <Button onClick={handleSubmit}>Buscar</Button>
             </FormControl>
           </Grid>
 

@@ -26,10 +26,12 @@ export const AuthProvider = ({ children }) => {
       const { token, user } = data
       Cookies.set('token', token)*/
       const res = await CheckTokenService()
-
-      const { message } = res
-      dispatch({ type: '[Auth] - Login', payload: message.user })
+      const user = res.message.user
+      console.log(user)
+      dispatch({ type: '[Auth] - Login', payload: user })
+      return
     } catch (error) {
+      return
       //Cookies.remove('token')
     }
   }
