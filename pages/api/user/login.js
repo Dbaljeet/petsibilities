@@ -5,7 +5,6 @@ export default async function login(req, res) {
   console.log(req.cookies.refresh, 'cookie refresh login debería ser vacío')
   console.log('______________________________')
   const { email, password } = req.body
-  console.log(process.env.ENDPOINT)
   return fetch(`${process.env.ENDPOINT}/auth/login`, {
     method: 'POST',
     headers: {

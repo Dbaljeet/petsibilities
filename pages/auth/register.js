@@ -17,6 +17,7 @@ export default function Register() {
   const [registerForm, setRegisterForm] = useState({
     name: '',
     email: '',
+    phoneNumber: '',
     region: '',
     city: '',
     password: '',
@@ -33,7 +34,7 @@ export default function Register() {
     if (res) {
       setLoading(false)
       setError(false)
-      router.replace('/login')
+      router.replace('/auth/login')
       return
     }
     setError(true)
@@ -67,6 +68,13 @@ export default function Register() {
                 type="email"
                 placeholder="correo*"
                 name="email"
+              />
+              <input
+                className={styles.input}
+                onChange={handleChange}
+                type="phoneNumber"
+                placeholder="Número celular*"
+                name="phoneNumber"
               />
               <input
                 className={styles.input}

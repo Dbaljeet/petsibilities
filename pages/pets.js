@@ -1,6 +1,4 @@
-import { initialData } from '../database/pets'
-import { PetList } from '../components/pets'
-import { UserLayout } from '../components/layouts'
+import { useState, useEffect } from 'react'
 import {
   FormControl,
   Grid,
@@ -8,19 +6,27 @@ import {
   MenuItem,
   Select,
   Box,
+  Typography,
 } from '@mui/material'
-import { useState, useEffect } from 'react'
+
+import { UserLayout } from '../components/layouts'
+import { PetList } from '../components/pets'
+import { initialData } from '../database/pets'
+import { data } from '../database/cities'
+
 import { getPetsService } from '../services'
+import ValueCity from '../components/ValueCity'
+
 export default function Pet() {
   const [valueRegion, setValueRegion] = useState('')
   const [valueCity, setValueCity] = useState('')
 
   const getPets = async () => {
-    const PETS = await getPetsService()
+    //const PETS = await getPetsService()
   }
 
   useEffect(() => {
-    getPets()
+    //getPets()
   }, [])
 
   const handleChange = (ev) => {
@@ -54,7 +60,12 @@ export default function Pet() {
                   minWidth: 300,
                 }}
               >
-                <InputLabel id="labelRegion-select_label">Región</InputLabel>
+                <InputLabel
+                  sx={{ fontSize: '1.5rem' }}
+                  id="labelRegion-select_label"
+                >
+                  Región
+                </InputLabel>
                 <Select
                   labelId="labelRegion-select_label"
                   id="labelRegion-select"
@@ -64,8 +75,13 @@ export default function Pet() {
                   onChange={handleChange}
                   name="InputRegion"
                 >
-                  <MenuItem value={1}>1 reg</MenuItem>
-                  <MenuItem value={2}>2 reg</MenuItem>
+                  {data.map((info) => {
+                    return (
+                      <MenuItem key={info.region} value={info.region}>
+                        {info.region}
+                      </MenuItem>
+                    )
+                  })}
                 </Select>
               </FormControl>
             </Box>
@@ -76,17 +92,41 @@ export default function Pet() {
                   minWidth: 300,
                 }}
               >
-                <InputLabel id="labelCity-select_label">Ciudad</InputLabel>
+                <InputLabel
+                  sx={{ fontSize: '1.5rem' }}
+                  id="labelCity-select_label"
+                >
+                  {valueCity ? valueCity : 'Ciudad - Comuna'}
+                </InputLabel>
                 <Select
                   labelId="labelCity-select_label"
                   id="labelCity-select"
                   variant="filled"
-                  label="Ciudad"
-                  value={valueCity}
+                  label="Ciudad-comuna"
                   onChange={handleChange}
+                  displayEmpty={false}
                 >
-                  <MenuItem value={1}>1 ciudad</MenuItem>
-                  <MenuItem value={2}>2 ciudad</MenuItem>
+                  {valueRegion
+                    ? data.map((info) => {
+                        if (valueRegion === info.region) {
+                          return (
+                            <ValueCity
+                              key={info.region}
+                              info={info}
+                              setValueCity={setValueCity}
+                            />
+                          )
+                        }
+                      })
+                    : data.map((info) => {
+                        return (
+                          <ValueCity
+                            key={info.region}
+                            info={info}
+                            setValueCity={setValueCity}
+                          />
+                        )
+                      })}
                 </Select>
               </FormControl>
             </Box>

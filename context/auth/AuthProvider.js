@@ -52,12 +52,10 @@ export const AuthProvider = ({ children }) => {
   const loginUser = async ({ email, password }) => {
     try {
       const res = await LoginService({ email, password })
-      console.log('no hubo error', res)
       const { user } = res
       dispatch({ type: '[Auth] - Login', payload: user })
       return true
     } catch (error) {
-      console.log('hubo un error:', error)
       return false
     }
   }
@@ -65,6 +63,7 @@ export const AuthProvider = ({ children }) => {
   const registerUser = async ({
     name,
     email,
+    phoneNumber,
     password,
     region,
     city,
@@ -74,12 +73,12 @@ export const AuthProvider = ({ children }) => {
       const data = await RegisterService({
         name,
         region,
+        phoneNumber,
         city,
         email,
         password,
         confirmPassword,
       })
-      console.log('data de regi', data)
       /*const { token, user } = data
       Cookies.set('token', token)
       dispatch({ type: '[Auth] - Login', payload: user })
@@ -90,7 +89,6 @@ export const AuthProvider = ({ children }) => {
         return false
       }
     } catch (error) {
-      console.log(error, '...registro fallido')
       return false
 
       //}

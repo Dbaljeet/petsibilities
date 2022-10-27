@@ -2,6 +2,7 @@ const ENDPOINT = '/api/user'
 export function RegisterService({
   name,
   region,
+  phoneNumber,
   city,
   email,
   password,
@@ -15,6 +16,7 @@ export function RegisterService({
     body: JSON.stringify({
       name,
       email,
+      phoneNumber,
       region,
       city,
       email,
