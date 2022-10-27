@@ -5,9 +5,11 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Button,
   Box,
-  Typography,
 } from '@mui/material'
+
+import styles from '../styles/Pets.module.css'
 
 import { UserLayout } from '../components/layouts'
 import { PetList } from '../components/pets'
@@ -51,85 +53,65 @@ export default function Pet() {
             display="flex"
             justifyContent="center"
             flexWrap="wrap"
-            sx={{ gap: '30px', marginTop: '70px' }}
+            sx={{ gap: '30px', marginTop: '70px', width: '100%' }}
           >
-            <Box display="flex">
-              <FormControl
-                size="small"
-                sx={{
-                  minWidth: 300,
-                }}
+            <FormControl
+              size="small"
+              sx={{
+                width: 300,
+                gap: '10px',
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+              }}
+            >
+              <InputLabel
+                sx={{ fontSize: '1.5rem' }}
+                id="labelRegion-select_label"
               >
-                <InputLabel
-                  sx={{ fontSize: '1.5rem' }}
-                  id="labelRegion-select_label"
-                >
-                  Región
-                </InputLabel>
-                <Select
-                  labelId="labelRegion-select_label"
-                  id="labelRegion-select"
-                  variant="filled"
-                  label="Región"
-                  value={valueRegion}
-                  onChange={handleChange}
-                  name="InputRegion"
-                >
-                  {data.map((info) => {
-                    return (
-                      <MenuItem key={info.region} value={info.region}>
-                        {info.region}
-                      </MenuItem>
-                    )
-                  })}
-                </Select>
-              </FormControl>
-            </Box>
-            <Box>
-              <FormControl
-                size="small"
-                sx={{
-                  minWidth: 300,
-                }}
+                Región
+              </InputLabel>
+              <Select
+                sx={{ minWidth: '300px' }}
+                labelId="labelRegion-select_label"
+                id="labelRegion-select"
+                variant="filled"
+                label="Región"
+                value={valueRegion}
+                onChange={handleChange}
+                name="InputRegion"
               >
-                <InputLabel
-                  sx={{ fontSize: '1.5rem' }}
-                  id="labelCity-select_label"
-                >
-                  {valueCity ? valueCity : 'Ciudad - Comuna'}
-                </InputLabel>
-                <Select
-                  labelId="labelCity-select_label"
-                  id="labelCity-select"
-                  variant="filled"
-                  label="Ciudad-comuna"
-                  onChange={handleChange}
-                  displayEmpty={false}
-                >
-                  {valueRegion
-                    ? data.map((info) => {
-                        if (valueRegion === info.region) {
-                          return (
-                            <ValueCity
-                              key={info.region}
-                              info={info}
-                              setValueCity={setValueCity}
-                            />
-                          )
-                        }
-                      })
-                    : data.map((info) => {
-                        return (
-                          <ValueCity
-                            key={info.region}
-                            info={info}
-                            setValueCity={setValueCity}
-                          />
-                        )
-                      })}
-                </Select>
-              </FormControl>
-            </Box>
+                {data.map((info) => {
+                  return (
+                    <MenuItem key={info.region} value={info.region}>
+                      {info.region}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+              <select
+                className={styles.select}
+                name="citys"
+                defaultValue={''}
+                id="labelCity-select"
+                onChange={handleChange}
+              >
+                <option value="" disabled selected>
+                  Comuna
+                </option>
+                {valueRegion
+                  ? data.map((info) => {
+                      if (valueRegion === info.region) {
+                        return <ValueCity key={info.region} info={info} />
+                      }
+                    })
+                  : data.map((info) => {
+                      return <ValueCity key={info.region} info={info} />
+                    })}
+              </select>
+              <Button>Buscar</Button>
+            </FormControl>
           </Grid>
 
           <Grid item>

@@ -1,65 +1,12 @@
-.div{
+.select{
+    background-color: rgba(0, 0, 0, 0.06);
     padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
-    grid-template-rows: auto;
-    grid-column-gap: auto;
-    grid-row-gap: auto;
-    grid-template-rows:masonry;
-    grid-auto-flow: row;
-    justify-items: center;
-    background-color: antiquewhite;
-}
-.infoPicture{
-    text-align: center;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    height: auto;
-}
-.name{
-    z-index: 1;
-    color: #fff;
-    display: none;
-}
-.link{
-    z-index: 1;
-    display: none;
-    opacity: 0;
-    margin: 80px auto;
-    width: 200px;
-    color: #fff;
-    background: linear-gradient(180deg, #FFC727 0%, #FF9900 100%);
+    font-size: 1.5rem;
+    color:rgba(0, 0, 0, 0.6);
     border: none;
-    padding: 20px;
-    cursor: pointer;
-}
-.picture{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
     min-width: 300px;
-    min-height: auto;
 }
-.img{
-    max-width: 300px;
-    object-fit: cover;
-}
-.picture:hover>.infoPicture>.name{
-    display: inline;
-}
-.picture:hover>.infoPicture>.link{
-    display: inline;
-    opacity: 1;
-}
-.picture:hover>.infoPicture>.shadow{
-    display: inline;
-}
-
-
-.shadow{
-    display: none;
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    opacity: .4;
-    background-color: #000;
+.select:hover{
+    cursor: pointer;
 }

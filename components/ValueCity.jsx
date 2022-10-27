@@ -1,19 +1,14 @@
-import { MenuItem } from '@mui/material'
-
+import styles from './ValueCity.module.css'
 export default function ValueCity(props) {
-  const { info, setValueCity } = props
+  const { info } = props
   const array = info.cities
   return (
     <>
       {array.map((city) => {
         return (
-          <MenuItem
-            onClick={() => setValueCity(city.city)}
-            key={city.city}
-            value={city.city}
-          >
+          <option className={styles.option} key={city.city} value={city.city}>
             {city.city}
-          </MenuItem>
+          </option>
         )
       })}
     </>
