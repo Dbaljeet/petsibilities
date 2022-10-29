@@ -20,7 +20,7 @@ import {
   AppRegistrationOutlined,
 } from '@mui/icons-material'
 
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UiContext, AuthContext } from '../../context'
 import { useRouter } from 'next/router'
 
@@ -28,7 +28,16 @@ export const SideMenu = () => {
   const router = useRouter()
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext)
   const { isLoggedIn, logout, user = '' } = useContext(AuthContext)
-  const roleId = user.role.id
+  const [roleId, setRoleId] = useState('')
+
+  useEffect(() => {
+    try {
+      setRoleId(user.role.id)
+    } catch {
+      setRoleId('')
+    }
+  }, [user])
+
   const navigateTo = (url) => {
     toggleSideMenu()
     router.push(url)

@@ -1,11 +1,7 @@
+import { memo } from 'react'
 import Head from 'next/head'
 import { Navbar, SideMenu } from '../ui'
-export const UserLayout = ({
-  children,
-  title,
-  pageDescription,
-  imageFullUrl,
-}) => {
+const Layout = ({ children, title, pageDescription, imageFullUrl }) => {
   return (
     <>
       <Head>
@@ -24,3 +20,4 @@ export const UserLayout = ({
     </>
   )
 }
+export const UserLayout = memo(Layout)

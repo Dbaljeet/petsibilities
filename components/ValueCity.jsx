@@ -1,5 +1,6 @@
+import { memo } from 'react'
 import styles from './ValueCity.module.css'
-export default function ValueCity(props) {
+function Citys(props) {
   const { info } = props
   const array = info.cities
   return (
@@ -14,3 +15,5 @@ export default function ValueCity(props) {
     </>
   )
 }
+const ValueCity = memo(Citys)
+export default ValueCity

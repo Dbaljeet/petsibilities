@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   FormControl,
   Grid,
@@ -7,6 +7,7 @@ import {
   Select,
   Button,
   Box,
+  TextField,
 } from '@mui/material'
 
 import styles from '../styles/Pets.module.css'
@@ -16,16 +17,25 @@ import { PetList } from '../components/pets'
 import { initialData } from '../database/pets'
 import { data } from '../database/cities'
 
-import { getPetsService } from '../services'
+import { getPetsService, getPetsCommuneService } from '../services'
 import ValueCity from '../components/ValueCity'
 
-export default function Pet() {
+export default function Pets() {
   const [valueRegion, setValueRegion] = useState('')
   const [valueCity, setValueCity] = useState('')
-
+  const [PETS, setPETS] = useState([])
   const getPets = async () => {
-    const PETS = await getPetsService()
-    console.log(PETS)
+    try {
+      const { message } = await getPetsService()
+      setPETS(message)
+    } catch {
+      console.log('error get pets')
+    }
+  }
+
+  const getPetsByCommune = async () => {
+    const { message } = await getPetsCommuneService({ commune: valueCity })
+    setPETS(message)
   }
 
   useEffect(() => {
@@ -40,8 +50,8 @@ export default function Pet() {
 
   const handleSubmit = () => {
     console.log(valueCity, valueRegion)
+    getPetsByCommune()
   }
-
   return (
     <>
       <UserLayout title={'Mascotas disponibles-Petsibilities'}>
@@ -56,6 +66,7 @@ export default function Pet() {
           <Grid
             item
             display="flex"
+            flexDirection="row"
             justifyContent="center"
             flexWrap="wrap"
             sx={{ gap: '30px', marginTop: '70px', width: '100%' }}
@@ -63,30 +74,31 @@ export default function Pet() {
             <FormControl
               size="small"
               sx={{
-                width: 300,
-                gap: '10px',
+                width: '100%',
+                gap: '30px',
                 display: 'flex',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'center',
               }}
             >
-              <InputLabel
-                sx={{ fontSize: '1.5rem' }}
-                id="labelRegion-select_label"
-              >
-                Región
-              </InputLabel>
-              <Select
-                sx={{ minWidth: '300px' }}
-                labelId="labelRegion-select_label"
-                id="labelRegion-select"
-                variant="filled"
+              <TextField
+                sx={{
+                  minWidth: '300px',
+                  fontSize: '1.5rem',
+                  color: 'rgba(0, 0, 0, 0.6)',
+                }}
+                id="outlined-select-currency"
+                select
                 label="Región"
+                variant="filled"
                 value={valueRegion}
                 onChange={handleChange}
                 name="InputRegion"
               >
+                <MenuItem key="key" value="">
+                  Región
+                </MenuItem>
                 {data.map((info) => {
                   return (
                     <MenuItem key={info.region} value={info.region}>
@@ -94,7 +106,7 @@ export default function Pet() {
                     </MenuItem>
                   )
                 })}
-              </Select>
+              </TextField>
               <select
                 className={styles.select}
                 name="citys"
@@ -115,13 +127,26 @@ export default function Pet() {
                       return <ValueCity key={info.region} info={info} />
                     })}
               </select>
-              <Button onClick={handleSubmit}>Buscar</Button>
+              <Button
+                disabled={valueCity == ''}
+                sx={{ width: '300px' }}
+                onClick={handleSubmit}
+              >
+                Buscar
+              </Button>
             </FormControl>
           </Grid>
 
           <Grid item>
             <PetList pets={initialData.pets} />
           </Grid>
+          {PETS.map((pet) => {
+            return (
+              <p key={pet.id}>
+                {pet.id}, {pet.name}, {pet.description}
+              </p>
+            )
+          })}
         </Grid>
       </UserLayout>
     </>
