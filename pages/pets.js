@@ -6,7 +6,6 @@ import {
   MenuItem,
   Select,
   Button,
-  Box,
   TextField,
 } from '@mui/material'
 
@@ -84,7 +83,7 @@ export default function Pets() {
             >
               <TextField
                 sx={{
-                  minWidth: '300px',
+                  width: '300px',
                   fontSize: '1.5rem',
                   color: 'rgba(0, 0, 0, 0.6)',
                 }}
