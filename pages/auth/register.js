@@ -1,13 +1,28 @@
-import styles from '../../styles/Register.module.css'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+
+import { allCities } from '../../database/onlyCities'
+
+import { AuthContext } from '../../context'
+
 //import useUser from '../../hooks/useUser'
 import { GeneralLayout } from '../../components/layouts'
 import { ButtonSubmit, Switch } from '../../components/ui'
-import Image from 'next/image'
-import Link from 'next/link'
-import { AuthContext } from '../../context'
 import { useRouter } from 'next/router'
 import { Spinner } from '../../components/ui'
+import {
+  Autocomplete,
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  FormControl,
+  Grid,
+  TextField,
+  Typography,
+} from '@mui/material'
 
 export default function Register() {
   const router = useRouter()
@@ -18,7 +33,6 @@ export default function Register() {
     name: '',
     email: '',
     phoneNumber: '',
-    region: '',
     city: '',
     password: '',
     confirmPassword: '',
@@ -27,6 +41,10 @@ export default function Register() {
 
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
+  let array = []
+  useEffect(() => {
+    allCities.map((city) => array.push(city.city))
+  })
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
@@ -51,93 +69,216 @@ export default function Register() {
     <>
       <GeneralLayout title={'Registrarse-Petsibilities'}>
         {loading && <Spinner />}
-        <h2 className={styles.title}>Registro</h2>
-        <section className={styles.section}>
-          <form className={styles.form} onSubmit={handleSubmit}>
-            <div className={styles.grid_form}>
-              <input
-                className={styles.input}
+        <Box sx={{ display: 'flex', wrap: 'wrap' }}>
+          <Grid
+            alignContent="center"
+            justifyItems="center"
+            sx={{ minWidth: '300px' }}
+          >
+            <Typography
+              variant="h1"
+              align="center"
+              sx={{ margin: '30px', color: '#962', fontSize: '2.5rem' }}
+            >
+              Registrate en Petsibilities
+            </Typography>
+            <FormControl
+              onSubmit={handleSubmit}
+              sx={{
+                display: 'flex',
+                width: '70%',
+                margin: 'auto',
+                maxWidth: '600px',
+                gap: '25px',
+              }}
+            >
+              <TextField
+                id="outlined-basic"
+                label="Nombre*"
+                variant="outlined"
                 onChange={handleChange}
-                placeholder="nombre*"
                 name="name"
+                error={registerForm.name === ''}
+                helperText={
+                  registerForm.name === '' ? 'Debe rellenar el campo' : ''
+                }
+                InputProps={{
+                  style: {
+                    fontSize: '1.5rem',
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontSize: '1.5rem',
+                    color: '#000',
+                  },
+                }}
               />
 
-              <input
-                className={styles.input}
+              <TextField
+                id="outlined-basic"
+                label="correo*"
+                variant="outlined"
                 onChange={handleChange}
-                type="email"
-                placeholder="correo*"
                 name="email"
+                type="email"
+                error={registerForm.email === ''}
+                helperText={
+                  registerForm.email === '' ? 'Debe rellenar el campo' : ''
+                }
+                InputProps={{
+                  style: {
+                    fontSize: '1.5rem',
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontSize: '1.5rem',
+                  },
+                }}
               />
-              <input
-                className={styles.input}
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '20px',
+                  width: '100%',
+                }}
+              >
+                <Typography fontSize="1.5rem">+569</Typography>
+                <TextField
+                  sx={{ width: '100%' }}
+                  id="outlined-basic"
+                  label="Número celular*"
+                  variant="outlined"
+                  onChange={handleChange}
+                  name="phoneNumber"
+                  error={registerForm.phoneNumber === ''}
+                  helperText={
+                    registerForm.phoneNumber === ''
+                      ? 'Debe rellenar el campo'
+                      : ''
+                  }
+                  InputProps={{
+                    style: {
+                      fontSize: '1.5rem',
+                    },
+                  }}
+                  InputLabelProps={{
+                    style: {
+                      fontSize: '1.5rem',
+                    },
+                  }}
+                />
+              </Box>
+
+              <TextField
+                id="outlined-basic"
+                label="contraseña*"
+                variant="outlined"
                 onChange={handleChange}
-                type="phoneNumber"
-                placeholder="Número celular*"
-                name="phoneNumber"
-              />
-              <input
-                className={styles.input}
-                onChange={handleChange}
-                placeholder="región*"
-                name="region"
-              />
-              <input
-                className={styles.input}
-                onChange={handleChange}
-                placeholder="ciudad*"
-                name="city"
+                name="password"
+                type={`${isVisiblePassword ? 'text' : 'password'}`}
+                error={registerForm.password === ''}
+                helperText={
+                  registerForm.password === '' ? 'Debe rellenar el campo' : ''
+                }
+                InputProps={{
+                  style: {
+                    fontSize: '1.5rem',
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontSize: '1.5rem',
+                  },
+                }}
               />
 
-              <input
-                className={styles.input}
-                type={`${isVisiblePassword ? 'text' : 'password'}`}
+              <TextField
+                id="outlined-basic"
+                label="repetir contraseña**"
+                variant="outlined"
                 onChange={handleChange}
-                placeholder="contraseña*"
-                name="password"
-              />
-              <input
-                className={styles.input}
-                type={`${isVisiblePassword ? 'text' : 'password'}`}
-                onChange={handleChange}
-                placeholder="repetir contraseña*"
                 name="confirmPassword"
+                type={`${isVisiblePassword ? 'text' : 'password'}`}
+                error={registerForm.confirmPassword === ''}
+                helperText={
+                  registerForm.confirmPassword === ''
+                    ? 'Debe rellenar el campo'
+                    : ''
+                }
+                InputProps={{
+                  style: {
+                    fontSize: '1.5rem',
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontSize: '1.5rem',
+                  },
+                }}
               />
+
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={array}
+                name="city"
+                onChange={handleChange}
+                error={registerForm.city === ''}
+                renderInput={(params) => (
+                  <TextField {...params} label="Ciudad o comuna*" />
+                )}
+              />
+
               {error && (
                 <span className={styles.spann}>
                   Error, rellene bien los campos
                 </span>
               )}
-            </div>
+            </FormControl>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+                gap: '10px',
+              }}
+            >
+              <Switch text={'Ver contraseña'} showPassword={showPassword} />
 
-            <Switch text={'Ver contraseña'} showPassword={showPassword} />
+              <ButtonSubmit />
+            </Box>
+          </Grid>
 
-            <ButtonSubmit />
-          </form>
-          <div className={styles.containerImgText}>
-            <div className={styles.containerImg}>
-              <Image
-                src="/eri.jpg"
-                width={1200}
-                height={1000}
-                layout="responsive"
-                alt="Si ya tienes una cuenta inicia sesión, también puede volver al inicio de sesión para saber más de Petsibilities"
-              />
-            </div>
-            <p className={styles.textimg}>
-              Sé parte de nuestra web,<br></br>queremos que encuentres <br></br>
-              a tu próxima mascota
-            </p>
-            <nav className={styles.nav}>
+          <Card sx={{ width: 300, minWidth: '300px' }}>
+            <CardHeader
+              title="Sé parte de nuestra web,queremos que encuentres
+                a tu próxima mascota"
+            />
+            <CardMedia
+              component="img"
+              src="/eri.jpg"
+              height="400"
+              alt="Si ya tienes una cuenta inicia sesión, también puede volver al inicio de sesión para saber más de Petsibilities"
+            />
+
+            <CardContent
+              sx={{
+                display: 'flex',
+                gap: '50%',
+              }}
+            >
               <Link href="/">
-                <a className={styles.anav}>Inicio</a>
+                <a>Inicio</a>
               </Link>
               <Link href={`/auth/login?p=${router.query.p?.toString() || ''}`}>
-                <a className={styles.anav}>Iniciar sesión</a>
+                <a>Iniciar sesión</a>
               </Link>
-            </nav>
-          </div>
-        </section>
+            </CardContent>
+          </Card>
+        </Box>
       </GeneralLayout>
     </>
   )
