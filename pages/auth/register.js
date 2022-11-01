@@ -55,17 +55,21 @@ export default function SignInSide() {
     password: '',
     confirmPassword: '',
   })
+
+  const [valueCity, setValueCity] = useState('Arica')
+  const [inputValue, setInputValue] = useState('')
+
   const [isVisiblePassword, setIsVisiblePassword] = useState(false)
 
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
-  let array = []
-  useEffect(() => {
-    allCities.map((city) => array.push(city.city))
-  })
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
+    setRegisterForm({
+      ...registerForm,
+      ['city']: allCities.indexOf(valueCity),
+    })
     const res = await registerUser(registerForm)
     if (res) {
       setLoading(false)
@@ -80,10 +84,10 @@ export default function SignInSide() {
   const handleChange = (ev) => {
     setRegisterForm({ ...registerForm, [ev.target.name]: ev.target.value })
   }
+
   const showPassword = () => {
     setIsVisiblePassword(!isVisiblePassword)
   }
-
   return (
     <UserLayout
       title={'Regístrate | Petsibilities'}
@@ -148,7 +152,6 @@ export default function SignInSide() {
                 required
                 fullWidth
                 margin="normal"
-                id="outlined-basic"
                 label="Nombre"
                 variant="outlined"
                 onChange={handleChange}
@@ -174,7 +177,6 @@ export default function SignInSide() {
                 required
                 fullWidth
                 margin="normal"
-                id="outlined-basic"
                 label="correo"
                 variant="outlined"
                 onChange={handleChange}
@@ -212,7 +214,6 @@ export default function SignInSide() {
                   required
                   fullWidth
                   margin="normal"
-                  id="outlined-basic"
                   label="Número celular"
                   variant="outlined"
                   onChange={handleChange}
@@ -241,9 +242,14 @@ export default function SignInSide() {
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={array}
                 name="city"
-                onChange={handleChange}
+                value={valueCity}
+                onChange={(ev, newValue) => setValueCity(newValue)}
+                inputValue={inputValue}
+                onInputChange={(ev, newInputValue) => {
+                  setInputValue(newInputValue)
+                }}
+                options={allCities}
                 renderInput={(params) => (
                   <TextField {...params} label="Ciudad o comuna*" />
                 )}
@@ -252,7 +258,6 @@ export default function SignInSide() {
                 required
                 fullWidth
                 margin="normal"
-                id="outlined-basic"
                 label="contraseña"
                 variant="outlined"
                 onChange={handleChange}
@@ -279,7 +284,6 @@ export default function SignInSide() {
                 required
                 fullWidth
                 margin="normal"
-                id="outlined-basic"
                 label="repetir contraseña"
                 variant="outlined"
                 onChange={handleChange}
