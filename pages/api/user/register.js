@@ -1,8 +1,14 @@
 export default async function register(req, res) {
   const { name, email, phoneNumber, city, password, confirmPassword } = req.body
 
+  const realphoneNumber = phoneNumber.concat('+56')
+
   if (password != confirmPassword) {
     return res.status(401).json({ message: 'Las contraseñas no son iguales' })
+  }
+
+  if (realphoneNumber.length < 12) {
+    return res.status(401).json({ message: 'El número debe ser de 9 dígitos' })
   }
 
   return fetch(`${process.env.ENDPOINT}/users`, {
@@ -13,7 +19,7 @@ export default async function register(req, res) {
     body: JSON.stringify({
       name,
       email,
-      phoneNumber,
+      phoneNumber: realphoneNumber,
       password,
       houseSize: 10,
       roleId: 2,

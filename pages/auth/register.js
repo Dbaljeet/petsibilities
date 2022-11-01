@@ -1,30 +1,48 @@
 import { useState, useContext, useEffect } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-
-import { allCities } from '../../database/onlyCities'
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 
 import { AuthContext } from '../../context'
+import { allCities } from '../../database/onlyCities'
 
-//import useUser from '../../hooks/useUser'
-import { GeneralLayout } from '../../components/layouts'
-import { ButtonSubmit, Switch } from '../../components/ui'
-import { useRouter } from 'next/router'
-import { Spinner } from '../../components/ui'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import styles from '../../styles/Register.module.css'
 import {
+  FormControlLabel,
+  Avatar,
   Autocomplete,
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  FormControl,
-  Grid,
   TextField,
+  CssBaseline,
   Typography,
+  Grid,
+  Box,
+  Paper,
+  Link,
+  Checkbox,
 } from '@mui/material'
 
-export default function Register() {
+import { UserLayout } from '../../components/layouts'
+import { ButtonSubmit, Switch } from '../../components/ui'
+
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {'Copyright © '}
+      <Link color="inherit" href="https://github.com/Dbaljeet/petsibilities">
+        Petsibilities
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  )
+}
+
+export default function SignInSide() {
   const router = useRouter()
   //const { Register, error, infoResponse } = useUser()
   const { registerUser } = useContext(AuthContext)
@@ -58,6 +76,7 @@ export default function Register() {
     setError(true)
     setTimeout(() => setError(false), 4000)
   }
+
   const handleChange = (ev) => {
     setRegisterForm({ ...registerForm, [ev.target.name]: ev.target.value })
   }
@@ -66,35 +85,71 @@ export default function Register() {
   }
 
   return (
-    <>
-      <GeneralLayout title={'Registrarse-Petsibilities'}>
-        {loading && <Spinner />}
-        <Box sx={{ display: 'flex', wrap: 'wrap' }}>
-          <Grid
-            alignContent="center"
-            justifyItems="center"
-            sx={{ minWidth: '300px' }}
+    <UserLayout
+      title={'Regístrate | Petsibilities'}
+      pageDescription={
+        'Regístrate en Petsibilities, adopta a tu proxima mascota'
+      }
+      imageFullUrl={''}
+    >
+      <Grid container component="main" sx={{ height: '100vh' }}>
+        <CssBaseline />
+        {/*sm 4 */}
+        <Grid
+          item
+          xs={false}
+          sm={false}
+          md={7}
+          sx={{
+            backgroundImage: 'url(/eri.jpg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light'
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        {/*sm 8 */}
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={5}
+          component={Paper}
+          elevation={6}
+          square
+        >
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
           >
-            <Typography
-              variant="h1"
-              align="center"
-              sx={{ margin: '30px', color: '#962', fontSize: '2.5rem' }}
-            >
-              Registrate en Petsibilities
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Regístrate
             </Typography>
-            <FormControl
+            <Box
+              component="form"
+              noValidate
               onSubmit={handleSubmit}
-              sx={{
-                display: 'flex',
-                width: '70%',
-                margin: 'auto',
-                maxWidth: '600px',
-                gap: '25px',
-              }}
+              sx={{ mt: 1 }}
             >
+              {/* */}
+
               <TextField
+                required
+                fullWidth
+                margin="normal"
                 id="outlined-basic"
-                label="Nombre*"
+                label="Nombre"
                 variant="outlined"
                 onChange={handleChange}
                 name="name"
@@ -104,20 +159,23 @@ export default function Register() {
                 }
                 InputProps={{
                   style: {
-                    fontSize: '1.5rem',
+                    fontSize: '1.2rem',
                   },
                 }}
                 InputLabelProps={{
                   style: {
-                    fontSize: '1.5rem',
+                    fontSize: '1.2rem',
                     color: '#000',
                   },
                 }}
               />
 
               <TextField
+                required
+                fullWidth
+                margin="normal"
                 id="outlined-basic"
-                label="correo*"
+                label="correo"
                 variant="outlined"
                 onChange={handleChange}
                 name="email"
@@ -128,15 +186,19 @@ export default function Register() {
                 }
                 InputProps={{
                   style: {
-                    fontSize: '1.5rem',
+                    fontSize: '1.2rem',
                   },
                 }}
                 InputLabelProps={{
                   style: {
-                    fontSize: '1.5rem',
+                    fontSize: '1.2rem',
+                    color: '#000',
                   },
                 }}
               />
+
+              {/* */}
+
               <Box
                 sx={{
                   display: 'flex',
@@ -145,11 +207,13 @@ export default function Register() {
                   width: '100%',
                 }}
               >
-                <Typography fontSize="1.5rem">+569</Typography>
+                <Typography fontSize="1.5rem">+56</Typography>
                 <TextField
-                  sx={{ width: '100%' }}
+                  required
+                  fullWidth
+                  margin="normal"
                   id="outlined-basic"
-                  label="Número celular*"
+                  label="Número celular"
                   variant="outlined"
                   onChange={handleChange}
                   name="phoneNumber"
@@ -157,24 +221,39 @@ export default function Register() {
                   helperText={
                     registerForm.phoneNumber === ''
                       ? 'Debe rellenar el campo'
-                      : ''
+                      : 'deben ser 9 números'
                   }
                   InputProps={{
                     style: {
-                      fontSize: '1.5rem',
+                      fontSize: '1.2rem',
                     },
                   }}
                   InputLabelProps={{
                     style: {
-                      fontSize: '1.5rem',
+                      fontSize: '1.2rem',
+                      color: '#000',
                     },
                   }}
                 />
               </Box>
 
+              {/* 3 */}
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={array}
+                name="city"
+                onChange={handleChange}
+                renderInput={(params) => (
+                  <TextField {...params} label="Ciudad o comuna*" />
+                )}
+              />
               <TextField
+                required
+                fullWidth
+                margin="normal"
                 id="outlined-basic"
-                label="contraseña*"
+                label="contraseña"
                 variant="outlined"
                 onChange={handleChange}
                 name="password"
@@ -185,19 +264,23 @@ export default function Register() {
                 }
                 InputProps={{
                   style: {
-                    fontSize: '1.5rem',
+                    fontSize: '1.2rem',
                   },
                 }}
                 InputLabelProps={{
                   style: {
-                    fontSize: '1.5rem',
+                    fontSize: '1.2rem',
+                    color: '#000',
                   },
                 }}
               />
 
               <TextField
+                required
+                fullWidth
+                margin="normal"
                 id="outlined-basic"
-                label="repetir contraseña**"
+                label="repetir contraseña"
                 variant="outlined"
                 onChange={handleChange}
                 name="confirmPassword"
@@ -210,76 +293,59 @@ export default function Register() {
                 }
                 InputProps={{
                   style: {
-                    fontSize: '1.5rem',
+                    fontSize: '1.2rem',
                   },
                 }}
                 InputLabelProps={{
                   style: {
-                    fontSize: '1.5rem',
+                    fontSize: '1.2rem',
+                    color: '#000',
                   },
                 }}
               />
 
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={array}
-                name="city"
-                onChange={handleChange}
-                error={registerForm.city === ''}
-                renderInput={(params) => (
-                  <TextField {...params} label="Ciudad o comuna*" />
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                  gap: '10px',
+                }}
+              >
+                <Switch text={'Ver contraseña'} showPassword={showPassword} />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Recordar correo"
+                />
+                <ButtonSubmit />
+                {error && (
+                  <span className={styles.spann}>
+                    Error, rellene bien los campos
+                  </span>
                 )}
-              />
+              </Box>
 
-              {error && (
-                <span className={styles.spann}>
-                  Error, rellene bien los campos
-                </span>
-              )}
-            </FormControl>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
-                gap: '10px',
-              }}
-            >
-              <Switch text={'Ver contraseña'} showPassword={showPassword} />
-
-              <ButtonSubmit />
+              <Grid container sx={{ marginTop: '30px' }}>
+                <Grid item xs>
+                  <NextLink href="/auth/">
+                    <Link href="#" variant="body1">
+                      ¿Olvidaste tu contraseña?
+                    </Link>
+                  </NextLink>
+                </Grid>
+                <Grid item>
+                  <NextLink href="/auth/login">
+                    <Link href="#" variant="body1">
+                      {'Iniciar sesión'}
+                    </Link>
+                  </NextLink>
+                </Grid>
+              </Grid>
+              <Copyright sx={{ mt: 5 }} />
             </Box>
-          </Grid>
-
-          <Card sx={{ width: 300, minWidth: '300px' }}>
-            <CardHeader
-              title="Sé parte de nuestra web,queremos que encuentres
-                a tu próxima mascota"
-            />
-            <CardMedia
-              component="img"
-              src="/eri.jpg"
-              height="400"
-              alt="Si ya tienes una cuenta inicia sesión, también puede volver al inicio de sesión para saber más de Petsibilities"
-            />
-
-            <CardContent
-              sx={{
-                display: 'flex',
-                gap: '50%',
-              }}
-            >
-              <Link href="/">
-                <a>Inicio</a>
-              </Link>
-              <Link href={`/auth/login?p=${router.query.p?.toString() || ''}`}>
-                <a>Iniciar sesión</a>
-              </Link>
-            </CardContent>
-          </Card>
-        </Box>
-      </GeneralLayout>
-    </>
+          </Box>
+        </Grid>
+      </Grid>
+    </UserLayout>
   )
 }
