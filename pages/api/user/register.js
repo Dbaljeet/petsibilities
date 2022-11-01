@@ -1,7 +1,7 @@
 export default async function register(req, res) {
   const { name, email, phoneNumber, city, password, confirmPassword } = req.body
-
-  const realphoneNumber = phoneNumber.concat('+56')
+  console.log(city, 'ciudad')
+  let realphoneNumber = '+56' + phoneNumber
 
   if (password != confirmPassword) {
     return res.status(401).json({ message: 'Las contraseñas no son iguales' })
