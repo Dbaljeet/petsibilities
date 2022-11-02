@@ -1,6 +1,5 @@
 export default async function register(req, res) {
   const { name, email, phoneNumber, city, password, confirmPassword } = req.body
-  console.log(city, 'ciudad')
   let realphoneNumber = '+56' + phoneNumber
 
   if (password != confirmPassword) {
