@@ -51,7 +51,7 @@ export default function SignInSide() {
     name: '',
     email: '',
     phoneNumber: '',
-    city: '',
+    city: 1,
     password: '',
     confirmPassword: '',
   })
@@ -66,10 +66,7 @@ export default function SignInSide() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
-    setRegisterForm({
-      ...registerForm,
-      ['city']: allCities.indexOf(valueCity),
-    })
+
     const res = await registerUser(registerForm)
     if (res) {
       setLoading(false)
@@ -88,6 +85,7 @@ export default function SignInSide() {
   const showPassword = () => {
     setIsVisiblePassword(!isVisiblePassword)
   }
+
   return (
     <UserLayout
       title={'Regístrate | Petsibilities'}
@@ -244,7 +242,13 @@ export default function SignInSide() {
                 id="combo-box-demo"
                 name="city"
                 value={valueCity}
-                onChange={(ev, newValue) => setValueCity(newValue)}
+                onChange={(ev, newValue) => {
+                  setValueCity(newValue)
+                  setRegisterForm({
+                    ...registerForm,
+                    ['city']: allCities.indexOf(newValue) + 1,
+                  })
+                }}
                 inputValue={inputValue}
                 onInputChange={(ev, newInputValue) => {
                   setInputValue(newInputValue)
