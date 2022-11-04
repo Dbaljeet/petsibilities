@@ -12,7 +12,7 @@ import {
 import styles from '../styles/Pets.module.css'
 
 import { UserLayout } from '../components/layouts'
-import { PetList } from '../components/pets'
+import { PetCard, PetList } from '../components/pets'
 import { initialData } from '../database/pets'
 import { data } from '../database/cities'
 
@@ -139,13 +139,9 @@ export default function Pets() {
           <Grid item>
             <PetList pets={initialData.pets} />
           </Grid>
-          {PETS.map((pet) => {
-            return (
-              <p key={pet.id}>
-                {pet.id}, {pet.name}, {pet.description}
-              </p>
-            )
-          })}
+          {/* 
+          <PetList pets={PETS} />
+          */}
         </Grid>
       </UserLayout>
     </>

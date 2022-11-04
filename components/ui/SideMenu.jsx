@@ -18,6 +18,7 @@ import {
   VpnKeyOutlined,
   HomeOutlined,
   AppRegistrationOutlined,
+  PostAddOutlined,
 } from '@mui/icons-material'
 
 import { useContext, useEffect, useState } from 'react'
@@ -137,12 +138,21 @@ export const SideMenu = () => {
                   </ListItem>
                 </>
               ) : roleId === 3 ? (
-                <ListItem button onClick={() => navigateTo('/')}>
-                  <ListItemIcon>
-                    <ConfirmationNumberOutlined />
-                  </ListItemIcon>
-                  <ListItemText primary={'Solicitudes'} />
-                </ListItem>
+                <>
+                  <ListItem button onClick={() => navigateTo('/')}>
+                    <ListItemIcon>
+                      <ConfirmationNumberOutlined />
+                    </ListItemIcon>
+                    <ListItemText primary={'Solicitudes recibidas'} />
+                  </ListItem>
+
+                  <ListItem button onClick={() => navigateTo('/postPet')}>
+                    <ListItemIcon>
+                      <PostAddOutlined />
+                    </ListItemIcon>
+                    <ListItemText primary={'Publicar mascota'} />
+                  </ListItem>
+                </>
               ) : (
                 <></>
               )}
