@@ -1,16 +1,28 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 import { UserLayout } from '../components/layouts'
-import { TextField, Box, Typography, Autocomplete } from '@mui/material'
+import {
+  TextField,
+  Box,
+  Typography,
+  Autocomplete,
+  Checkbox,
+  FormControlLabel,
+} from '@mui/material'
 import { ButtonSubmit } from '../components/ui'
+import { PostPetService } from '../services'
 export default function PostPet() {
+  const router = useRouter()
+  const GENDERS = ['Masculino', 'Femenino']
+  const BREEDS = ['Labrador']
   const [petForm, setPetForm] = useState({
     name: '',
     description: '',
     age: '',
     size: '',
     wormed: '',
-    sterilized: '',
+    sterilized: false,
     genderId: '',
     breedId: '',
   })
@@ -19,10 +31,16 @@ export default function PostPet() {
 
   const [inputValueGender, setInputValueGender] = useState('')
   const [valueGender, setValueGender] = useState('Masculino')
-
   const handleSubmit = async (ev) => {
     ev.preventDefault()
-    console.log(petForm)
+    try {
+      const res = await PostPetService(petForm)
+      if (res) {
+        router.push('/pets')
+      } else {
+        console.log('f rellenar bn')
+      }
+    } catch {}
   }
   const handleChange = (ev) => {
     setPetForm({ ...petForm, [ev.target.name]: ev.target.value })
@@ -39,8 +57,6 @@ export default function PostPet() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  console.log(petForm.description.length)
-
   return (
     <>
       <UserLayout title={'Publicar mascota | Petsibilities'}>
@@ -54,7 +70,6 @@ export default function PostPet() {
           }}
         >
           <Typography variant="h1">Pon en adopción</Typography>
-
           <Box
             component="form"
             noValidate
@@ -99,7 +114,9 @@ export default function PostPet() {
               type="description"
               error={petForm.description === ''}
               helperText={
-                petForm.description === '' ? 'Debe rellenar el campo' : ''
+                petForm.description === ''
+                  ? 'Debe rellenar el campo, mínimo 10 caracteres'
+                  : 'mínimo 10 caracteres'
               }
               InputProps={{
                 style: {
@@ -166,16 +183,20 @@ export default function PostPet() {
             <Autocomplete
               sx={{ marginTop: '10px' }}
               disablePortal
-              name="breedId"
+              name="genderId"
               value={valueGender}
               onChange={(ev, newValue) => {
                 setValueGender(newValue)
               }}
               inputValue={inputValueGender}
               onInputChange={(ev, newInputValue) => {
+                setPetForm({
+                  ...petForm,
+                  ['genderId']: GENDERS.indexOf(newInputValue) + 1,
+                })
                 setInputValueGender(newInputValue)
               }}
-              options={[]}
+              options={GENDERS}
               renderInput={(params) => (
                 <TextField {...params} label="Genero*" />
               )}
@@ -192,12 +213,40 @@ export default function PostPet() {
               inputValue={inputValueBreed}
               onInputChange={(ev, newInputValue) => {
                 setInputValueBreed(newInputValue)
+                setPetForm({
+                  ...petForm,
+                  ['breedId']: BREEDS.indexOf(newInputValue) + 1,
+                })
               }}
-              options={[]}
+              options={BREEDS}
               renderInput={(params) => <TextField {...params} label="Raza*" />}
             />
+            <FormControlLabel
+              name="sterilized"
+              onChange={() =>
+                setPetForm({
+                  ...petForm,
+                  ['sterilized']: !petForm.sterilized,
+                })
+              }
+              control={<Checkbox />}
+              label="Esterilizado"
+            />
+
+            <FormControlLabel
+              name="wormed"
+              onChange={() =>
+                setPetForm({
+                  ...petForm,
+                  ['wormed']: !petForm.wormed,
+                })
+              }
+              control={<Checkbox />}
+              label="Desparacitado"
+            />
+
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <ButtonSubmit />
+              <ButtonSubmit onClick={() => handleSubmit} />
             </Box>
           </Box>
         </Box>
