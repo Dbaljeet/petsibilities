@@ -16,13 +16,20 @@ import { PetCard, PetList } from '../components/pets'
 import { initialData } from '../database/pets'
 import { data } from '../database/cities'
 
-import { getPetsService, getPetsCommuneService } from '../services'
+import { getPetsService, getPetsFilterService } from '../services'
 import ValueCity from '../components/ValueCity'
 
 export default function Pets() {
-  const [valueRegion, setValueRegion] = useState('')
-  const [valueCity, setValueCity] = useState('')
+  const SPECIES = ['Perro', 'Gato']
+
+  const [petForm, setPetForm] = useState({
+    valueRegion: '',
+    valueCity: '',
+    valueSpecie: '',
+  })
+
   const [PETS, setPETS] = useState([])
+
   const getPets = async () => {
     try {
       const { message } = await getPetsService()
@@ -32,25 +39,31 @@ export default function Pets() {
     }
   }
 
-  const getPetsByCommune = async () => {
-    const { message } = await getPetsCommuneService({ commune: valueCity })
-    setPETS(message)
+  const getPetsByFilter = async () => {
+    if (petForm.valueCity !== '' || petForm.valueSpecie !== '') {
+      try {
+        const { message } = await getPetsFilterService({
+          commune: petForm.valueCity,
+          species: petForm.valueSpecie,
+        })
+        setPETS(message)
+      } catch {}
+    }
+  }
+
+  const handleChange = (ev) => {
+    setPetForm({ ...petForm, [ev.target.name]: ev.target.value })
+  }
+
+  const handleSubmit = () => {
+    console.log(petForm.valueCity, petForm.valueRegion)
+    getPetsByFilter()
   }
 
   useEffect(() => {
     getPets()
   }, [])
 
-  const handleChange = (ev) => {
-    ev.target.name === 'InputRegion'
-      ? setValueRegion(ev.target.value)
-      : setValueCity(ev.target.value)
-  }
-
-  const handleSubmit = () => {
-    console.log(valueCity, valueRegion)
-    getPetsByCommune()
-  }
   return (
     <>
       <UserLayout title={'Mascotas disponibles-Petsibilities'}>
@@ -91,9 +104,9 @@ export default function Pets() {
                 select
                 label="Región"
                 variant="filled"
-                value={valueRegion}
+                value={petForm.valueRegion}
                 onChange={handleChange}
-                name="InputRegion"
+                name="valueRegion"
               >
                 <MenuItem key="key" value="">
                   Región
@@ -108,17 +121,15 @@ export default function Pets() {
               </TextField>
               <select
                 className={styles.select}
-                name="citys"
+                name="valueCity"
                 defaultValue={''}
                 id="labelCity-select"
                 onChange={handleChange}
               >
-                <option value="" disabled>
-                  Comuna
-                </option>
-                {valueRegion
+                <option value="">Comuna</option>
+                {petForm.valueRegion
                   ? data.map((info) => {
-                      if (valueRegion === info.region) {
+                      if (petForm.valueRegion === info.region) {
                         return <ValueCity key={info.region} info={info} />
                       }
                     })
@@ -126,8 +137,39 @@ export default function Pets() {
                       return <ValueCity key={info.region} info={info} />
                     })}
               </select>
+
+              <TextField
+                sx={{
+                  width: '300px',
+                  fontSize: '1.5rem',
+                  color: 'rgba(0, 0, 0, 0.6)',
+                }}
+                id="outlined-select-currency"
+                select
+                label="Especie"
+                variant="filled"
+                value={petForm.valueSpecie}
+                onChange={handleChange}
+                name="valueSpecie"
+              >
+                <MenuItem key="key" value="">
+                  Especie
+                </MenuItem>
+                {SPECIES.map((specie) => {
+                  return (
+                    <MenuItem key={specie} value={specie}>
+                      {specie}
+                    </MenuItem>
+                  )
+                })}
+              </TextField>
+
               <Button
-                disabled={valueCity == ''}
+                disabled={
+                  petForm.valueCity === '' && petForm.valueSpecie === ''
+                    ? true
+                    : false
+                }
                 sx={{ width: '300px' }}
                 onClick={handleSubmit}
               >
@@ -142,6 +184,9 @@ export default function Pets() {
           {/* 
           <PetList pets={PETS} />
           */}
+          {PETS.map((pet) => (
+            <p key={pet.id}>{pet.name}</p>
+          ))}
         </Grid>
       </UserLayout>
     </>
