@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 
 import { UserLayout } from '../components/layouts'
@@ -12,8 +12,8 @@ import {
 } from '@mui/material'
 import { ButtonSubmit } from '../components/ui'
 import { PostPetService } from '../services'
+
 export default function PostPet() {
-  const router = useRouter()
   const GENDERS = ['Masculino', 'Femenino']
   const BREEDS = ['Labrador']
   const [petForm, setPetForm] = useState({
@@ -21,10 +21,10 @@ export default function PostPet() {
     description: '',
     age: '',
     size: '',
-    wormed: '',
+    wormed: false,
     sterilized: false,
-    genderId: '',
-    breedId: '',
+    genderId: 1,
+    breedId: 1,
   })
   const [inputValueBreed, setInputValueBreed] = useState('')
   const [valueBreed, setValueBreed] = useState('Labrador')

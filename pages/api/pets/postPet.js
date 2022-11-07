@@ -9,10 +9,11 @@ export default async function postpets(req, res) {
     genderId,
     breedId,
   } = req.body
-  return fetch(`${process.env.ENDPOINT}/pets`, {
+  return fetch(`${process.env.ENDPOINT}/profile/my-pet`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + req.cookies.access,
     },
     body: JSON.stringify({
       name,
@@ -26,6 +27,8 @@ export default async function postpets(req, res) {
     }),
   })
     .then((res) => {
+      console.log(res)
+      if (!res.ok) throw new Error('error response to post')
       return res.json()
     })
     .then((resp) => {

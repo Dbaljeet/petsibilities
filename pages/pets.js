@@ -27,7 +27,6 @@ export default function Pets() {
     valueCity: '',
     valueSpecie: '',
   })
-
   const [PETS, setPETS] = useState([])
 
   const getPets = async () => {
@@ -46,8 +45,11 @@ export default function Pets() {
           commune: petForm.valueCity,
           species: petForm.valueSpecie,
         })
+        console.log(message)
         setPETS(message)
-      } catch {}
+      } catch {
+        setPETS([])
+      }
     }
   }
 
