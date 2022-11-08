@@ -49,7 +49,6 @@ export const SideMenu = () => {
       router.reload()
     }
   }
-  console.log(roleId, 'user')
   return (
     <Drawer
       open={isMenuOpen}

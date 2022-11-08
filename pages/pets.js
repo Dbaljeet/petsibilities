@@ -16,7 +16,7 @@ import { PetCard, PetList } from '../components/pets'
 import { initialData } from '../database/pets'
 import { data } from '../database/cities'
 
-import { getPetsService, getPetsFilterService } from '../services'
+import { getPetsFilterService } from '../services'
 import ValueCity from '../components/ValueCity'
 
 export default function Pets() {
@@ -31,7 +31,10 @@ export default function Pets() {
 
   const getPets = async () => {
     try {
-      const { message } = await getPetsService()
+      const { message } = await getPetsFilterService({
+        commune: '',
+        species: '',
+      })
       setPETS(message)
     } catch {
       console.log('error get pets')
@@ -39,17 +42,15 @@ export default function Pets() {
   }
 
   const getPetsByFilter = async () => {
-    if (petForm.valueCity !== '' || petForm.valueSpecie !== '') {
-      try {
-        const { message } = await getPetsFilterService({
-          commune: petForm.valueCity,
-          species: petForm.valueSpecie,
-        })
-        console.log(message)
-        setPETS(message)
-      } catch {
-        setPETS([])
-      }
+    try {
+      const { message } = await getPetsFilterService({
+        commune: petForm.valueCity,
+        species: petForm.valueSpecie,
+      })
+      console.log(message)
+      setPETS(message)
+    } catch {
+      setPETS([])
     }
   }
 
@@ -65,7 +66,7 @@ export default function Pets() {
   useEffect(() => {
     getPets()
   }, [])
-
+  console.log(PETS)
   return (
     <>
       <UserLayout title={'Mascotas disponibles-Petsibilities'}>
