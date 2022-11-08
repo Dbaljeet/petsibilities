@@ -3,9 +3,20 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 import { UserLayout } from '../../components/layouts'
 import { StarList } from '../../components/ui'
 import { PetSlideShow } from '../../components/pets/PetSlideShow'
+import { postPetitionService } from '../../services/postPetitionService'
 const pet = initialData.pets[0]
 
 export default function Pet() {
+  const handleClick = async () => {
+    try {
+      const res = await postPetitionService({
+        comment: 'Buenas tardes, quiero adoptar a .. me parece blablabla',
+        date: '10/10/2022',
+        userPetId: 3,
+      })
+      console.log(res, 'res de petition')
+    } catch {}
+  }
   return (
     <>
       <UserLayout
@@ -64,6 +75,7 @@ export default function Pet() {
               >{`valoración dueño(a) ${3}`}</Typography>
               <StarList cant={3} />
               <Button
+                onClick={handleClick}
                 sx={{
                   margin: '20px 0',
                   width: '100%',
