@@ -11,7 +11,7 @@ export const PetCard = ({ pet }) => {
               height="440"
               className="fadeIn"
               component="img"
-              image={pet.picture}
+              image={pet.images[0]}
               alt={pet.name}
             />
           </CardActionArea>

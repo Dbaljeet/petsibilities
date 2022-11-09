@@ -3,8 +3,9 @@ export const initialData = {
     {
       _id: '632b36605759792c7ccad0f2',
       isActive: false,
-      picture:
+      images: [
         'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       pictures: [
         'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
         'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
@@ -39,8 +40,9 @@ export const initialData = {
     {
       _id: '632b3660942a08eb2b61eed1',
       isActive: true,
-      picture:
+      images: [
         'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       pictures: [
         'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
         'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
@@ -75,8 +77,9 @@ export const initialData = {
     {
       _id: '632b3660b676ab2d4bc5246d',
       isActive: false,
-      picture:
+      images: [
         'https://images.pexels.com/photos/179237/pexels-photo-179237.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       pictures: [
         'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
         'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
@@ -111,8 +114,9 @@ export const initialData = {
     {
       _id: '632b366004f68161d54d0019',
       isActive: false,
-      picture:
-        'https://images.pexels.com/photos/51439/pexels-photo-51439.jpeg?auto=compress&cs=tinysrgb&w=300',
+      images: [
+        'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       pictures: [
         'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
         'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
@@ -155,8 +159,9 @@ export const initialData = {
     {
       _id: '632b3660eeef8d00579792e2',
       isActive: true,
-      picture:
+      images: [
         'https://images.pexels.com/photos/6729951/pexels-photo-6729951.jpeg?auto=compress&cs=tinysrgb&w=300',
+      ],
       pictures: [
         'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
         'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',
@@ -199,8 +204,9 @@ export const initialData = {
     {
       _id: '632sadsadsaa2321321',
       isActive: true,
-      picture:
+      images: [
         'https://images.pexels.com/photos/4555468/pexels-photo-4555468.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      ],
       pictures: [
         'https://images.pexels.com/photos/179221/pexels-photo-179221.jpeg?auto=compress&cs=tinysrgb&w=300',
         'https://images.pexels.com/photos/994174/pexels-photo-994174.jpeg?auto=compress&cs=tinysrgb&w=300',

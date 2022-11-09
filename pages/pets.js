@@ -184,12 +184,11 @@ export default function Pets() {
           <Grid item>
             <PetList pets={initialData.pets} />
           </Grid>
-          {/* 
-          <PetList pets={PETS} />
-          */}
-          {PETS.map((pet) => (
+          {<PetList pets={PETS} />}
+
+          {/*PETS.map((pet) => (
             <p key={pet.id}>{pet.name}</p>
-          ))}
+          ))*/}
         </Grid>
       </UserLayout>
     </>

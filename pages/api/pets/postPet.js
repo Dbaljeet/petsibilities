@@ -8,7 +8,9 @@ export default async function postpets(req, res) {
     sterilized,
     genderId,
     breedId,
+    images,
   } = req.body
+  console.log('imageeeeeeeeeeeessssssss', images)
   return fetch(`${process.env.ENDPOINT}/profile/my-pet`, {
     method: 'POST',
     headers: {
@@ -24,6 +26,7 @@ export default async function postpets(req, res) {
       sterilized,
       genderId,
       breedId,
+      images,
     }),
   })
     .then((res) => {

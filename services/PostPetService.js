@@ -9,6 +9,7 @@ export function PostPetService({
   sterilized,
   genderId,
   breedId,
+  dataImages,
 }) {
   return fetch(`${ENDPOINT}/postPet`, {
     method: 'POST',
@@ -24,6 +25,7 @@ export function PostPetService({
       sterilized,
       genderId,
       breedId,
+      images: dataImages,
     }),
   })
     .then((res) => {

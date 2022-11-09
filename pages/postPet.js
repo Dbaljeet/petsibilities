@@ -9,9 +9,14 @@ import {
   Autocomplete,
   Checkbox,
   FormControlLabel,
+  Button,
+  CardMedia,
+  Card,
 } from '@mui/material'
 import { ButtonSubmit } from '../components/ui'
 import { PostPetService } from '../services'
+import { ImageList } from '../components/ui/PreviewImages'
+import { PetSlideShow } from '../components/pets/PetSlideShow'
 
 export default function PostPet() {
   const GENDERS = ['Masculino', 'Femenino']
@@ -25,15 +30,22 @@ export default function PostPet() {
     sterilized: false,
     genderId: 1,
     breedId: 1,
+    dataImages: [],
   })
   const [inputValueBreed, setInputValueBreed] = useState('')
   const [valueBreed, setValueBreed] = useState('Labrador')
 
   const [inputValueGender, setInputValueGender] = useState('')
   const [valueGender, setValueGender] = useState('Masculino')
+
+  const [images, setImages] = useState([])
+  const [dataImages, setDataImages] = useState([])
+
   const handleSubmit = async (ev) => {
     ev.preventDefault()
     try {
+      petForm.dataImages = dataImages
+      console.log(petForm)
       const res = await PostPetService(petForm)
       if (res) {
         router.push('/pets')
@@ -57,6 +69,7 @@ export default function PostPet() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
+  useEffect(() => {}, [images])
   return (
     <>
       <UserLayout title={'Publicar mascota | Petsibilities'}>
@@ -245,7 +258,36 @@ export default function PostPet() {
               label="Desparacitado"
             />
 
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <ImageList setImages={setImages} setDataImages={setDataImages} />
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '20px',
+                gap: '20px',
+                flexWrap: 'wrap',
+              }}
+            >
+              {images.map((image) => (
+                <Card key={image} sx={{ width: 250, height: 300 }}>
+                  <CardMedia
+                    key={image}
+                    component="img"
+                    alt="test"
+                    image={image}
+                    height="300"
+                  />
+                </Card>
+              ))}
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                margin: '20px',
+              }}
+            >
               <ButtonSubmit onClick={() => handleSubmit} />
             </Box>
           </Box>
