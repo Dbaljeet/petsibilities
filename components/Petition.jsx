@@ -10,8 +10,31 @@ import {
   Button,
 } from '@mui/material'
 import LinkNext from 'next/link'
+import { acceptPetitionService } from '../services'
 const Petition = ({ request }) => {
-  const handleAccept = () => {}
+  const handleAccept = async () => {
+    try {
+      const res = await acceptPetitionService({
+        accepted: true,
+        idPetition: request.petition.id,
+      })
+      console.log(res)
+    } catch {
+      alert('Ocurrió un error')
+    }
+  }
+
+  const handleCancel = async () => {
+    try {
+      const res = await acceptPetitionService({
+        accepted: false,
+        idPetition: request.petition.id,
+      })
+      console.log(res)
+    } catch {
+      alert('Ocurrió un error')
+    }
+  }
   return (
     <>
       <Accordion key={request.petition.id}>
@@ -49,7 +72,9 @@ const Petition = ({ request }) => {
           <Button onClick={handleAccept} color="info">
             Aceptar
           </Button>
-          <Button color="warning">Rechazar</Button>
+          <Button onClick={handleCancel} color="warning">
+            Rechazar
+          </Button>
         </AccordionDetails>
       </Accordion>
     </>
