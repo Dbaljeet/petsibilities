@@ -98,7 +98,7 @@ export const SideMenu = () => {
                 <ListItemText primary={'Perfil'} />
               </ListItem>
 
-              <ListItem button onClick={() => navigateTo('/')}>
+              <ListItem button onClick={() => navigateTo('/myRequest')}>
                 <ListItemIcon>
                   <ConfirmationNumberOutlined />
                 </ListItemIcon>

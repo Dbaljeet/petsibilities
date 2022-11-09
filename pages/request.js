@@ -1,5 +1,5 @@
 import { Box, Button, Grid } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { UserLayout } from '../components/layouts'
 import Petition from '../components/Petition'
 import { getRequestService } from '../services'
