@@ -10,6 +10,12 @@ export const lightTheme = createTheme({
     secondary: {
       main: '#3A64D8',
     },
+    info: {
+      main: '#B6D97E',
+    },
+    warning: {
+      main: '#FF9C86',
+    },
   },
   components: {
     MuiLink: {

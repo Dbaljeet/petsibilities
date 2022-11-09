@@ -138,7 +138,7 @@ export const SideMenu = () => {
                 </>
               ) : roleId === 3 ? (
                 <>
-                  <ListItem button onClick={() => navigateTo('/')}>
+                  <ListItem button onClick={() => navigateTo('/request')}>
                     <ListItemIcon>
                       <ConfirmationNumberOutlined />
                     </ListItemIcon>
