@@ -43,7 +43,7 @@ export const PetSlideShow = ({ images }) => {
       <Slide {...properties} easing="ease" duration={7000} indicators>
         {images.map((image) => {
           //const url = `/pet/${image}`
-          const url = image
+          const url = image.url
           return (
             <div className={styles['each-slide-effect']} key={image}>
               <div

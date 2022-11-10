@@ -1,14 +1,10 @@
 import { UserLayout } from '../../components/layouts'
-import { getPetService } from '../../services'
-import { initialData } from '../../database/pets'
+import { getPetById } from '../../services'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { StarList } from '../../components/ui'
 import { PetSlideShow } from '../../components/pets/PetSlideShow'
 
-const petx = initialData.pets[0]
-
 export default function Pet({ pet }) {
-  console.log(pet)
   return (
     <>
       <UserLayout title={`${pet.name} | Petsibilities`}>
@@ -43,7 +39,7 @@ export default function Pet({ pet }) {
               {pet.description}
             </Typography>
 
-            <Typography variant="h3">{`Edad: ${pet.age} años`}</Typography>
+            <Typography variant="h3">{`Edad: ${pet.age} año(s)`}</Typography>
             <Typography variant="h3">{`Sexo: ${pet.gender.name}`}</Typography>
             <Typography variant="h3">{`Desparasitado: ${
               pet.wormed ? 'Sí' : 'No'
@@ -62,7 +58,7 @@ export default function Pet({ pet }) {
             }}
           >
             <Box sx={{ maxWidth: '450px', margin: 'auto' }}>
-              <PetSlideShow images={petx.pictures} />
+              <PetSlideShow images={pet.images} />
               <Typography
                 sx={{ textAlign: 'center' }}
               >{`valoración dueño(a) ${3}`}</Typography>
@@ -86,7 +82,7 @@ export default function Pet({ pet }) {
 
 export async function getStaticPaths() {
   //fetch all pets---/82 v
-  const res = await fetch('http://localhost:3000/api/v1/pets', {
+  const res = await fetch('http://localhost:3000/api/v1/pets/filter', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -116,8 +112,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { id = '' } = params
-  const { pet } = await getPetService({ id })
-  if (!pet) {
+  const { message } = await getPetById({ id })
+  if (!message) {
     return {
       redirect: {
         destination: '/',
@@ -128,7 +124,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      pet,
+      pet: message,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
