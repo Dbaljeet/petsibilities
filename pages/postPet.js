@@ -17,6 +17,7 @@ import { ButtonSubmit } from '../components/ui'
 import { PostPetService } from '../services'
 import { ImageList } from '../components/ui/PreviewImages'
 import { PetSlideShow } from '../components/pets/PetSlideShow'
+import { postImagePet } from '../services/postImagePet'
 
 export default function PostPet() {
   const GENDERS = ['Masculino', 'Femenino']
@@ -32,6 +33,7 @@ export default function PostPet() {
     breedId: 1,
     dataImages: [],
   })
+  const router = useRouter()
   const [inputValueBreed, setInputValueBreed] = useState('')
   const [valueBreed, setValueBreed] = useState('Labrador')
 
@@ -41,18 +43,31 @@ export default function PostPet() {
   const [images, setImages] = useState([])
   const [dataImages, setDataImages] = useState([])
 
+  const [isLoading, setIsLoading] = useState(false)
+  const [numerLoading, setNumberLoading] = useState(0)
+  const urls = []
   const handleSubmit = async (ev) => {
     ev.preventDefault()
     try {
-      petForm.dataImages = dataImages
-      console.log(petForm)
+      for (const image of dataImages) {
+        setIsLoading(true)
+        setNumberLoading(numerLoading + 1)
+        const res2 = await postImagePet({ image: image })
+        console.log(res2, 'res2')
+        urls.push(res2.secure_url)
+        setIsLoading(false)
+      }
+      petForm.dataImages = urls
       const res = await PostPetService(petForm)
       if (res) {
         router.push('/pets')
       } else {
         console.log('f rellenar bn')
       }
-    } catch {}
+    } catch (res) {
+      setIsLoading(false)
+      console.log(res)
+    }
   }
   const handleChange = (ev) => {
     setPetForm({ ...petForm, [ev.target.name]: ev.target.value })
@@ -100,7 +115,11 @@ export default function PostPet() {
               onChange={handleChange}
               name="name"
               error={petForm.name === ''}
-              helperText={petForm.name === '' ? 'Debe rellenar el campo' : ''}
+              helperText={
+                petForm.name === ''
+                  ? 'Debe rellenar el campo'
+                  : 'Debe ser menor o igual a 15 caracteres'
+              }
               InputProps={{
                 style: {
                   fontSize: '1.2rem',
@@ -129,7 +148,7 @@ export default function PostPet() {
               helperText={
                 petForm.description === ''
                   ? 'Debe rellenar el campo, mínimo 10 caracteres'
-                  : 'mínimo 10 caracteres'
+                  : 'mínimo 10 caracteres - máximo 250'
               }
               InputProps={{
                 style: {
@@ -290,6 +309,7 @@ export default function PostPet() {
             >
               <ButtonSubmit onClick={() => handleSubmit} />
             </Box>
+            {isLoading ? `loading ${numerLoading}` : ''}
           </Box>
         </Box>
       </UserLayout>

@@ -8,7 +8,10 @@ export const ImageList = ({ setImages, setDataImages }) => {
         const file = ev.target.files[i]
         if (file && file.type.substring(0, 5) === 'image') {
           const formData = new FormData()
-          formData.append('image', file)
+          formData.append('file', file)
+          formData.append('upload_preset', 'Petsibilities')
+          //setLoading
+
           setDataImages((prev) => prev.concat([formData]))
 
           const reader = new FileReader()
