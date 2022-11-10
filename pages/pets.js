@@ -180,11 +180,11 @@ export default function Pets() {
               </Button>
             </FormControl>
           </Grid>
-
+          {/*
           <Grid item>
             <PetList pets={initialData.pets} />
-          </Grid>
-          {<PetList pets={PETS} />}
+              </Grid>*/}
+          <Grid item>{<PetList pets={PETS} />}</Grid>
 
           {/*PETS.map((pet) => (
             <p key={pet.id}>{pet.name}</p>
