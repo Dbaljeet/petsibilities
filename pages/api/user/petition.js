@@ -1,5 +1,5 @@
 export default async function register(req, res) {
-  const { comment, date, userPetId } = req.body
+  const { comment, userPetId } = req.body
   console.log(req.cookies.access)
   return fetch(`${process.env.ENDPOINT}/profile/petition`, {
     method: 'POST',
@@ -9,7 +9,6 @@ export default async function register(req, res) {
     },
     body: JSON.stringify({
       comment,
-      date,
       userPetId,
     }),
   })

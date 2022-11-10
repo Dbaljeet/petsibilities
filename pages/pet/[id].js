@@ -1,10 +1,18 @@
 import { UserLayout } from '../../components/layouts'
-import { getPetById } from '../../services'
+import { getPetById, postPetitionService } from '../../services'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { StarList } from '../../components/ui'
 import { PetSlideShow } from '../../components/pets/PetSlideShow'
 
 export default function Pet({ pet }) {
+  const handleClick = async () => {
+    try {
+      const res = await postPetitionService({
+        comment: 'Buenas tardes, quiero adoptar a .. me parece blablabla',
+        userPetId: 2,
+      })
+    } catch {}
+  }
   return (
     <>
       <UserLayout title={`${pet.name} | Petsibilities`}>
@@ -64,6 +72,7 @@ export default function Pet({ pet }) {
               >{`valoración dueño(a) ${3}`}</Typography>
               <StarList cant={3} />
               <Button
+                onClick={handleClick}
                 sx={{
                   margin: '20px 0',
                   width: '100%',
