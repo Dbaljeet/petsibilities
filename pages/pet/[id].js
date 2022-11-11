@@ -4,7 +4,8 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 import { StarList } from '../../components/ui'
 import { PetSlideShow } from '../../components/pets/PetSlideShow'
 
-export default function Pet({ pet }) {
+export default function Pet({ response }) {
+  const { pet, owner, score } = response
   const handleClick = async () => {
     try {
       const res = await postPetitionService({
@@ -13,6 +14,7 @@ export default function Pet({ pet }) {
       })
     } catch {}
   }
+
   return (
     <>
       <UserLayout title={`${pet.name} | Petsibilities`}>
@@ -67,9 +69,12 @@ export default function Pet({ pet }) {
           >
             <Box sx={{ maxWidth: '450px', margin: 'auto' }}>
               <PetSlideShow images={pet.images} />
+              <Typography variant="h2" textAlign="center">
+                {owner.name}
+              </Typography>
               <Typography
                 sx={{ textAlign: 'center' }}
-              >{`valoración dueño(a) ${3}`}</Typography>
+              >{`valoración dueño(a) ${score}`}</Typography>
               <StarList cant={3} />
               <Button
                 onClick={handleClick}
@@ -133,7 +138,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      pet: message,
+      response: message,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
