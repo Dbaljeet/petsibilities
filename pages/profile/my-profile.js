@@ -1,12 +1,12 @@
 import { Box, Grid, Avatar, TextField, Button } from '@mui/material'
 import { UserLayout } from '../../components/layouts'
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
-import { useState } from 'react'
-import { editPersonalInformation } from '../../services'
-
+import { useEffect, useState } from 'react'
+import { editPersonalInformation, getPersonalInformation } from '../../services'
+import { useRouter } from 'next/router'
 export default function Profile() {
   const [userForm, setUserForm] = useState({
-    name: 'Alberto',
+    name: '',
     email: '',
     password: '',
     bankAccountNumber: '',
@@ -22,6 +22,17 @@ export default function Profile() {
   const editInfo = () => {
     setEdit(!isEdit)
   }
+
+  useEffect(() => {
+    getPersonalInformation()
+      .then(({ resp }) => {
+        console.log(resp)
+        const name = resp.name
+        const city = resp.city.name
+        setUserForm({ ...userForm, ['name']: name })
+      })
+      .catch((err) => console.log(err, 'error'))
+  }, [])
 
   const patchProfileInfo = async (ev) => {
     ev.preventDefault()
@@ -46,7 +57,7 @@ export default function Profile() {
           direction="row"
           alignItems="Center"
         >
-          <Grid item xs="12" sm="7" alignItems="center">
+          <Grid item xs={12} sm={7} alignItems="center">
             <Box display="flex" alignItems="center" justifyContent="center">
               <Avatar
                 sx={{ height: '300px', width: '300px' }}
@@ -57,7 +68,7 @@ export default function Profile() {
             </Box>
           </Grid>
 
-          <Grid item xs="12" sm="5">
+          <Grid item xs={12} sm={5}>
             <Grid
               container
               direction="column"
@@ -73,7 +84,7 @@ export default function Profile() {
 
               <Grid item>
                 <TextField
-                  label={`Nombre :${'Alberto Milla'}`}
+                  label={`Nombre :${userForm.name}`}
                   disabled={!isEdit}
                   variant="outlined"
                 />

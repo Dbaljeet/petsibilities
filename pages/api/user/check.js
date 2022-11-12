@@ -17,7 +17,7 @@ export default async function check(req, res) {
         'Set-Cookie',
         cookie.serialize('access', resp.accessToken, {
           httpOnly: true,
-          maxAge: 20,
+          maxAge: 60 * 3,
           sameSite: 'strict',
           path: '/',
           secure: true,
