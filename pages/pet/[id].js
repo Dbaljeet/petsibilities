@@ -40,6 +40,7 @@ export default function Pet({ response }) {
             <Typography variant="h2" fontWeight={500} textAlign="center">
               {pet.name}
             </Typography>
+
             <Typography
               component="h3"
               variant="subtitle1"
