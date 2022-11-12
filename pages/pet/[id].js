@@ -44,11 +44,10 @@ export default function Pet({ response }) {
               component="h3"
               variant="subtitle1"
               color="text.secondary"
-              sx={{ textAlign: 'center', padding: '0 50px' }}
+              sx={{ padding: '0 50px' }}
             >
               {pet.description}
             </Typography>
-
             <Typography variant="h3">{`Edad: ${pet.age} año(s)`}</Typography>
             <Typography variant="h3">{`Sexo: ${pet.gender.name}`}</Typography>
             <Typography variant="h3">{`Desparasitado: ${
@@ -67,25 +66,32 @@ export default function Pet({ response }) {
               minWidth: '320px',
             }}
           >
-            <Box sx={{ maxWidth: '450px', margin: 'auto' }}>
+            <Box
+              sx={{
+                maxWidth: '450px',
+                margin: 'auto',
+              }}
+            >
               <PetSlideShow images={pet.images} />
-              <Typography variant="h2" textAlign="center">
-                {owner.name}
-              </Typography>
-              <Typography
-                sx={{ textAlign: 'center' }}
-              >{`valoración dueño(a) ${score}`}</Typography>
-              <StarList cant={3} />
-              <Button
-                onClick={handleClick}
-                sx={{
-                  margin: '20px 0',
-                  width: '100%',
-                  border: '2px solid #0005',
-                }}
-              >
-                Adoptar
-              </Button>
+              <Box>
+                <Typography variant="h2" textAlign="center">
+                  {owner.name}
+                </Typography>
+                <Typography
+                  sx={{ textAlign: 'center' }}
+                >{`valoración dueño(a) ${score}`}</Typography>
+                <StarList cant={3} />
+                <Button
+                  onClick={handleClick}
+                  sx={{
+                    margin: '20px 0',
+                    width: '100%',
+                    border: '2px solid #0005',
+                  }}
+                >
+                  Adoptar
+                </Button>
+              </Box>
             </Box>
           </Grid>
         </Grid>

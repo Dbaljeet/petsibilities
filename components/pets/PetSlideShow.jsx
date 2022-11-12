@@ -48,8 +48,11 @@ export const PetSlideShow = ({ images }) => {
             <div className={styles['each-slide-effect']} key={image}>
               <div
                 style={{
+                  height: '500px',
                   backgroundImage: `url(${url})`,
-                  backgroundSize: 'cover',
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
                 }}
               ></div>
             </div>

@@ -21,7 +21,7 @@ export default async function login(req, res) {
       res.setHeader('Set-Cookie', [
         cookie.serialize('refresh', resp.refreshToken, {
           httpOnly: true,
-          maxAge: 60 * 90,
+          maxAge: 60 * 60 * 2,
           sameSite: 'strict',
           path: '/',
           secure: true,
