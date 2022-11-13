@@ -1,22 +1,36 @@
 import { UserLayout } from '../../components/layouts'
 import { getPetById, postPetitionService } from '../../services'
 import { Box, Button, Grid, Typography } from '@mui/material'
-import { StarList } from '../../components/ui'
+import { BasicModal, StarList } from '../../components/ui'
 import { PetSlideShow } from '../../components/pets/PetSlideShow'
+import { useState } from 'react'
 
 export default function Pet({ response }) {
+  const [open, setOpen] = useState(false)
+  const [title, setTitle] = useState('')
+  const [msg, setMsg] = useState('')
+
   const { pet, owner, score } = response
+
   const handleClick = async () => {
     try {
-      const res = await postPetitionService({
-        comment: 'Buenas noches, quiero adoptar a .. me parece blablabla',
-        userPetId: 13,
-      })
+      setTitle('Rellena el formulario')
+      setMsg('Ingresa un comentario que verá el dueño de la mascota')
+      setOpen(true)
     } catch {}
   }
 
   return (
     <>
+      <BasicModal
+        title={title}
+        msg={msg}
+        open={open}
+        setOpen={setOpen}
+        extra={true}
+        userPetId={15}
+      />
+
       <UserLayout title={`${pet.name} | Petsibilities`}>
         <Grid
           container

@@ -1,5 +1,6 @@
-import { Box, Button, Modal, Typography } from '@mui/material'
+import { Box, Button, Modal, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
+import { ExtraInput } from './ExtraInput'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -11,7 +12,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 }
-export const BasicModal = ({ title, msg, open, setOpen }) => {
+
+export const BasicModal = ({ title, msg, open, setOpen, extra, userPetId }) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   return (
@@ -29,6 +31,7 @@ export const BasicModal = ({ title, msg, open, setOpen }) => {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {msg}
           </Typography>
+          {extra ? <ExtraInput userPetId={userPetId} /> : ''}
         </Box>
       </Modal>
     </>
