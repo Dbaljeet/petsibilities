@@ -1,6 +1,6 @@
 const ENDPOINT = '/api/user'
 export function deletePetitionService({ idPetition }) {
-  return fetch(`${ENDPOINT}/acceptPetition`, {
+  return fetch(`${ENDPOINT}/deletePetition`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

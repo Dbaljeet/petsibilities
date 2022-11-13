@@ -5,13 +5,12 @@ import { StarList } from '../../components/ui'
 import { PetSlideShow } from '../../components/pets/PetSlideShow'
 
 export default function Pet({ response }) {
-  console.log(response)
   const { pet, owner, score } = response
   const handleClick = async () => {
     try {
       const res = await postPetitionService({
-        comment: 'Buenas tardes, quiero adoptar a .. me parece blablabla',
-        userPetId: pet.id,
+        comment: 'Buenas noches, quiero adoptar a .. me parece blablabla',
+        userPetId: 13,
       })
     } catch {}
   }

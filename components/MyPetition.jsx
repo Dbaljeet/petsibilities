@@ -1,4 +1,9 @@
-import { Clear, Done, ExpandMoreOutlined } from '@mui/icons-material'
+import {
+  Clear,
+  Done,
+  ExpandMoreOutlined,
+  ForwardToInbox,
+} from '@mui/icons-material'
 import {
   Accordion,
   AccordionDetails,
@@ -20,7 +25,7 @@ const MyPetition = ({ request }) => {
             }}
           >
             <Typography variant="h2">{request.pet.name}</Typography>
-            {request.petition.acepted ? <Done /> : <Clear />}
+            {request.petition.acepted ? <Done /> : <ForwardToInbox />}
           </Box>
         </AccordionSummary>
         <AccordionDetails>

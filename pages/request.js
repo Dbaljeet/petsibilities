@@ -1,27 +1,48 @@
-import { Box, Button, Grid, MenuItem, TextField } from '@mui/material'
 import { useState } from 'react'
+
+import {
+  Box,
+  Button,
+  Grid,
+  MenuItem,
+  Modal,
+  TextField,
+  Typography,
+} from '@mui/material'
+
 import { UserLayout } from '../components/layouts'
+import MyPetition from '../components/MyPetition'
 import Petition from '../components/Petition'
+import { BasicModal } from '../components/ui'
+
 import { getRequestService } from '../services'
 
 export default function Request() {
+  const [msg, setMsg] = useState('')
+  const [title, setTitle] = useState('')
+
+  const [open, setOpen] = useState(false)
+
   const [request, setRequest] = useState([])
   const [filter, setFilter] = useState('Ver todas')
   const getRequest = async () => {
     try {
       const res = await getRequestService()
       if (res === undefined) {
-        alert('Necesita recargar la página o volver a iniciar sesión')
+        setOpen(true)
+        setTitle('Necesita recargar la página o volver a iniciar sesión')
       } else {
         setRequest(res.resp.petitionsDetails)
       }
     } catch {
-      alert('Necesita recargar la página o volver a iniciar sesión')
+      setOpen(true)
+      setTitle('Necesita recargar la página o volver a iniciar sesión')
     }
   }
-  console.log(request)
+
   return (
     <>
+      <BasicModal title={title} msg={msg} open={open} setOpen={setOpen} />
       <UserLayout
         title="Solicitudes recibidas"
         pageDescription="Revisa las solicitudes de adopción que has recibido"
@@ -60,12 +81,41 @@ export default function Request() {
           </TextField>
 
           <Grid container>
-            <Grid item flex sx={{ margin: 'auto' }}>
+            <Grid
+              item
+              sx={{
+                paddingY: '40px',
+                margin: 'auto',
+                display: 'flex',
+                gap: '20px',
+                flexDirection: 'column',
+              }}
+            >
               {request.map((requestU) =>
-                filter === 'Ver todas' ? (
-                  <Petition key={requestU.petition.id} request={requestU} />
-                ) : filter === requestU.petition.acepted ? (
-                  <Petition key={requestU.petition.id} request={requestU} />
+                requestU.petition.acepted ? (
+                  filter ? (
+                    <MyPetition key={requestU.petition.id} request={requestU} />
+                  ) : filter === 'Ver todas' ? (
+                    <MyPetition key={requestU.petition.id} request={requestU} />
+                  ) : (
+                    ''
+                  )
+                ) : !filter ? (
+                  <Petition
+                    key={requestU.petition.id}
+                    request={requestU}
+                    setTitle={setTitle}
+                    setMsg={setMsg}
+                    setOpen={setOpen}
+                  />
+                ) : filter === 'Ver todas' ? (
+                  <Petition
+                    key={requestU.petition.id}
+                    request={requestU}
+                    setTitle={setTitle}
+                    setMsg={setMsg}
+                    setOpen={setOpen}
+                  />
                 ) : (
                   ''
                 )

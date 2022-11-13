@@ -1,4 +1,4 @@
-import { ExpandMoreOutlined } from '@mui/icons-material'
+import { ExpandMoreOutlined, PendingActions } from '@mui/icons-material'
 import {
   Accordion,
   AccordionDetails,
@@ -13,16 +13,20 @@ import LinkNext from 'next/link'
 
 import { acceptPetitionService, deletePetitionService } from '../services'
 
-const Petition = ({ request }) => {
+const Petition = ({ request, setTitle, setMsg, setOpen }) => {
   const handleAccept = async () => {
     try {
       const res = await acceptPetitionService({
         accepted: true,
         idPetition: request.petition.id,
       })
-      console.log(res)
+      setOpen(true)
+      setTitle('Se ha aceptado correctamente')
+      setMsg(`id de petición:  ${request.petition.id}`)
     } catch {
-      alert('Ocurrió un error')
+      setOpen(true)
+      setTitle('Ha ocurrido un error')
+      setMsg(`Intente volver a iniciar sesión o recargar la página`)
     }
   }
 
@@ -31,9 +35,13 @@ const Petition = ({ request }) => {
       const res = await deletePetitionService({
         idPetition: request.petition.id,
       })
-      console.log(res)
+      setOpen(true)
+      setTitle('Se ha cancelado correctamente')
+      setMsg(`id petición:${request.petition.id}, procederá a eliminarse`)
     } catch {
-      alert('Ocurrió un error')
+      setOpen(true)
+      setTitle('Ha ocurrido un error')
+      setMsg(`Intente volver a iniciar sesión o recargar la página`)
     }
   }
   return (
@@ -50,7 +58,7 @@ const Petition = ({ request }) => {
             <LinkNext href={`profile/${request.petition.userId}`} passHref>
               <Link underline="hover">
                 <Typography variant="h1">
-                  {'Usuario: ' + request.adopter.name}
+                  {'Usuario: ' + request.adopter.name} <PendingActions />
                 </Typography>
               </Link>
             </LinkNext>
