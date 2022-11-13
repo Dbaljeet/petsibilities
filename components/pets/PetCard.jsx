@@ -8,6 +8,7 @@ export const PetCard = ({ pet }) => {
         <NextLink href={`/pet/${pet.id}`} passHref prefetch={false}>
           <CardActionArea>
             <CardMedia
+              sx={{ objectFit: 'cover' }}
               height="440"
               className="fadeIn"
               component="img"

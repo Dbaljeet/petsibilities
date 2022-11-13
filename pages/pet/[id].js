@@ -1,6 +1,13 @@
 import { UserLayout } from '../../components/layouts'
 import { getPetById, postPetitionService } from '../../services'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Grid,
+  TextareaAutosize,
+  TextField,
+  Typography,
+} from '@mui/material'
 import { BasicModal, StarList } from '../../components/ui'
 import { PetSlideShow } from '../../components/pets/PetSlideShow'
 import { useState } from 'react'
@@ -51,18 +58,29 @@ export default function Pet({ response }) {
               padding: '10px',
             }}
           >
-            <Typography variant="h2" fontWeight={500} textAlign="center">
-              {pet.name}
-            </Typography>
-
-            <Typography
-              component="h3"
-              variant="subtitle1"
-              color="text.secondary"
-              sx={{ padding: '0 50px' }}
+            <Box
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '30px',
+                width: '70%',
+                wordWrap: 'break-word',
+              }}
             >
-              {pet.description}
-            </Typography>
+              <Typography variant="h2" fontWeight={500} textAlign="center">
+                {pet.name}
+              </Typography>
+
+              <Typography
+                wrap
+                sx={{
+                  textAlign: 'center',
+                }}
+              >
+                {pet.description}
+              </Typography>
+            </Box>
+
             <Typography variant="h3">{`Edad: ${pet.age} año(s)`}</Typography>
             <Typography variant="h3">{`Sexo: ${pet.gender.name}`}</Typography>
             <Typography variant="h3">{`Desparasitado: ${
@@ -88,7 +106,8 @@ export default function Pet({ response }) {
               }}
             >
               <PetSlideShow images={pet.images} />
-              <Box>
+
+              <Box sx={{ wordWrap: 'break-word' }}>
                 <Typography variant="h2" textAlign="center">
                   {owner.name}
                 </Typography>

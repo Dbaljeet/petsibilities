@@ -289,13 +289,13 @@ export default function PostPet() {
               }}
             >
               {images.map((image) => (
-                <Card key={image} sx={{ width: 250, height: 300 }}>
+                <Card key={image} sx={{ width: 250 }}>
                   <CardMedia
                     key={image}
                     component="img"
                     alt="test"
                     image={image}
-                    height="300"
+                    height="400"
                   />
                 </Card>
               ))}
