@@ -8,18 +8,61 @@ import {
   Link,
   Divider,
   Button,
+  Modal,
+  Rating,
 } from '@mui/material'
 import LinkNext from 'next/link'
+import { useState } from 'react'
 
 import { acceptPetitionService, deletePetitionService } from '../services'
+import { postScore } from '../services/score/postScore'
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  minHeight: 300,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+}
 
 const Petition = ({ request, setTitle, setMsg, setOpen }) => {
+  const [openRating, setOpenRating] = useState(false)
+  const [valueRating, setValueRating] = useState(1)
+  const handleCloseRating = () => setOpenRating(false)
+
+  const handleClickRating = async (ev) => {
+    ev.preventDefault()
+    try {
+      const res = await postScore({
+        score: valueRating,
+        userId: request.petition.userId,
+      })
+      if (res === undefined) {
+        setOpen(true)
+        setTitle('Ha ocurrido un error al calificar')
+        setMsg(`Intente volver a iniciar sesión o recargar la página`)
+      } else {
+        handleAccept()
+      }
+    } catch {
+      setOpen(true)
+      setTitle('Ha ocurrido un error al calificar')
+      setMsg(`Intente volver a iniciar sesión o recargar la página`)
+    }
+  }
+
   const handleAccept = async () => {
     try {
       const res = await acceptPetitionService({
         accepted: true,
         idPetition: request.petition.id,
       })
+      setOpenRating(false)
       setOpen(true)
       setTitle('Se ha aceptado correctamente')
       setMsg(`id de petición:  ${request.petition.id}`)
@@ -46,6 +89,31 @@ const Petition = ({ request, setTitle, setMsg, setOpen }) => {
   }
   return (
     <>
+      {/*rating */}
+
+      <Modal
+        open={openRating}
+        onClose={handleCloseRating}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+            <Typography variant="h2">Califica al usuario antes</Typography>
+            <Rating
+              name="simple-controlled"
+              value={valueRating}
+              onChange={(event, newValue) => {
+                setValueRating(newValue)
+              }}
+            />
+            <Button onClick={handleClickRating}>Calificar</Button>
+          </Box>
+        </Box>
+      </Modal>
+
+      {/* */}
+
       <Accordion key={request.petition.id}>
         <AccordionSummary expandIcon={<ExpandMoreOutlined />}>
           <Box
@@ -78,7 +146,7 @@ const Petition = ({ request, setTitle, setMsg, setOpen }) => {
           <Divider sx={{ marginY: 2 }} />
           <Typography variant="h3">{request.adopter.email}</Typography>
           <Typography variant="h3">{request.adopter.phoneNumber}</Typography>
-          <Button onClick={handleAccept} color="info">
+          <Button onClick={() => setOpenRating(true)} color="info">
             Aceptar
           </Button>
           <Button onClick={handleCancel} color="warning">

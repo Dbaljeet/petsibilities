@@ -35,7 +35,7 @@ export default function Pet({ response }) {
         open={open}
         setOpen={setOpen}
         extra={true}
-        userPetId={15}
+        userPetId={14}
       />
 
       <UserLayout title={`${pet.name} | Petsibilities`}>

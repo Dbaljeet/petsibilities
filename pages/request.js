@@ -13,7 +13,7 @@ import {
 import { UserLayout } from '../components/layouts'
 import MyPetition from '../components/MyPetition'
 import Petition from '../components/Petition'
-import { BasicModal } from '../components/ui'
+import { BasicModal, RatingModal } from '../components/ui'
 
 import { getRequestService } from '../services'
 
@@ -44,7 +44,7 @@ export default function Request() {
     <>
       <BasicModal title={title} msg={msg} open={open} setOpen={setOpen} />
       <UserLayout
-        title="Solicitudes recibidas"
+        title="Solicitudes recibidas | Petsibilities"
         pageDescription="Revisa las solicitudes de adopción que has recibido"
       >
         <Box sx={{ mt: 10, mx: 2, display: 'flex', flexDirection: 'column' }}>

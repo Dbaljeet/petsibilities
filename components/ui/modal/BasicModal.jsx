@@ -31,7 +31,11 @@ export const BasicModal = ({ title, msg, open, setOpen, extra, userPetId }) => {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {msg}
           </Typography>
-          {extra ? <ExtraInput userPetId={userPetId} /> : ''}
+          {extra ? (
+            <ExtraInput userPetId={userPetId} handleClose={handleClose} />
+          ) : (
+            ''
+          )}
         </Box>
       </Modal>
     </>

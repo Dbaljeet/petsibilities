@@ -26,6 +26,7 @@ export const ExtraInput = ({ userPetId }) => {
         comment: value,
         userPetId: userPetId,
       })
+      if (res) handleClose()
     } catch {
       setTitle2('Ha ocurrido un error')
       setMsg2(
