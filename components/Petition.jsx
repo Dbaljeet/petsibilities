@@ -10,7 +10,9 @@ import {
   Button,
 } from '@mui/material'
 import LinkNext from 'next/link'
-import { acceptPetitionService } from '../services'
+
+import { acceptPetitionService, deletePetitionService } from '../services'
+
 const Petition = ({ request }) => {
   const handleAccept = async () => {
     try {
@@ -26,8 +28,7 @@ const Petition = ({ request }) => {
 
   const handleCancel = async () => {
     try {
-      const res = await acceptPetitionService({
-        accepted: false,
+      const res = await deletePetitionService({
         idPetition: request.petition.id,
       })
       console.log(res)

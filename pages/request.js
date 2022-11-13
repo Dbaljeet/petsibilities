@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from '@mui/material'
+import { Box, Button, Grid, MenuItem, TextField } from '@mui/material'
 import { useState } from 'react'
 import { UserLayout } from '../components/layouts'
 import Petition from '../components/Petition'
@@ -6,6 +6,7 @@ import { getRequestService } from '../services'
 
 export default function Request() {
   const [request, setRequest] = useState([])
+  const [filter, setFilter] = useState('Ver todas')
   const getRequest = async () => {
     try {
       const res = await getRequestService()
@@ -19,14 +20,6 @@ export default function Request() {
     }
   }
   console.log(request)
-  const columns = [
-    { field: 'name_pet', headerName: 'Mascota', width: 90 },
-    {
-      field: 'adopter',
-      headerName: 'Nombre',
-      width: 150,
-    },
-  ]
   return (
     <>
       <UserLayout
@@ -35,11 +28,48 @@ export default function Request() {
       >
         <Box sx={{ mt: 10, mx: 2, display: 'flex', flexDirection: 'column' }}>
           <Button onClick={getRequest}>Ver solicitudes</Button>
+
+          <TextField
+            sx={{
+              width: '300px',
+              fontSize: '1.5rem',
+              color: 'rgba(0, 0, 0, 0.6)',
+              margin: 'auto',
+            }}
+            id="outlined-select-currency"
+            select
+            label="Filtrar por "
+            variant="filled"
+            value={filter}
+            onChange={(ev) => {
+              setFilter(ev.target.value)
+            }}
+            name="valueFilter"
+          >
+            <MenuItem key="key" value="Ver todas">
+              Ver todas
+            </MenuItem>
+
+            <MenuItem key={'Pendientes'} value={false}>
+              {'Pendientes'}
+            </MenuItem>
+
+            <MenuItem key={'Aceptadas'} value={true}>
+              {'Aceptadas'}
+            </MenuItem>
+          </TextField>
+
           <Grid container>
             <Grid item flex sx={{ margin: 'auto' }}>
-              {request.map((requestU) => (
-                <Petition key={requestU.petition.id} request={requestU} />
-              ))}
+              {request.map((requestU) =>
+                filter === 'Ver todas' ? (
+                  <Petition key={requestU.petition.id} request={requestU} />
+                ) : filter === requestU.petition.acepted ? (
+                  <Petition key={requestU.petition.id} request={requestU} />
+                ) : (
+                  ''
+                )
+              )}
             </Grid>
           </Grid>
         </Box>
