@@ -1,5 +1,12 @@
-import { UserLayout } from '../../components/layouts'
+import { useContext, useEffect, useState } from 'react'
+
+import { AuthContext } from '../../context'
+
 import { getPetById, postPetitionService } from '../../services'
+
+import { PetSlideShow } from '../../components/pets/PetSlideShow'
+import { UserLayout } from '../../components/layouts'
+
 import {
   Box,
   Button,
@@ -9,15 +16,17 @@ import {
   Typography,
 } from '@mui/material'
 import { BasicModal, StarList } from '../../components/ui'
-import { PetSlideShow } from '../../components/pets/PetSlideShow'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Pet({ response }) {
+  console.log()
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
   const [msg, setMsg] = useState('')
 
-  const { pet, owner, score } = response
+  const router = useRouter()
+  const { user } = useContext(AuthContext)
+  const { pet, owner, score, userPetId } = response
 
   const handleClick = async () => {
     try {
@@ -27,6 +36,8 @@ export default function Pet({ response }) {
     } catch {}
   }
 
+  useEffect(() => {}, [])
+
   return (
     <>
       <BasicModal
@@ -35,7 +46,7 @@ export default function Pet({ response }) {
         open={open}
         setOpen={setOpen}
         extra={true}
-        userPetId={14}
+        userPetId={userPetId}
       />
 
       <UserLayout title={`${pet.name} | Petsibilities`}>
@@ -72,7 +83,6 @@ export default function Pet({ response }) {
               </Typography>
 
               <Typography
-                wrap
                 sx={{
                   textAlign: 'center',
                 }}
