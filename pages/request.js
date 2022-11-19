@@ -10,10 +10,11 @@ import {
   Typography,
 } from '@mui/material'
 
+import { BasicModal } from '../components/ui'
 import { UserLayout } from '../components/layouts'
+
 import MyPetition from '../components/MyPetition'
 import Petition from '../components/Petition'
-import { BasicModal, RatingModal } from '../components/ui'
 
 import { getRequestService } from '../services'
 
@@ -25,14 +26,21 @@ export default function Request() {
 
   const [request, setRequest] = useState([])
   const [filter, setFilter] = useState('Ver todas')
+
+  const [page, setPage] = useState(0)
+  const [firstPage, setFirstPage] = useState(false)
+
   const getRequest = async () => {
     try {
-      const res = await getRequestService()
+      const res = await getRequestService({ page })
       if (res === undefined) {
         setOpen(true)
         setTitle('Necesita recargar la página o volver a iniciar sesión')
       } else {
-        setRequest(res.resp.petitionsDetails)
+        setRequest((prevPetitions) =>
+          prevPetitions.concat(res.resp.petitionsDetails)
+        )
+        setPage(page + 5)
       }
     } catch {
       setOpen(true)

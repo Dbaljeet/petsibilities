@@ -1,11 +1,16 @@
+const LIMIT = 5
 export default async function getRequest(req, res) {
-  return fetch(`${process.env.ENDPOINT}/profile/petition/sent`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + req.cookies.access,
-    },
-  })
+  const { page } = req.body
+  return fetch(
+    `${process.env.ENDPOINT}/profile/petition/sent/?limit=${LIMIT}&offset=${page}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + req.cookies.access,
+      },
+    }
+  )
     .then((res) => {
       if (!res.ok) throw new Error('error response to get Request')
       return res.json()

@@ -1,6 +1,6 @@
 export const data = [
   {
-    region: ' Región de Arica y Parinacota',
+    region: 'Región de Arica y Parinacota',
     cities: [
       { city: 'Arica' },
       { city: 'Camarones' },
@@ -9,7 +9,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de Tarapacá',
+    region: 'Región de Tarapacá',
     cities: [
       { city: 'Alto Hospicio' },
       { city: 'Camiña' },
@@ -21,7 +21,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de Antofagasta',
+    region: 'Región de Antofagasta',
     cities: [
       { city: 'Antofagasta' },
       { city: 'Calama' },
@@ -35,7 +35,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de Atacama',
+    region: 'Región de Atacama',
     cities: [
       { city: 'Alto del Carmen' },
       { city: 'Caldera' },
@@ -49,7 +49,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de Coquimbo',
+    region: 'Región de Coquimbo',
     cities: [
       { city: 'Andacollo' },
       { city: 'Canela' },
@@ -69,7 +69,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de Valparaíso',
+    region: 'Región de Valparaíso',
     cities: [
       { city: 'Algarrobo' },
       { city: 'Cabildo' },
@@ -112,7 +112,7 @@ export const data = [
     ],
   },
   {
-    region: " Región del Libertador General Bernardo O'Higgins",
+    region: "Región del Libertador General Bernardo O'Higgins",
     cities: [
       { city: 'Chépica' },
       { city: 'Chimbarongo' },
@@ -150,7 +150,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región del Maule',
+    region: 'Región del Maule',
     cities: [
       { city: 'Cauquenes' },
       { city: 'Chanco' },
@@ -185,7 +185,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de Ñuble',
+    region: 'Región de Ñuble',
     cities: [
       { city: 'Bulnes' },
       { city: 'Chillán' },
@@ -211,7 +211,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región del Biobío',
+    region: 'Región del Biobío',
     cities: [
       { city: 'Alto Biobío' },
       { city: 'Antuco' },
@@ -249,7 +249,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de La Araucanía',
+    region: 'Región de La Araucanía',
     cities: [
       { city: 'Angol' },
       { city: 'Carahue' },
@@ -286,7 +286,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de Los Ríos',
+    region: 'Región de Los Ríos',
     cities: [
       { city: 'Corral' },
       { city: 'Futrono' },
@@ -303,7 +303,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de Los Lagos',
+    region: 'Región de Los Lagos',
     cities: [
       { city: 'Ancud' },
       { city: 'Calbuco' },
@@ -338,7 +338,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de Aysén del G. Carlos Ibáñez del Campo',
+    region: 'Región de Aysén del G. Carlos Ibáñez del Campo',
     cities: [
       { city: 'Aysén' },
       { city: 'Chile Chico' },
@@ -353,7 +353,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región de Magallanes y de la Antártica Chilena',
+    region: 'Región de Magallanes y de la Antártica Chilena',
     cities: [
       { city: 'Antártica' },
       { city: 'Cabo de Hornos' },
@@ -369,7 +369,7 @@ export const data = [
     ],
   },
   {
-    region: ' Región Metropolitana de Santiago',
+    region: 'Región Metropolitana de Santiago',
     cities: [
       { city: 'Alhué' },
       { city: 'Buin' },

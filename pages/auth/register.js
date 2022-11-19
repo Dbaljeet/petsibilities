@@ -22,7 +22,7 @@ import {
 } from '@mui/material'
 
 import { UserLayout } from '../../components/layouts'
-import { ButtonSubmit, Switch } from '../../components/ui'
+import { ButtonSubmit, Spinner, Switch } from '../../components/ui'
 
 function Copyright(props) {
   return (
@@ -66,7 +66,7 @@ export default function SignInSide() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
-
+    setLoading(true)
     const res = await registerUser(registerForm)
     if (res) {
       setLoading(false)
@@ -74,6 +74,7 @@ export default function SignInSide() {
       router.replace('/auth/login')
       return
     }
+    setLoading(false)
     setError(true)
     setTimeout(() => setError(false), 4000)
   }
@@ -350,6 +351,7 @@ export default function SignInSide() {
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />
+              {loading && <Spinner />}
             </Box>
           </Box>
         </Grid>

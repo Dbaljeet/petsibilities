@@ -1,22 +1,29 @@
-export default async function getpets(req, res) {
-  const { commune, species } = req.body
-  /*
-  const value =
-    commune === ''
-      ? `${process.env.ENDPOINT}/pets/filter/?species=${species}`
-      : species === ''
-      ? `${process.env.ENDPOINT}/pets/filter/?city=${commune}`
-      : `${process.env.ENDPOINT}/pets/filter/?city=${commune}&species=${species}`*/
+const getEndpointName = (region, commune, species, offset, LIMIT) => {
+  if (region !== '' && commune !== '' && species !== '') {
+    return `${process.env.ENDPOINT}/pets/filter/?region=${region}&city=${commune}&species=${species}&limit=${LIMIT}&offset=${offset}`
+  } else if (region !== '' && commune !== '' && species === '') {
+    return `${process.env.ENDPOINT}/pets/filter/?region=${region}&city=${commune}&limit=${LIMIT}&offset=${offset}`
+  } else if (region !== '' && commune === '' && species !== '') {
+    return `${process.env.ENDPOINT}/pets/filter/?region=${region}&species=${species}&limit=${LIMIT}&offset=${offset}`
+  } else if (region !== '' && commune === '' && species === '') {
+    return `${process.env.ENDPOINT}/pets/filter/?region=${region}&limit=${LIMIT}&offset=${offset}`
+  } else if (region === '' && commune === '' && species !== '') {
+    return `${process.env.ENDPOINT}/pets/filter/?species=${species}&limit=${LIMIT}&offset=${offset}`
+  } else {
+    return `${process.env.ENDPOINT}/pets/filter/?limit=${LIMIT}&offset=${offset}`
+  }
+}
 
-  return fetch(
-    `${process.env.ENDPOINT}/pets/filter/?city=${commune}&species=${species}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  )
+const LIMIT = 7
+export default async function getpets(req, res) {
+  const { region, commune, species, offset = 0 } = req.body
+  const endpoint = getEndpointName(region, commune, species, offset, LIMIT)
+  return fetch(endpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
     .then((res) => {
       if (!res.ok)
         throw new Error('error response to get pet by city || specie')

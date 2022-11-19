@@ -1,5 +1,5 @@
 import { Grid, Box, Button, Petition, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UserLayout } from '../components/layouts'
 import MyPetition from '../components/MyPetition'
 import { getMyRequestService } from '../services'
@@ -7,15 +7,21 @@ import { getMyRequestService } from '../services'
 export default function MyRequest() {
   const [request, setRequest] = useState([])
   const [firstSearch, setFirstSearch] = useState(false)
+  const [page, setPage] = useState(0)
+
   console.log(request)
+
   const getRequest = async () => {
     try {
-      const res = await getMyRequestService()
+      const res = await getMyRequestService({ page })
       if (res === undefined) {
         alert('Necesita recargar la página o volver a iniciar sesión')
       } else {
         setFirstSearch(true)
-        setRequest(res.resp.petitionsPets)
+        setRequest((prevPetitions) =>
+          prevPetitions.concat(res.resp.petitionsPets)
+        )
+        setPage(page + 5)
       }
     } catch {
       alert('Necesita recargar la página o volver a iniciar sesión')
@@ -29,9 +35,12 @@ export default function MyRequest() {
           <Grid container>
             <Grid item flex sx={{ margin: 'auto' }}>
               {request.length !== 0 ? (
-                request.map((requestU) => (
-                  <MyPetition key={requestU.petition.id} request={requestU} />
-                ))
+                <>
+                  {request.map((requestU) => (
+                    <MyPetition key={requestU.petition.id} request={requestU} />
+                  ))}
+                  <Button onClick={getRequest}>Ver más</Button>
+                </>
               ) : firstSearch ? (
                 <Typography variant="h2">No hay resultados</Typography>
               ) : (

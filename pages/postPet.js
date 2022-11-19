@@ -13,7 +13,7 @@ import {
   CardMedia,
   Card,
 } from '@mui/material'
-import { ButtonSubmit } from '../components/ui'
+import { BasicModal, ButtonSubmit, Spinner } from '../components/ui'
 import { PostPetService } from '../services'
 import { ImageList } from '../components/ui/PreviewImages'
 import { PetSlideShow } from '../components/pets/PetSlideShow'
@@ -44,16 +44,23 @@ export default function PostPet() {
   const [dataImages, setDataImages] = useState([])
 
   const [isLoading, setIsLoading] = useState(false)
-  const [numerLoading, setNumberLoading] = useState(0)
+  const [error, setError] = useState(false)
+  const [open, setOpen] = useState(true)
+
+  const [allowChangeDescription, setAllowChangeDescription] = useState(false)
+
   const urls = []
   const handleSubmit = async (ev) => {
     ev.preventDefault()
     try {
       for (const image of dataImages) {
         setIsLoading(true)
-        setNumberLoading(numerLoading + 1)
         const res2 = await postImagePet({ image: image })
         console.log(res2, 'res2')
+
+        if (res2.secure_url === undefined) {
+          throw new Error('Error, post image')
+        }
         urls.push(res2.secure_url)
         setIsLoading(false)
       }
@@ -66,6 +73,8 @@ export default function PostPet() {
       }
     } catch (res) {
       setIsLoading(false)
+      setError(true)
+      setTimeout(() => setError(false), 2000)
       console.log(res)
     }
   }
@@ -73,18 +82,19 @@ export default function PostPet() {
     setPetForm({ ...petForm, [ev.target.name]: ev.target.value })
   }
 
-  const handleKeyDown = (ev) => {
-    if (ev.keyCode === 13) {
-      ev.preventDefault()
-    }
-  }
-
   useEffect(() => {
+    const handleKeyDown = (ev) => {
+      if (ev.keyCode === 13) {
+        ev.preventDefault()
+      }
+      if (ev.keyCode === 8 && petForm.description.length === 250) {
+        setAllowChangeDescription(true)
+      }
+    }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [])
+  }, [petForm.description.length])
 
-  useEffect(() => {}, [images])
   return (
     <>
       <UserLayout title={'Publicar mascota | Petsibilities'}>
@@ -114,7 +124,7 @@ export default function PostPet() {
               variant="outlined"
               onChange={handleChange}
               name="name"
-              error={petForm.name === ''}
+              error={petForm.name === '' || petForm.name.length > 15}
               helperText={
                 petForm.name === ''
                   ? 'Debe rellenar el campo'
@@ -132,19 +142,28 @@ export default function PostPet() {
                 },
               }}
             />
-
             <TextField
               required
               fullWidth
               multiline
               rows={4}
               margin="normal"
+              value={petForm.description}
               label="descripción mascota"
               variant="outlined"
-              onChange={handleChange}
+              onChange={(ev) => {
+                if (petForm.description.length < 250) {
+                  handleChange(ev)
+                }
+
+                if (allowChangeDescription) {
+                  handleChange(ev)
+                  setAllowChangeDescription(false)
+                }
+              }}
               name="description"
               type="description"
-              error={petForm.description === ''}
+              error={petForm.description.length < 10}
               helperText={
                 petForm.description === ''
                   ? 'Debe rellenar el campo, mínimo 10 caracteres'
@@ -309,7 +328,19 @@ export default function PostPet() {
             >
               <ButtonSubmit onClick={() => handleSubmit} />
             </Box>
-            {isLoading ? `loading ${numerLoading}` : ''}
+            {isLoading ? <Spinner /> : ''}
+            {error ? (
+              <BasicModal
+                title={'Error'}
+                msg={
+                  'Rellene bien los campos y vea que cada imagen pesen menos de 10 MB'
+                }
+                open={open}
+                setOpen={setOpen}
+              />
+            ) : (
+              ''
+            )}
           </Box>
         </Box>
       </UserLayout>

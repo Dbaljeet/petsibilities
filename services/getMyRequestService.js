@@ -1,11 +1,12 @@
 const ENDPOINT = '/api/user'
 
-export function getMyRequestService() {
+export function getMyRequestService({ page }) {
   return fetch(`${ENDPOINT}/getMyRequest`, {
-    method: 'GET',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({ page }),
   })
     .then((res) => {
       if (!res.ok) {

@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import {
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Button,
-  TextField,
-} from '@mui/material'
+import React, { useState, useEffect, useCallback } from 'react'
+import { FormControl, Grid, MenuItem, Button, TextField } from '@mui/material'
 
 import styles from '../styles/Pets.module.css'
 
 import { UserLayout } from '../components/layouts'
-import { PetCard, PetList } from '../components/pets'
-import { initialData } from '../database/pets'
+import { PetList } from '../components/pets'
 import { data } from '../database/cities'
 
 import { getPetsFilterService } from '../services'
@@ -29,44 +20,83 @@ export default function Pets() {
   })
   const [PETS, setPETS] = useState([])
 
+  const [page, setPage] = useState(0)
+
+  /*
   const getPets = async () => {
     try {
       const { message } = await getPetsFilterService({
         commune: '',
         species: '',
+        offset: page,
       })
       setPETS(message)
+      setPage(page + 7)
     } catch {
       console.log('error get pets')
     }
-  }
+  }*/
 
-  const getPetsByFilter = async () => {
+  const getPetsByFilter = useCallback(async () => {
     try {
+      console.log(petForm, 'petform')
       const { message } = await getPetsFilterService({
+        region: petForm.valueRegion,
         commune: petForm.valueCity,
         species: petForm.valueSpecie,
+        offset: 0,
       })
       console.log(message)
+      setPage(0)
       setPETS(message)
     } catch {
       setPETS([])
     }
-  }
+  }, [petForm])
+
+  const getMorePets = useCallback(async () => {
+    try {
+      console.log(petForm, 'petform')
+      const { message } = await getPetsFilterService({
+        region: petForm.valueRegion,
+        commune: petForm.valueCity,
+        species: petForm.valueSpecie,
+        offset: page + 7,
+      })
+      console.log(message)
+      setPage((prevPage) => prevPage + 7)
+      setPETS((prevPets) => prevPets.concat(message))
+    } catch {
+      setPETS([])
+    }
+  }, [page, petForm])
 
   const handleChange = (ev) => {
     setPetForm({ ...petForm, [ev.target.name]: ev.target.value })
   }
 
-  const handleSubmit = () => {
-    console.log(petForm.valueCity, petForm.valueRegion)
+  const handleSubmit = (ev) => {
+    ev.preventDefault()
     getPetsByFilter()
   }
 
   useEffect(() => {
-    getPets()
+    const getPetsByFilter2 = async () => {
+      try {
+        const { message } = await getPetsFilterService({
+          region: petForm.valueRegion,
+          commune: petForm.valueCity,
+          species: petForm.valueSpecie,
+          offset: page,
+        })
+        setPETS(message)
+      } catch {
+        setPETS([])
+      }
+    }
+    getPetsByFilter2()
   }, [])
-  console.log(PETS)
+
   return (
     <>
       <UserLayout title={'Mascotas disponibles-Petsibilities'}>
@@ -122,6 +152,7 @@ export default function Pets() {
                   )
                 })}
               </TextField>
+
               <select
                 className={styles.select}
                 name="valueCity"
@@ -130,15 +161,17 @@ export default function Pets() {
                 onChange={handleChange}
               >
                 <option value="">Comuna</option>
-                {petForm.valueRegion
-                  ? data.map((info) => {
-                      if (petForm.valueRegion === info.region) {
+                {petForm.valueRegion !== ''
+                  ? petForm.valueRegion
+                    ? data.map((info) => {
+                        if (petForm.valueRegion === info.region) {
+                          return <ValueCity key={info.region} info={info} />
+                        }
+                      })
+                    : data.map((info) => {
                         return <ValueCity key={info.region} info={info} />
-                      }
-                    })
-                  : data.map((info) => {
-                      return <ValueCity key={info.region} info={info} />
-                    })}
+                      })
+                  : ''}
               </select>
 
               <TextField
@@ -169,7 +202,7 @@ export default function Pets() {
 
               <Button
                 disabled={
-                  petForm.valueCity === '' && petForm.valueSpecie === ''
+                  petForm.valueSpecie === '' && petForm.valueRegion === ''
                     ? true
                     : false
                 }
@@ -185,10 +218,11 @@ export default function Pets() {
             <PetList pets={initialData.pets} />
               </Grid>*/}
           <Grid item>{<PetList pets={PETS} />}</Grid>
-
           {/*PETS.map((pet) => (
             <p key={pet.id}>{pet.name}</p>
           ))*/}
+
+          <Button onClick={getMorePets}>Ver más</Button>
         </Grid>
       </UserLayout>
     </>
