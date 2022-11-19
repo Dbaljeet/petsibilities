@@ -6,7 +6,7 @@ export function acceptPetitionService({ accepted, idPetition }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      acepted: accepted,
+      accepted,
       idPetition,
     }),
   })

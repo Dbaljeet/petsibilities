@@ -9,6 +9,8 @@ export default function MyRequest() {
   const [firstSearch, setFirstSearch] = useState(false)
   const [page, setPage] = useState(0)
 
+  const [enableMoreData, setEnableMoreData] = useState(true)
+
   console.log(request)
 
   const getRequest = async () => {
@@ -18,6 +20,9 @@ export default function MyRequest() {
         alert('Necesita recargar la página o volver a iniciar sesión')
       } else {
         setFirstSearch(true)
+        if (res.resp.petitionsPets.length === 0) {
+          setEnableMoreData(false)
+        }
         setRequest((prevPetitions) =>
           prevPetitions.concat(res.resp.petitionsPets)
         )
@@ -30,7 +35,14 @@ export default function MyRequest() {
   return (
     <>
       <UserLayout title="Mis solicitudes | Petsibilities">
-        <Box sx={{ mt: 10, mx: 2, display: 'flex', flexDirection: 'column' }}>
+        <Box
+          sx={{
+            mt: 10,
+            mx: 2,
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           <Button onClick={getRequest}>Ver solicitudes</Button>
           <Grid container>
             <Grid item flex sx={{ margin: 'auto' }}>
@@ -39,7 +51,16 @@ export default function MyRequest() {
                   {request.map((requestU) => (
                     <MyPetition key={requestU.petition.id} request={requestU} />
                   ))}
-                  <Button onClick={getRequest}>Ver más</Button>
+                  {enableMoreData && (
+                    <Box
+                      sx={{
+                        margin: '40px',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <Button onClick={getRequest}>Ver más</Button>
+                    </Box>
+                  )}
                 </>
               ) : firstSearch ? (
                 <Typography variant="h2">No hay resultados</Typography>

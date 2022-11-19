@@ -4,6 +4,7 @@ import { Button, TextField } from '@mui/material'
 import { useEffect } from 'react'
 import { postPetitionService } from '../../../services'
 import { BasicModal } from './BasicModal'
+import { Spinner } from '../spinner'
 
 export const ExtraInput = ({ userPetId }) => {
   const [value, setValue] = useState('')
@@ -12,6 +13,8 @@ export const ExtraInput = ({ userPetId }) => {
   const [open2, setOpen2] = useState(false)
   const [title2, setTitle2] = useState('')
   const [msg2, setMsg2] = useState('')
+
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (ev) => {
     if (value.length < 250 || allowChange) {
@@ -22,16 +25,20 @@ export const ExtraInput = ({ userPetId }) => {
 
   const handleClick = async () => {
     try {
+      setLoading(true)
       const res = await postPetitionService({
         comment: value,
         userPetId: userPetId,
       })
-      if (res) handleClose()
+
+      setLoading(false)
+      setTitle2('Tu petición ha sido enviada')
+      setMsg2('Gracias por enviar su petición')
+      setOpen2(true)
     } catch {
+      setLoading(false)
       setTitle2('Ha ocurrido un error')
-      setMsg2(
-        'Prueba a ingresar los datos correctamente o volver a iniciar sesión'
-      )
+      setMsg2('Prueba a reiniciar la página o volver a iniciar sesión')
       setOpen2(true)
     }
   }
@@ -60,7 +67,7 @@ export const ExtraInput = ({ userPetId }) => {
         rows={4}
         onChange={handleChange}
         margin="normal"
-        label="descripción mascota"
+        label="comentario - descripción"
         variant="outlined"
         name="description"
         value={value}
@@ -91,6 +98,7 @@ export const ExtraInput = ({ userPetId }) => {
       >
         Enviar
       </Button>
+      {loading && <Spinner />}
     </>
   )
 }

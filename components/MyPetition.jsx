@@ -11,6 +11,7 @@ import {
   Typography,
   Box,
   Divider,
+  CardMedia,
 } from '@mui/material'
 const MyPetition = ({ request }) => {
   return (
@@ -36,6 +37,15 @@ const MyPetition = ({ request }) => {
             {'Fecha: ' + request.petition.date}
           </Typography>
           <Divider sx={{ marginY: 2 }} />
+          {
+            <CardMedia
+              component="img"
+              height="300"
+              sx={{ objectFit: 'contain' }}
+              image={request.pet.images[0].url}
+              alt={'Petición adopción a ' + request.pet.name}
+            />
+          }
         </AccordionDetails>
       </Accordion>
     </>

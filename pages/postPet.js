@@ -21,7 +21,7 @@ import { postImagePet } from '../services/postImagePet'
 
 export default function PostPet() {
   const GENDERS = ['Masculino', 'Femenino']
-  const BREEDS = ['Labrador']
+  const BREEDS = ['Labrador', 'Americano de pelo duro']
   const [petForm, setPetForm] = useState({
     name: '',
     description: '',
@@ -69,7 +69,7 @@ export default function PostPet() {
       if (res) {
         router.push('/pets')
       } else {
-        console.log('f rellenar bn')
+        throw new Error('Error, post pet service front')
       }
     } catch (res) {
       setIsLoading(false)

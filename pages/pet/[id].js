@@ -19,7 +19,6 @@ import { BasicModal, StarList } from '../../components/ui'
 import { useRouter } from 'next/router'
 
 export default function Pet({ response }) {
-  console.log()
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
   const [msg, setMsg] = useState('')
@@ -27,7 +26,6 @@ export default function Pet({ response }) {
   const router = useRouter()
   const { user } = useContext(AuthContext)
   const { pet, owner, score, userPetId } = response
-
   const handleClick = async () => {
     try {
       setTitle('Rellena el formulario')
@@ -35,8 +33,6 @@ export default function Pet({ response }) {
       setOpen(true)
     } catch {}
   }
-
-  useEffect(() => {}, [])
 
   return (
     <>
@@ -119,11 +115,11 @@ export default function Pet({ response }) {
 
               <Box sx={{ wordWrap: 'break-word' }}>
                 <Typography variant="h2" textAlign="center">
-                  {owner.name}
+                  Dueño(a): {owner.name}
                 </Typography>
-                <Typography
-                  sx={{ textAlign: 'center' }}
-                >{`valoración dueño(a) ${score}`}</Typography>
+                <Typography sx={{ textAlign: 'center' }}>{`valoración: ${
+                  score || 'Sin valoraciones'
+                }`}</Typography>
                 <StarList cant={3} />
                 <Button
                   onClick={handleClick}

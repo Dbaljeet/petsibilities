@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { FormControl, Grid, MenuItem, Button, TextField } from '@mui/material'
+import {
+  FormControl,
+  Grid,
+  MenuItem,
+  Button,
+  TextField,
+  Typography,
+  Box,
+} from '@mui/material'
 
 import styles from '../styles/Pets.module.css'
 
@@ -9,6 +17,7 @@ import { data } from '../database/cities'
 
 import { getPetsFilterService } from '../services'
 import ValueCity from '../components/ValueCity'
+import { Spinner } from '../components/ui'
 
 export default function Pets() {
   const SPECIES = ['Perro', 'Gato']
@@ -21,6 +30,9 @@ export default function Pets() {
   const [PETS, setPETS] = useState([])
 
   const [page, setPage] = useState(0)
+
+  const [noMoreData, setNoMoreData] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   /*
   const getPets = async () => {
@@ -48,6 +60,7 @@ export default function Pets() {
       })
       console.log(message)
       setPage(0)
+      setNoMoreData(false)
       setPETS(message)
     } catch {
       setPETS([])
@@ -56,6 +69,7 @@ export default function Pets() {
 
   const getMorePets = useCallback(async () => {
     try {
+      setLoading(true)
       console.log(petForm, 'petform')
       const { message } = await getPetsFilterService({
         region: petForm.valueRegion,
@@ -63,9 +77,15 @@ export default function Pets() {
         species: petForm.valueSpecie,
         offset: page + 7,
       })
-      console.log(message)
-      setPage((prevPage) => prevPage + 7)
-      setPETS((prevPets) => prevPets.concat(message))
+      if (message.length === 0) {
+        setLoading(false)
+
+        setNoMoreData(true)
+      } else {
+        setPage((prevPage) => prevPage + 7)
+        setLoading(false)
+        setPETS((prevPets) => prevPets.concat(message))
+      }
     } catch {
       setPETS([])
     }
@@ -221,8 +241,20 @@ export default function Pets() {
           {/*PETS.map((pet) => (
             <p key={pet.id}>{pet.name}</p>
           ))*/}
+          {loading && <Spinner />}
 
-          <Button onClick={getMorePets}>Ver más</Button>
+          <Grid
+            item
+            sx={{ margin: 'auto', marginY: 6, padding: 5, textAlign: 'center' }}
+          >
+            {noMoreData ? (
+              <Typography variant="h3">No hay más resultados</Typography>
+            ) : (
+              <Button sx={{ padding: 4 }} onClick={getMorePets}>
+                Ver más
+              </Button>
+            )}
+          </Grid>
         </Grid>
       </UserLayout>
     </>

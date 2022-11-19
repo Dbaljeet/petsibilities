@@ -1,14 +1,6 @@
 import { useState } from 'react'
 
-import {
-  Box,
-  Button,
-  Grid,
-  MenuItem,
-  Modal,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Box, Button, Grid, MenuItem, TextField } from '@mui/material'
 
 import { BasicModal } from '../components/ui'
 import { UserLayout } from '../components/layouts'
@@ -17,6 +9,9 @@ import MyPetition from '../components/MyPetition'
 import Petition from '../components/Petition'
 
 import { getRequestService } from '../services'
+
+const LIMIT = 5
+const INITIAL_PAGE = 0
 
 export default function Request() {
   const [msg, setMsg] = useState('')
@@ -27,8 +22,9 @@ export default function Request() {
   const [request, setRequest] = useState([])
   const [filter, setFilter] = useState('Ver todas')
 
-  const [page, setPage] = useState(0)
-  const [firstPage, setFirstPage] = useState(false)
+  const [page, setPage] = useState(INITIAL_PAGE)
+
+  const [enableMoreData, setEnableMoreData] = useState(false)
 
   const getRequest = async () => {
     try {
@@ -37,10 +33,37 @@ export default function Request() {
         setOpen(true)
         setTitle('Necesita recargar la página o volver a iniciar sesión')
       } else {
-        setRequest((prevPetitions) =>
-          prevPetitions.concat(res.resp.petitionsDetails)
-        )
-        setPage(page + 5)
+        if (res.resp.petitionsDetails.length === 0) {
+          setEnableMoreData(false)
+        } else {
+          setRequest((prevPetitions) =>
+            prevPetitions.concat(res.resp.petitionsDetails)
+          )
+          setEnableMoreData(true)
+
+          setPage(page + LIMIT)
+        }
+      }
+    } catch {
+      setOpen(true)
+      setTitle('Necesita recargar la página o volver a iniciar sesión')
+    }
+  }
+
+  const getFirstRequest = async () => {
+    try {
+      setEnableMoreData(false)
+      const res = await getRequestService({ page: INITIAL_PAGE })
+      if (res === undefined) {
+        setOpen(true)
+        setTitle('Necesita recargar la página o volver a iniciar sesión')
+      } else {
+        if (res.resp.petitionsDetails.length !== 0) {
+          console.log(res.resp.petitionsDetails)
+          setRequest(res.resp.petitionsDetails)
+          setEnableMoreData(true)
+          setPage(LIMIT)
+        }
       }
     } catch {
       setOpen(true)
@@ -56,7 +79,7 @@ export default function Request() {
         pageDescription="Revisa las solicitudes de adopción que has recibido"
       >
         <Box sx={{ mt: 10, mx: 2, display: 'flex', flexDirection: 'column' }}>
-          <Button onClick={getRequest}>Ver solicitudes</Button>
+          <Button onClick={getFirstRequest}>Ver solicitudes</Button>
 
           <TextField
             sx={{
@@ -127,6 +150,16 @@ export default function Request() {
                 ) : (
                   ''
                 )
+              )}
+              {enableMoreData && (
+                <Box
+                  sx={{
+                    margin: '40px',
+                    textAlign: 'center',
+                  }}
+                >
+                  <Button onClick={getRequest}>Ver más</Button>
+                </Box>
               )}
             </Grid>
           </Grid>
