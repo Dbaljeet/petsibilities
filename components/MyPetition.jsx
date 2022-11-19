@@ -26,7 +26,13 @@ const MyPetition = ({ request }) => {
             }}
           >
             <Typography variant="h2">{request.pet.name}</Typography>
-            {request.petition.acepted ? <Done /> : <ForwardToInbox />}
+            {request.petition.accepted ? (
+              <Done />
+            ) : request.petition.accepted === false ? (
+              <Clear />
+            ) : (
+              <ForwardToInbox />
+            )}
           </Box>
         </AccordionSummary>
         <AccordionDetails>

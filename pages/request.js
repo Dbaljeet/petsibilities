@@ -123,7 +123,7 @@ export default function Request() {
               }}
             >
               {request.map((requestU) =>
-                requestU.petition.acepted ? (
+                requestU.petition.accepted ? (
                   filter ? (
                     <MyPetition key={requestU.petition.id} request={requestU} />
                   ) : filter === 'Ver todas' ? (
