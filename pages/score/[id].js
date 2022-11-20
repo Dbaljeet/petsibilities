@@ -1,12 +1,21 @@
-import { Box, Button, Grid, Rating, Typography } from '@mui/material'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { UserLayout } from '../../components/layouts'
+import { useContext, useEffect, useState } from 'react'
 
+import { useRouter } from 'next/router'
+import { AuthContext } from '../../context'
+
+import { Box, Button, Grid, Rating, Typography } from '@mui/material'
+
+import { UserLayout } from '../../components/layouts'
+import { BasicModal } from '../../components/ui'
 const PostScore = () => {
+  const { user } = useContext(AuthContext)
+
   const [id, setId] = useState('')
   const [name, setName] = useState('')
   const [value, setValue] = useState(1)
+
+  const [openModal, setOpenModal] = useState(false)
+
   const router = useRouter()
   useEffect(() => {
     if (router.isReady) {
@@ -16,10 +25,22 @@ const PostScore = () => {
     }
   }, [router.isReady])
 
-  const handleClick = () => {}
+  const handleClick = () => {
+    if (user) {
+      console.log(user)
+    } else {
+      setOpenModal(true)
+    }
+  }
 
   return (
     <>
+      <BasicModal
+        title="Por favor iniciar sesión antes de continuar"
+        open={openModal}
+        setOpen={setOpenModal}
+        link={`/auth/login?p=${router.asPath}`}
+      />
       <UserLayout title="Puntuar | Petsibilities">
         <Grid
           container

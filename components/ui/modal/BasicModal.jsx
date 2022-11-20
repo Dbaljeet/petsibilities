@@ -1,5 +1,8 @@
-import { Box, Button, Modal, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
+import NextLink from 'next/link'
+
+import { Box, Button, Link, Modal, TextField, Typography } from '@mui/material'
+
 import { ExtraInput } from './ExtraInput'
 const style = {
   position: 'absolute',
@@ -13,7 +16,15 @@ const style = {
   p: 4,
 }
 
-export const BasicModal = ({ title, msg, open, setOpen, extra, userPetId }) => {
+export const BasicModal = ({
+  title,
+  msg,
+  open,
+  setOpen,
+  extra,
+  userPetId,
+  link,
+}) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   return (
@@ -31,6 +42,24 @@ export const BasicModal = ({ title, msg, open, setOpen, extra, userPetId }) => {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {msg}
           </Typography>
+
+          {link ? (
+            <NextLink href={link}>
+              <Link
+                sx={{
+                  backgroundColor: '#d0f5fc',
+                  padding: '20px 40px',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
+                }}
+              >
+                Ir
+              </Link>
+            </NextLink>
+          ) : (
+            ''
+          )}
+
           {extra ? (
             <ExtraInput userPetId={userPetId} handleClose={handleClose} />
           ) : (
