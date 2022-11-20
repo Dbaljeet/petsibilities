@@ -1,13 +1,20 @@
-import { Box, Grid, Avatar, TextField, Button } from '@mui/material'
-import { UserLayout } from '../../components/layouts'
-import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import { useEffect, useState } from 'react'
-import { editPersonalInformation, getPersonalInformation } from '../../services'
 import { useRouter } from 'next/router'
+
+import ModeEditIcon from '@mui/icons-material/ModeEdit'
+import { Box, Grid, Avatar, TextField, Button, Typography } from '@mui/material'
+
+import styles from '../../styles/MyProfile.module.css'
+
+import { UserLayout } from '../../components/layouts'
+import { editPersonalInformation, getPersonalInformation } from '../../services'
+import { ChangePersonalInfoModal } from '../../components/ui'
+
 export default function Profile() {
   const [userForm, setUserForm] = useState({
     name: '',
     email: '',
+    city: '',
     password: '',
     bankAccountNumber: '',
     bankAccountType: '',
@@ -17,30 +24,33 @@ export default function Profile() {
     urlImage: '',
     phoneNumber: '',
   })
-  const [isEdit, setEdit] = useState(false)
+
+  const [openModal, setOpenModal] = useState(false)
 
   const editInfo = () => {
-    setEdit(!isEdit)
+    setOpenModal(true)
   }
 
   useEffect(() => {
     getPersonalInformation()
       .then(({ resp }) => {
         console.log(resp)
-        const name = resp.name
-        const city = resp.city.name
-        setUserForm({ ...userForm, ['name']: name })
+        setUserForm({
+          name: resp.name,
+          email: resp.email,
+          city: resp.city.name,
+          password: '',
+          bankAccountNumber: '',
+          bankAccountType: '',
+          bankName: '',
+          houseSize: resp.houseSize,
+          description: resp.description || 'sin descripción',
+          urlImage: '',
+          phoneNumber: resp.phoneNumber,
+        })
       })
       .catch((err) => console.log(err, 'error'))
   }, [])
-
-  const patchProfileInfo = async (ev) => {
-    ev.preventDefault()
-    try {
-      const res = await editPersonalInformation(userForm)
-      console.log('resedit', res)
-    } catch {}
-  }
 
   return (
     <>
@@ -82,44 +92,69 @@ export default function Profile() {
                 </Button>
               </Grid>
 
-              <Grid item>
-                <TextField
-                  label={`Nombre :${userForm.name}`}
-                  disabled={!isEdit}
-                  variant="outlined"
-                />
+              <Grid
+                item
+                sx={{
+                  textAlign: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 5,
+                }}
+              >
+                <Typography
+                  variant="h1"
+                  sx={{
+                    border: '2px solid #0004',
+                    borderRadius: '40px',
+                    padding: 2,
+                  }}
+                >{`Nombre: ${userForm.name}`}</Typography>
+
+                <Typography
+                  variant="h2"
+                  sx={{
+                    border: '2px solid #0004',
+                    borderRadius: '40px',
+                    padding: 2,
+                  }}
+                >{`Ciudad: ${userForm.city}`}</Typography>
+
+                <Typography
+                  variant="h2"
+                  sx={{
+                    border: '2px solid #0004',
+                    borderRadius: '40px',
+                    padding: 2,
+                  }}
+                >{`Contacto: ${userForm.phoneNumber}`}</Typography>
+
+                <Typography
+                  variant="h2"
+                  sx={{
+                    border: '2px solid #0004',
+                    borderRadius: '40px',
+                    padding: 2,
+                  }}
+                >{`Descripcion: ${userForm.description}`}</Typography>
+
+                <Typography
+                  variant="h2"
+                  sx={{
+                    border: '2px solid #0004',
+                    borderRadius: '40px',
+                    padding: 2,
+                  }}
+                >{`Hogar: ${userForm.houseSize}`}</Typography>
               </Grid>
 
-              <Grid item>
-                <TextField
-                  label={`Ciudad :${`Calama`}`}
-                  disabled={true}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  label={`Contacto :${`+569 12345678`}`}
-                  disabled={true}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  label={`Descripcion :${`Hola`}`}
-                  disabled={true}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  label={`Hogar :${`35 mts`}`}
-                  disabled={true}
-                  variant="outlined"
-                />
-              </Grid>
-              {isEdit ? (
-                <Button onClick={patchProfileInfo}>Guardar</Button>
+              {openModal ? (
+                <>
+                  <ChangePersonalInfoModal
+                    open={openModal}
+                    setOpen={setOpenModal}
+                    userForm={userForm}
+                  />
+                </>
               ) : (
                 ''
               )}

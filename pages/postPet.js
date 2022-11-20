@@ -14,10 +14,8 @@ import {
   Card,
 } from '@mui/material'
 import { BasicModal, ButtonSubmit, Spinner } from '../components/ui'
-import { PostPetService } from '../services'
+import { PostPetService, postImagePet } from '../services'
 import { ImageList } from '../components/ui/PreviewImages'
-import { PetSlideShow } from '../components/pets/PetSlideShow'
-import { postImagePet } from '../services/postImagePet'
 
 export default function PostPet() {
   const GENDERS = ['Masculino', 'Femenino']

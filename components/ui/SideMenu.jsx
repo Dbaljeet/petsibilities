@@ -91,7 +91,10 @@ export const SideMenu = () => {
           {/*Logeado*/}
           {isLoggedIn ? (
             <>
-              <ListItem button onClick={() => navigateTo('/profile/1')}>
+              <ListItem
+                button
+                onClick={() => navigateTo('/profile/my-profile')}
+              >
                 <ListItemIcon>
                   <AccountCircleOutlined />
                 </ListItemIcon>

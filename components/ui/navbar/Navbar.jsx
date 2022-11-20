@@ -27,12 +27,12 @@ export function Navbar() {
         <Box flex={1}></Box>
 
         <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <NextLink href="/">
+          <NextLink href="/" passHref>
             <Link>
               <Button>Inicio</Button>
             </Link>
           </NextLink>
-          <NextLink href="/pets">
+          <NextLink href="/pets" passHref>
             <Link>
               <Button>Ver animales</Button>
             </Link>
@@ -42,9 +42,13 @@ export function Navbar() {
         <Box flex={1}></Box>
 
         <Box>
-          <IconButton name="Buscar">
-            <SearchOutlined />
-          </IconButton>
+          <NextLink href="/pets" passHref>
+            <a>
+              <IconButton name="Buscar">
+                <SearchOutlined />
+              </IconButton>
+            </a>
+          </NextLink>
 
           <Button onClick={toggleSideMenu}>Menú</Button>
         </Box>

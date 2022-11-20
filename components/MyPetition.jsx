@@ -27,11 +27,19 @@ const MyPetition = ({ request }) => {
           >
             <Typography variant="h2">{request.pet.name}</Typography>
             {request.petition.accepted ? (
-              <Done />
+              <>
+                <Done /> <Typography variant="h3">(Aceptada)</Typography>
+              </>
             ) : request.petition.accepted === false ? (
-              <Clear />
+              <>
+                <Clear />
+                <Typography variant="h3">(Rechazada)</Typography>
+              </>
             ) : (
-              <ForwardToInbox />
+              <>
+                <ForwardToInbox />
+                <Typography variant="h3">(Pendiente)</Typography>
+              </>
             )}
           </Box>
         </AccordionSummary>
