@@ -6,20 +6,31 @@ import { useRouter } from 'next/router'
 import styles from '../../styles/Login.module.css'
 
 import { GeneralLayout } from '../../components/layouts'
-import { ButtonSubmit, Switch } from '../../components/ui'
+import { BasicModal, ButtonSubmit, Switch } from '../../components/ui'
 import { AuthContext } from '../../context'
 import { Spinner } from '../../components/ui'
+import { Box, Button, TextField } from '@mui/material'
+import { RecoveryPassword } from '../../services'
 
 export default function Login() {
-  const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { loginUser } = useContext(AuthContext)
-  const [error, setError] = useState(false)
+
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
+    recoveryEmail: '',
   })
+
+  const [loading, setLoading] = useState(false)
+
+  const [openError, setOpenError] = useState(false)
+  const [openRecovery, setOpenRecovery] = useState(false)
+  const [openErrorRecovery, setOpenErrorRecovery] = useState(false)
+  const [openSucessfulRecovery, setOpenSuccessfulRecovery] = useState(false)
+
   const [isVisiblePassword, setIsVisiblePassword] = useState(false)
+
   const handleChange = (ev) => {
     setLoginForm({ ...loginForm, [ev.target.name]: ev.target.value })
   }
@@ -28,19 +39,36 @@ export default function Login() {
     ev.preventDefault()
     setLoading(true)
     const res = await loginUser(loginForm)
+    console.log(res, 'res')
     if (res) {
       setLoading(false)
-      setError(false)
+      setOpenError(false)
       const destination = router.query.p?.toString() || '/pets'
       router.replace(destination)
       return
     }
-    setError(true)
+    setOpenError(true)
     setLoading(false)
   }
   const showPassword = () => {
     setIsVisiblePassword(!isVisiblePassword)
   }
+
+  const handleRecoveryPassword = async () => {
+    try {
+      const { message } = await RecoveryPassword({
+        email: loginForm.recoveryEmail,
+      })
+      if (message === 'mail sent') {
+        setOpenSuccessfulRecovery(true)
+      } else {
+        setOpenErrorRecovery(true)
+      }
+    } catch {
+      setOpenErrorRecovery(true)
+    }
+  }
+
   return (
     <>
       <GeneralLayout title={'Iniciar sesión-Petsibilities'}>
@@ -63,11 +91,16 @@ export default function Login() {
                 placeholder="contraseña"
                 name="password"
               />
-              {error && (
-                <span className={styles.spann}>
-                  {'Error nombre o contraseña incorrectas'}
-                </span>
+
+              {openError && (
+                <BasicModal
+                  open={openError}
+                  setOpen={setOpenError}
+                  title={'Error'}
+                  msg={'Error correo o contraseña incorrectas'}
+                />
               )}
+
               <Switch text={'Ver contraseña'} showPassword={showPassword} />
               <ButtonSubmit />
             </form>
@@ -90,7 +123,57 @@ export default function Login() {
               <Link href="/">
                 <a className={styles.goHome}>Ir a la página principal</a>
               </Link>
+              <Button onClick={() => setOpenRecovery(true)} variant="outlined">
+                ¿Olvidaste tu contraseña?
+              </Button>
             </div>
+
+            <BasicModal
+              title={'¿Olvidaste tu contraseña?'}
+              msg="Cambia tu contraseña indicando tu correo"
+              open={openRecovery}
+              setOpen={setOpenRecovery}
+            >
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  marginTop: 3,
+                  gap: 3,
+                }}
+              >
+                <TextField
+                  name="recoveryEmail"
+                  onChange={handleChange}
+                  label="correo electrónico"
+                />
+                <Button onClick={handleRecoveryPassword}>Enviar</Button>
+              </Box>
+
+              {openErrorRecovery ? (
+                <BasicModal
+                  open={openErrorRecovery}
+                  setOpen={setOpenErrorRecovery}
+                  title={'Error'}
+                  msg={
+                    'Revise si su correo ha sido registrado en la web, puede ver su buzón'
+                  }
+                />
+              ) : (
+                ''
+              )}
+            </BasicModal>
+
+            {openSucessfulRecovery && (
+              <BasicModal
+                title={'Enviado correctamente'}
+                msg={
+                  'Le ha sido enviado un correo con los pasos de recuperación'
+                }
+                open={openSucessfulRecovery}
+                setOpen={setOpenSuccessfulRecovery}
+              />
+            )}
           </section>
         </main>
       </GeneralLayout>

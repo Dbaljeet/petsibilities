@@ -24,6 +24,7 @@ export const BasicModal = ({
   extra,
   userPetId,
   link,
+  children,
 }) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -59,7 +60,7 @@ export const BasicModal = ({
           ) : (
             ''
           )}
-
+          {children}
           {extra ? (
             <ExtraInput userPetId={userPetId} handleClose={handleClose} />
           ) : (
