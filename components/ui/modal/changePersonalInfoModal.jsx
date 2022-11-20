@@ -16,9 +16,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+
 import { Spinner } from '../spinner'
 
-export const ChangePersonalInfoModal = ({ open, setOpen }) => {
+import styles from './changePersonalInfoModal.module.css'
+
+export const ChangePersonalInfoModal = ({ open, setOpen, nameOrig }) => {
   const router = useRouter()
   const title = 'Cambia tu información personal'
 
@@ -34,9 +37,6 @@ export const ChangePersonalInfoModal = ({ open, setOpen }) => {
     name: '',
     email: '',
     password: '',
-    bankAccountNumber: '',
-    bankAccountType: '',
-    bankName: '',
     houseSize: '',
     description: '',
     urlImage: '',
@@ -47,18 +47,18 @@ export const ChangePersonalInfoModal = ({ open, setOpen }) => {
     ev.preventDefault()
     try {
       setIsLoading(true)
-      const res2 = await postImagePet({ image })
-      console.log(res2, 'res2')
+      if (image !== '') {
+        const res2 = await postImagePet({ image })
+        console.log(res2, 'res2')
 
-      if (res2.secure_url === undefined) {
-        throw new Error('Error, post image')
+        if (res2.secure_url === undefined) {
+          throw new Error('Error, post image')
+        }
+        editInfo.urlImage = res2.secure_url
       }
 
-      setIsLoading(false)
-
-      editInfo.urlImage = res2.secure_url
-
       const res = await editPersonalInformation(editInfo)
+      setIsLoading(false)
       if (res) {
         router.reload()
       } else {
@@ -91,6 +91,9 @@ export const ChangePersonalInfoModal = ({ open, setOpen }) => {
     }
   }
 
+  const handleChange = (ev) => {
+    setEditInfo({ ...editInfo, [ev.target.name]: ev.target.value })
+  }
   return (
     <>
       <Dialog
@@ -100,24 +103,53 @@ export const ChangePersonalInfoModal = ({ open, setOpen }) => {
         aria-describedby="modal-modal-description"
       >
         <DialogTitle>{title}</DialogTitle>
-        <DialogContent>
+        <DialogContent className={styles.test}>
           <Box>
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 marginTop: '5px',
-                gap: 1,
+                gap: 2,
               }}
             >
+              {/*
+
+               '',*/}
               <Typography>Solo completa lo que quieras cambiar</Typography>
-              <TextField label="Nombre" />
-              <TextField label="Correo" />
-              <TextField label="Contraseña" />
-              <TextField label="Ciudad" />
-              <TextField label="Número celular" />
-              <TextField label="Sobre mí" />
-              <TextField label="Tamaño hogar mascota" />
+              <TextField onChange={handleChange} label="Nombre" name="name" />
+
+              <TextField
+                helperText={'extensiones válidas .com .net y .cl'}
+                onChange={handleChange}
+                label="Correo"
+                name="email"
+              />
+              <TextField
+                helperText={`Entre 9 y 12 dígitos - actual ${editInfo.password.length}`}
+                onChange={handleChange}
+                label="Contraseña"
+                name="password"
+              />
+              {/*<TextField label="Ciudad" name='city'/>*/}
+              <TextField
+                helperText={`Solo 9 números - actual ${editInfo.phoneNumber.length}`}
+                onChange={handleChange}
+                label="Número celular"
+                name="phoneNumber"
+              />
+              <TextField
+                helperText={`Entre 5 a 250 caracteres actual ${editInfo.description.length}`}
+                onChange={handleChange}
+                label="Sobre mí"
+                name="description"
+              />
+              <TextField
+                helperText="Solo números, expresado en [m]"
+                onChange={handleChange}
+                label="Tamaño hogar mascota"
+                name="houseSize"
+              />
               <Button
                 sx={{ border: '2px solid #0004' }}
                 variant="outlined"
@@ -133,17 +165,17 @@ export const ChangePersonalInfoModal = ({ open, setOpen }) => {
                 />
               </Button>
               <DialogActions>
-                <Button onClick={(ev) => handleSubmit(ev)}>
+                <Button sx={{ padding: 4 }} onClick={(ev) => handleSubmit(ev)}>
                   Actualizar datos
                 </Button>
               </DialogActions>
             </Box>
             {imageShow !== '' ? (
-              <Card key={image} sx={{ width: 250 }}>
+              <Card key={imageShow} sx={{ width: 250, margin: 'auto' }}>
                 <CardMedia
                   key={imageShow}
                   component="img"
-                  alt="test"
+                  alt={`Foto de perfil de ${nameOrig}`}
                   image={imageShow}
                   height="400"
                 />

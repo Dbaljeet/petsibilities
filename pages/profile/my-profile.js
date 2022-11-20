@@ -152,7 +152,7 @@ export default function Profile() {
                   <ChangePersonalInfoModal
                     open={openModal}
                     setOpen={setOpenModal}
-                    userForm={userForm}
+                    nameOrig={userForm.name}
                   />
                 </>
               ) : (

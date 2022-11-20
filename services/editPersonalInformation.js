@@ -1,12 +1,9 @@
-const ENDPOINT = '/api/user'
+const ENDPOINT = '/api/profile'
 
 export function editPersonalInformation({
   name,
   email,
   password,
-  bankAccountNumber,
-  bankAccountType,
-  bankName,
   houseSize,
   description,
   urlImage,
@@ -21,9 +18,6 @@ export function editPersonalInformation({
       name,
       email,
       password,
-      bankAccountNumber,
-      bankAccountType,
-      bankName,
       houseSize,
       description,
       urlImage,
