@@ -1,16 +1,29 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
-import { Box, Grid, Avatar, TextField, Button, Typography } from '@mui/material'
-
-import styles from '../../styles/MyProfile.module.css'
+import {
+  Box,
+  Grid,
+  Avatar,
+  TextField,
+  Button,
+  Typography,
+  CardMedia,
+} from '@mui/material'
 
 import { UserLayout } from '../../components/layouts'
-import { editPersonalInformation, getPersonalInformation } from '../../services'
+import { getPersonalInformation } from '../../services'
 import { ChangePersonalInfoModal } from '../../components/ui'
+import { AuthContext } from '../../context'
+
+const defaultImage =
+  'https://res.cloudinary.com/dj4ce5tcg/image/upload/v1668916085/Petsibilities/yzcqlcdpglj4wrlvdkgj.png'
 
 export default function Profile() {
+  const router = useRouter()
+  const { user } = useContext(AuthContext)
+
   const [userForm, setUserForm] = useState({
     name: '',
     email: '',
@@ -43,14 +56,14 @@ export default function Profile() {
           bankAccountNumber: '',
           bankAccountType: '',
           bankName: '',
-          houseSize: resp.houseSize,
+          houseSize: resp.houseSize || '',
           description: resp.description || 'sin descripción',
-          urlImage: '',
+          urlImage: resp.urlImage || defaultImage,
           phoneNumber: resp.phoneNumber,
         })
       })
       .catch((err) => console.log(err, 'error'))
-  }, [])
+  }, [user])
 
   return (
     <>
@@ -73,7 +86,11 @@ export default function Profile() {
                 sx={{ height: '300px', width: '300px' }}
                 style={{ justifyContent: 'center', display: 'flex' }}
               >
-                AM
+                <CardMedia
+                  component="img"
+                  height={300}
+                  image={userForm.urlImage}
+                />
               </Avatar>
             </Box>
           </Grid>

@@ -22,7 +22,6 @@ export default function Pet({ response }) {
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
   const [msg, setMsg] = useState('')
-
   const router = useRouter()
   const { user } = useContext(AuthContext)
   const { pet, owner, score, userPetId } = response
@@ -117,10 +116,11 @@ export default function Pet({ response }) {
                 <Typography variant="h2" textAlign="center">
                   Dueño(a): {owner.name}
                 </Typography>
-                <Typography sx={{ textAlign: 'center' }}>{`valoración: ${
-                  score || 'Sin valoraciones'
-                }`}</Typography>
-                <StarList cant={3} />
+                <Typography sx={{ textAlign: 'center' }}>
+                  valoración:
+                  {score ? <StarList cant={score} /> : ' Sin valoraciones'}
+                </Typography>
+
                 <Button
                   onClick={handleClick}
                   sx={{

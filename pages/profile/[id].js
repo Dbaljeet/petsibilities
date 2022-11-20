@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+
+import { AuthContext } from '../../context'
 
 import { getUserProfile } from '../../services'
 
@@ -10,11 +12,15 @@ import { UserLayout } from '../../components/layouts'
 const TypographyStyle = {
   border: '2px solid #0004',
   borderRadius: '40px',
-  padding: 2,
+  padding: '15px 30px',
   maxWidth: '450px',
 }
 
+const defaultImage =
+  'https://res.cloudinary.com/dj4ce5tcg/image/upload/v1668916085/Petsibilities/yzcqlcdpglj4wrlvdkgj.png'
+
 export default function Profile() {
+  const { user } = useContext(AuthContext)
   const router = useRouter()
   const { id } = router.query
   const [userForm, setUserForm] = useState({
@@ -22,23 +28,24 @@ export default function Profile() {
     email: '',
     houseSize: '',
     description: '',
-    urlImage: '',
+    urlImage: defaultImage,
     phoneNumber: '',
     city: '',
   })
-  const [isEdit, setEdit] = useState(false)
 
   useEffect(() => {
+    if (!router.isReady) return
     const getInfo = async () => {
       try {
         const { resp } = await getUserProfile({ id })
+        console.log('entra')
         console.log(resp, 'respons frontend use')
         setUserForm({
           name: resp.name,
           email: resp.email,
           houseSize: resp.houseSize || 'Sin especificar',
           description: resp.description || 'Sin descripción',
-          urlImage: resp.urlImage,
+          urlImage: resp.urlImage || defaultImage,
           phoneNumber: resp.phoneNumber,
           city: resp.city.name,
         })
@@ -47,7 +54,7 @@ export default function Profile() {
       }
     }
     getInfo()
-  }, [])
+  }, [id, router.isReady, user])
 
   return (
     <>
@@ -73,10 +80,7 @@ export default function Profile() {
               gap={'60px'}
             >
               <Avatar sx={{ height: '300px', width: '300px' }}>
-                <CardMedia
-                  component="img"
-                  image="https://res.cloudinary.com/dj4ce5tcg/image/upload/v1668916085/Petsibilities/yzcqlcdpglj4wrlvdkgj.png"
-                />
+                <CardMedia component="img" image={userForm.urlImage} />
               </Avatar>
 
               <Typography
@@ -129,9 +133,4 @@ export default function Profile() {
       </UserLayout>
     </>
   )
-}
-
-export async function getServerSideProps() {
-  return { props: {} }
-  //const response = getPersonalInformation()
 }
