@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 import { getUserProfile } from '../../services'
 
-import { Box, Grid, Avatar, Typography } from '@mui/material'
+import { Box, Grid, Avatar, Typography, CardMedia } from '@mui/material'
 
 import { UserLayout } from '../../components/layouts'
 
@@ -27,10 +27,6 @@ export default function Profile() {
     city: '',
   })
   const [isEdit, setEdit] = useState(false)
-
-  const editInfo = () => {
-    setEdit(!isEdit)
-  }
 
   useEffect(() => {
     const getInfo = async () => {
@@ -69,13 +65,24 @@ export default function Profile() {
           alignItems="Center"
         >
           <Grid item xs={12} sm={7} alignItems="center">
-            <Box display="flex" alignItems="center" justifyContent="center">
-              <Avatar
-                sx={{ height: '300px', width: '300px' }}
-                style={{ justifyContent: 'center', display: 'flex' }}
-              >
-                AM
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              flexDirection="column"
+              gap={'60px'}
+            >
+              <Avatar sx={{ height: '300px', width: '300px' }}>
+                <CardMedia
+                  component="img"
+                  image="https://res.cloudinary.com/dj4ce5tcg/image/upload/v1668916085/Petsibilities/yzcqlcdpglj4wrlvdkgj.png"
+                />
               </Avatar>
+
+              <Typography
+                variant="h1"
+                sx={TypographyStyle}
+              >{` ${userForm.name}`}</Typography>
             </Box>
           </Grid>
 
@@ -93,11 +100,6 @@ export default function Profile() {
               marginTop: '70px',
             }}
           >
-            <Typography
-              variant="h1"
-              sx={TypographyStyle}
-            >{`Nombre: ${userForm.name}`}</Typography>
-
             <Typography
               variant="h2"
               sx={TypographyStyle}
