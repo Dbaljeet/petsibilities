@@ -1,24 +1,30 @@
-import { Box, Grid, Avatar, TextField, Button } from '@mui/material'
-import { UserLayout } from '../../components/layouts'
-import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import { useEffect, useState } from 'react'
-import { editPersonalInformation, getPersonalInformation } from '../../services'
 import { useRouter } from 'next/router'
+
+import { getUserProfile } from '../../services'
+
+import { Box, Grid, Avatar, Typography } from '@mui/material'
+
+import { UserLayout } from '../../components/layouts'
+
+const TypographyStyle = {
+  border: '2px solid #0004',
+  borderRadius: '40px',
+  padding: 2,
+  maxWidth: '450px',
+}
+
 export default function Profile() {
   const router = useRouter()
   const { id } = router.query
-  console.log(id)
   const [userForm, setUserForm] = useState({
-    name: 'Alberto',
+    name: '',
     email: '',
-    password: '',
-    bankAccountNumber: '',
-    bankAccountType: '',
-    bankName: '',
     houseSize: '',
     description: '',
     urlImage: '',
     phoneNumber: '',
+    city: '',
   })
   const [isEdit, setEdit] = useState(false)
 
@@ -27,22 +33,30 @@ export default function Profile() {
   }
 
   useEffect(() => {
-    console.log(id, 'id del useEffect')
-    getPersonalInformation(id)
+    const getInfo = async () => {
+      try {
+        const { resp } = await getUserProfile({ id })
+        console.log(resp, 'respons frontend use')
+        setUserForm({
+          name: resp.name,
+          email: resp.email,
+          houseSize: resp.houseSize || 'Sin especificar',
+          description: resp.description || 'Sin descripción',
+          urlImage: resp.urlImage,
+          phoneNumber: resp.phoneNumber,
+          city: resp.city.name,
+        })
+      } catch {
+        console.log('No se pudo obtener perfil')
+      }
+    }
+    getInfo()
   }, [])
-
-  const patchProfileInfo = async (ev) => {
-    ev.preventDefault()
-    try {
-      const res = await editPersonalInformation(userForm)
-      console.log('resedit', res)
-    } catch {}
-  }
 
   return (
     <>
       <UserLayout
-        title={`Profile User ~ Petsibilities`}
+        title={`Profile User | Petsibilities`}
         pageDescription={`Perfil de usuario`}
       >
         <Grid
@@ -65,62 +79,49 @@ export default function Profile() {
             </Box>
           </Grid>
 
-          <Grid item xs={12} sm={5}>
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              spacing={4}
-            >
-              <Grid item>
-                <Button onClick={editInfo}>
-                  <ModeEditIcon />
-                </Button>
-              </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={5}
+            sx={{
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 5,
+              minWidth: '300px',
+              wordBreak: 'break-word',
+              marginTop: '70px',
+            }}
+          >
+            <Typography
+              variant="h1"
+              sx={TypographyStyle}
+            >{`Nombre: ${userForm.name}`}</Typography>
 
-              <Grid item>
-                <TextField
-                  label={`Nombre :${'Alberto Milla'}`}
-                  disabled={!isEdit}
-                  variant="outlined"
-                />
-              </Grid>
+            <Typography
+              variant="h2"
+              sx={TypographyStyle}
+            >{`Ciudad: ${userForm.city}`}</Typography>
 
-              <Grid item>
-                <TextField
-                  label={`Ciudad :${`Calama`}`}
-                  disabled={true}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  label={`Contacto :${`+569 12345678`}`}
-                  disabled={true}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  label={`Descripcion :${`Hola`}`}
-                  disabled={true}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  label={`Hogar :${`35 mts`}`}
-                  disabled={true}
-                  variant="outlined"
-                />
-              </Grid>
-              {isEdit ? (
-                <Button onClick={patchProfileInfo}>Guardar</Button>
-              ) : (
-                ''
-              )}
-            </Grid>
+            <Typography
+              variant="h2"
+              sx={TypographyStyle}
+            >{`Contacto: ${userForm.phoneNumber}`}</Typography>
+
+            <Typography
+              variant="h2"
+              sx={TypographyStyle}
+            >{`Correo: ${userForm.email}`}</Typography>
+
+            <Typography
+              variant="h2"
+              sx={TypographyStyle}
+            >{`Descripcion: ${userForm.description}`}</Typography>
+
+            <Typography
+              variant="h2"
+              sx={TypographyStyle}
+            >{`Hogar: ${userForm.houseSize}`}</Typography>
           </Grid>
         </Grid>
       </UserLayout>
