@@ -102,12 +102,16 @@ export default function Request() {
               Ver todas
             </MenuItem>
 
-            <MenuItem key={'Pendientes'} value={false}>
+            <MenuItem key={'Pendientes'} value={'Pendientes'}>
               {'Pendientes'}
             </MenuItem>
 
             <MenuItem key={'Aceptadas'} value={true}>
               {'Aceptadas'}
+            </MenuItem>
+
+            <MenuItem key={'Rechazadas'} value={false}>
+              {'Rechazadas'}
             </MenuItem>
           </TextField>
 
@@ -123,15 +127,26 @@ export default function Request() {
               }}
             >
               {request.map((requestU) =>
-                requestU.petition.accepted ? (
-                  filter ? (
+                /*aceptadas */
+                requestU.petition.accepted === true ? (
+                  filter === true ? (
                     <MyPetition key={requestU.petition.id} request={requestU} />
                   ) : filter === 'Ver todas' ? (
                     <MyPetition key={requestU.petition.id} request={requestU} />
                   ) : (
                     ''
                   )
-                ) : !filter ? (
+                ) : /*rechazadas */
+                requestU.petition.accepted === false ? (
+                  !filter ? (
+                    <MyPetition key={requestU.petition.id} request={requestU} />
+                  ) : filter === 'Ver todas' ? (
+                    <MyPetition key={requestU.petition.id} request={requestU} />
+                  ) : (
+                    ''
+                  )
+                ) : /*pendientes*/
+                filter === 'Pendientes' ? (
                   <Petition
                     key={requestU.petition.id}
                     request={requestU}
