@@ -1,4 +1,4 @@
-export function RecoveryPassword({ email }) {
+export function RecoveryPasswordService({ email }) {
   return fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/auth/recovery-password`, {
     method: 'POST',
     headers: {

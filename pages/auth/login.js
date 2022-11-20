@@ -10,7 +10,7 @@ import { BasicModal, ButtonSubmit, Switch } from '../../components/ui'
 import { AuthContext } from '../../context'
 import { Spinner } from '../../components/ui'
 import { Box, Button, TextField } from '@mui/material'
-import { RecoveryPassword } from '../../services'
+import RecoveryPassword from '../../components/RecoveryPassword'
 
 export default function Login() {
   const router = useRouter()
@@ -26,8 +26,6 @@ export default function Login() {
 
   const [openError, setOpenError] = useState(false)
   const [openRecovery, setOpenRecovery] = useState(false)
-  const [openErrorRecovery, setOpenErrorRecovery] = useState(false)
-  const [openSucessfulRecovery, setOpenSuccessfulRecovery] = useState(false)
 
   const [isVisiblePassword, setIsVisiblePassword] = useState(false)
 
@@ -52,21 +50,6 @@ export default function Login() {
   }
   const showPassword = () => {
     setIsVisiblePassword(!isVisiblePassword)
-  }
-
-  const handleRecoveryPassword = async () => {
-    try {
-      const { message } = await RecoveryPassword({
-        email: loginForm.recoveryEmail,
-      })
-      if (message === 'mail sent') {
-        setOpenSuccessfulRecovery(true)
-      } else {
-        setOpenErrorRecovery(true)
-      }
-    } catch {
-      setOpenErrorRecovery(true)
-    }
   }
 
   return (
@@ -127,53 +110,10 @@ export default function Login() {
                 ¿Olvidaste tu contraseña?
               </Button>
             </div>
-
-            <BasicModal
-              title={'¿Olvidaste tu contraseña?'}
-              msg="Cambia tu contraseña indicando tu correo"
-              open={openRecovery}
-              setOpen={setOpenRecovery}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  marginTop: 3,
-                  gap: 3,
-                }}
-              >
-                <TextField
-                  name="recoveryEmail"
-                  onChange={handleChange}
-                  label="correo electrónico"
-                />
-                <Button onClick={handleRecoveryPassword}>Enviar</Button>
-              </Box>
-
-              {openErrorRecovery ? (
-                <BasicModal
-                  open={openErrorRecovery}
-                  setOpen={setOpenErrorRecovery}
-                  title={'Error'}
-                  msg={
-                    'Revise si su correo ha sido registrado en la web, puede ver su buzón'
-                  }
-                />
-              ) : (
-                ''
-              )}
-            </BasicModal>
-
-            {openSucessfulRecovery && (
-              <BasicModal
-                title={'Enviado correctamente'}
-                msg={
-                  'Le ha sido enviado un correo con los pasos de recuperación'
-                }
-                open={openSucessfulRecovery}
-                setOpen={setOpenSuccessfulRecovery}
-              />
-            )}
+            <RecoveryPassword
+              setOpenRecovery={setOpenRecovery}
+              openRecovery={openRecovery}
+            />
           </section>
         </main>
       </GeneralLayout>

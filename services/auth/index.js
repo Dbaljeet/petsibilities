@@ -1,1 +1,1 @@
-export * from './RecoveryPassword'
+export * from './RecoveryPasswordService'
