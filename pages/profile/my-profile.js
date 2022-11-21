@@ -1,21 +1,24 @@
 import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import NextLink from 'next/link'
+
+import { AuthContext } from '../../context'
+
+import { getPersonalInformation } from '../../services'
+
+import { BasicModal, ChangePersonalInfoModal } from '../../components/ui'
 
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
-import {
-  Box,
-  Grid,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
-  CardMedia,
-} from '@mui/material'
+import { Box, Grid, Avatar, Button, Typography, CardMedia } from '@mui/material'
 
 import { UserLayout } from '../../components/layouts'
-import { getPersonalInformation } from '../../services'
-import { ChangePersonalInfoModal } from '../../components/ui'
-import { AuthContext } from '../../context'
+
+const TypographyStyle = {
+  border: '2px solid #0004',
+  borderRadius: '40px',
+  padding: '15px 30px',
+  maxWidth: '450px',
+}
 
 const defaultImage =
   'https://res.cloudinary.com/dj4ce5tcg/image/upload/v1668916085/Petsibilities/yzcqlcdpglj4wrlvdkgj.png'
@@ -40,6 +43,8 @@ export default function Profile() {
 
   const [openModal, setOpenModal] = useState(false)
 
+  const [modalLogin, setModalLogin] = useState(false)
+
   const editInfo = () => {
     setOpenModal(true)
   }
@@ -62,7 +67,9 @@ export default function Profile() {
           phoneNumber: resp.phoneNumber,
         })
       })
-      .catch((err) => console.log(err, 'error'))
+      .catch(() => {
+        setModalLogin(true)
+      })
   }, [user])
 
   return (
@@ -71,6 +78,16 @@ export default function Profile() {
         title={`Profile User ~ Petsibilities`}
         pageDescription={`Perfil de usuario`}
       >
+        <BasicModal
+          title={'Inicia Sesión'}
+          msg="Para ver el perfil antes necesitas iniciar sesión"
+          open={modalLogin}
+          setOpen={setModalLogin}
+        >
+          <NextLink href={`/auth/login?p=/profile/my-profile`} passHref>
+            <Button>{'Iniciar sesión'}</Button>
+          </NextLink>
+        </BasicModal>
         <Grid
           container
           my={2}
@@ -81,103 +98,76 @@ export default function Profile() {
           alignItems="Center"
         >
           <Grid item xs={12} sm={7} alignItems="center">
-            <Box display="flex" alignItems="center" justifyContent="center">
-              <Avatar
-                sx={{ height: '300px', width: '300px' }}
-                style={{ justifyContent: 'center', display: 'flex' }}
-              >
-                <CardMedia
-                  component="img"
-                  height={300}
-                  image={userForm.urlImage}
-                />
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              flexDirection="column"
+              gap={'60px'}
+            >
+              <Avatar sx={{ height: '300px', width: '300px' }}>
+                <CardMedia component="img" image={userForm.urlImage} />
               </Avatar>
+
+              <Typography variant="h1">{` ${userForm.name}`}</Typography>
             </Box>
           </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={5}
+            sx={{
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 5,
+              minWidth: '300px',
+              wordBreak: 'break-word',
+              marginTop: '70px',
+            }}
+          >
+            <Button onClick={editInfo}>
+              <ModeEditIcon />
+            </Button>
 
-          <Grid item xs={12} sm={5}>
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              spacing={4}
-            >
-              <Grid item>
-                <Button onClick={editInfo}>
-                  <ModeEditIcon />
-                </Button>
-              </Grid>
+            <Typography
+              variant="h2"
+              sx={TypographyStyle}
+            >{`Ciudad: ${userForm.city}`}</Typography>
 
-              <Grid
-                item
-                sx={{
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 5,
-                }}
-              >
-                <Typography
-                  variant="h1"
-                  sx={{
-                    border: '2px solid #0004',
-                    borderRadius: '40px',
-                    padding: 2,
-                  }}
-                >{`Nombre: ${userForm.name}`}</Typography>
+            <Typography
+              variant="h2"
+              sx={TypographyStyle}
+            >{`Contacto: ${userForm.phoneNumber}`}</Typography>
 
-                <Typography
-                  variant="h2"
-                  sx={{
-                    border: '2px solid #0004',
-                    borderRadius: '40px',
-                    padding: 2,
-                  }}
-                >{`Ciudad: ${userForm.city}`}</Typography>
+            <Typography
+              variant="h2"
+              sx={TypographyStyle}
+            >{`Correo: ${userForm.email}`}</Typography>
 
-                <Typography
-                  variant="h2"
-                  sx={{
-                    border: '2px solid #0004',
-                    borderRadius: '40px',
-                    padding: 2,
-                  }}
-                >{`Contacto: ${userForm.phoneNumber}`}</Typography>
+            <Typography
+              variant="h2"
+              sx={TypographyStyle}
+            >{`Descripcion: ${userForm.description}`}</Typography>
 
-                <Typography
-                  variant="h2"
-                  sx={{
-                    border: '2px solid #0004',
-                    borderRadius: '40px',
-                    padding: 2,
-                  }}
-                >{`Descripcion: ${userForm.description}`}</Typography>
-
-                <Typography
-                  variant="h2"
-                  sx={{
-                    border: '2px solid #0004',
-                    borderRadius: '40px',
-                    padding: 2,
-                  }}
-                >{`Hogar: ${userForm.houseSize}`}</Typography>
-              </Grid>
-
-              {openModal ? (
-                <>
-                  <ChangePersonalInfoModal
-                    open={openModal}
-                    setOpen={setOpenModal}
-                    nameOrig={userForm.name}
-                  />
-                </>
-              ) : (
-                ''
-              )}
-            </Grid>
+            <Typography
+              variant="h2"
+              sx={TypographyStyle}
+            >{`Hogar: ${userForm.houseSize}`}</Typography>
           </Grid>
         </Grid>
+
+        {openModal ? (
+          <>
+            <ChangePersonalInfoModal
+              open={openModal}
+              setOpen={setOpenModal}
+              nameOrig={userForm.name}
+            />
+          </>
+        ) : (
+          ''
+        )}
       </UserLayout>
     </>
   )

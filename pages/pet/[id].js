@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 
+import { useRouter } from 'next/router'
+import NextLink from 'next/link'
+
 import { AuthContext } from '../../context'
 
 import { getPetById, postPetitionService } from '../../services'
@@ -11,14 +14,15 @@ import {
   Box,
   Button,
   Grid,
+  Link,
   TextareaAutosize,
   TextField,
   Typography,
 } from '@mui/material'
 import { BasicModal, StarList } from '../../components/ui'
-import { useRouter } from 'next/router'
 
 export default function Pet({ response }) {
+  console.log(response)
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
   const [msg, setMsg] = useState('')
@@ -112,9 +116,19 @@ export default function Pet({ response }) {
             >
               <PetSlideShow images={pet.images} />
 
-              <Box sx={{ wordWrap: 'break-word' }}>
+              <Box
+                sx={{
+                  wordWrap: 'break-word',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 4,
+                }}
+              >
                 <Typography variant="h2" textAlign="center">
-                  Dueño(a): {owner.name}
+                  Dueño(a):
+                  <NextLink href={`/profile/${owner.id}`} passHref>
+                    <Link>{owner.name}</Link>
+                  </NextLink>
                 </Typography>
                 <Typography sx={{ textAlign: 'center' }}>
                   valoración:

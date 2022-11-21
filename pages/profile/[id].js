@@ -1,13 +1,16 @@
 import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import NextLink from 'next/link'
 
 import { AuthContext } from '../../context'
 
 import { getUserProfile } from '../../services'
 
-import { Box, Grid, Avatar, Typography, CardMedia } from '@mui/material'
+import { Box, Grid, Avatar, Typography, CardMedia, Button } from '@mui/material'
 
 import { UserLayout } from '../../components/layouts'
+import { BasicModal } from '../../components/ui'
+import Link from 'next/link'
 
 const TypographyStyle = {
   border: '2px solid #0004',
@@ -21,8 +24,10 @@ const defaultImage =
 
 export default function Profile() {
   const { user } = useContext(AuthContext)
+
   const router = useRouter()
   const { id } = router.query
+
   const [userForm, setUserForm] = useState({
     name: '',
     email: '',
@@ -31,15 +36,17 @@ export default function Profile() {
     urlImage: defaultImage,
     phoneNumber: '',
     city: '',
+    id: '',
   })
+
+  const [modalLogin, setModalLogin] = useState(false)
 
   useEffect(() => {
     if (!router.isReady) return
     const getInfo = async () => {
       try {
         const { resp } = await getUserProfile({ id })
-        console.log('entra')
-        console.log(resp, 'respons frontend use')
+        console.log(resp)
         setUserForm({
           name: resp.name,
           email: resp.email,
@@ -50,7 +57,7 @@ export default function Profile() {
           city: resp.city.name,
         })
       } catch {
-        console.log('No se pudo obtener perfil')
+        setModalLogin(true)
       }
     }
     getInfo()
@@ -62,6 +69,17 @@ export default function Profile() {
         title={`Profile User | Petsibilities`}
         pageDescription={`Perfil de usuario`}
       >
+        <BasicModal
+          title={'Inicia Sesión'}
+          msg="Para ver el perfil antes necesitas iniciar sesión"
+          open={modalLogin}
+          setOpen={setModalLogin}
+        >
+          <NextLink href={`/auth/login?p=/profile/${id}`} passHref>
+            <Button>{'Iniciar sesión'}</Button>
+          </NextLink>
+        </BasicModal>
+
         <Grid
           container
           my={2}
@@ -83,10 +101,7 @@ export default function Profile() {
                 <CardMedia component="img" image={userForm.urlImage} />
               </Avatar>
 
-              <Typography
-                variant="h1"
-                sx={TypographyStyle}
-              >{` ${userForm.name}`}</Typography>
+              <Typography variant="h1">{` ${userForm.name}`}</Typography>
             </Box>
           </Grid>
 
