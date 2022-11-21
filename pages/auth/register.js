@@ -19,10 +19,12 @@ import {
   Paper,
   Link,
   Checkbox,
+  Button,
 } from '@mui/material'
 
 import { UserLayout } from '../../components/layouts'
 import { ButtonSubmit, Spinner, Switch } from '../../components/ui'
+import RecoveryPassword from '../../components/RecoveryPassword'
 
 function Copyright(props) {
   return (
@@ -63,6 +65,8 @@ export default function SignInSide() {
 
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  const [openRecovery, setOpenRecovery] = useState(false)
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
@@ -334,17 +338,24 @@ export default function SignInSide() {
                 )}
               </Box>
 
-              <Grid container sx={{ marginTop: '30px' }}>
+              <Grid
+                container
+                sx={{
+                  marginTop: '30px',
+                }}
+              >
                 <Grid item xs>
-                  <NextLink href="/auth/">
-                    <Link href="#" variant="body1">
-                      ¿Olvidaste tu contraseña?
-                    </Link>
-                  </NextLink>
+                  <Button
+                    onClick={() => setOpenRecovery(true)}
+                    variant="text"
+                    sx={{ color: 'rgba(0, 0, 0, 0.78)', padding: '5px' }}
+                  >
+                    ¿Olvidaste tu contraseña?
+                  </Button>
                 </Grid>
                 <Grid item>
                   <NextLink href="/auth/login">
-                    <Link href="#" variant="body1">
+                    <Link href="#" variant="body1" sx={{ padding: '5px' }}>
                       {'Iniciar sesión'}
                     </Link>
                   </NextLink>
@@ -354,6 +365,12 @@ export default function SignInSide() {
               {loading && <Spinner />}
             </Box>
           </Box>
+          {openRecovery && (
+            <RecoveryPassword
+              openRecovery={openRecovery}
+              setOpenRecovery={setOpenRecovery}
+            />
+          )}
         </Grid>
       </Grid>
     </UserLayout>

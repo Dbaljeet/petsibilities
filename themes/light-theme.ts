@@ -22,6 +22,9 @@ export const lightTheme = createTheme({
       defaultProps: {
         underline: 'none',
       },
+      styleOverrides: {
+        root: {},
+      },
     },
     MuiAppBar: {
       defaultProps: {
@@ -75,6 +78,16 @@ export const lightTheme = createTheme({
           border: '1px solid #fff',
           ':hover': {
             backgroundColor: 'rgba(0,0,0,0.05)',
+            transition: 'all 0.3s ease-in-out',
+          },
+        },
+        text: {
+          textTransform: 'none',
+          boxShadow: 'none',
+          borderRadius: 10,
+          border: '1px solid #fff',
+          ':hover': {
+            backgroundColor: 'rgba(0,0,0,0.008)',
             transition: 'all 0.3s ease-in-out',
           },
         },
