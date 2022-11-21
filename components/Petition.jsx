@@ -10,8 +10,9 @@ import {
   Button,
   Modal,
   Rating,
+  CardMedia,
 } from '@mui/material'
-import LinkNext from 'next/link'
+import NextLink from 'next/link'
 import { useState } from 'react'
 
 import { acceptPetitionService, deletePetitionService } from '../services'
@@ -123,13 +124,9 @@ const Petition = ({ request, setTitle, setMsg, setOpen }) => {
               gap: 2,
             }}
           >
-            <LinkNext href={`profile/${request.petition.userId}`} passHref>
-              <Link underline="hover">
-                <Typography variant="h1">
-                  {'Usuario: ' + request.adopter.name} <PendingActions />
-                </Typography>
-              </Link>
-            </LinkNext>
+            <Typography variant="h1">
+              {'Usuario: ' + request.adopter.name} <PendingActions />
+            </Typography>
             <Typography variant="h2">{request.pet.name}</Typography>
           </Box>
         </AccordionSummary>
@@ -143,6 +140,17 @@ const Petition = ({ request, setTitle, setMsg, setOpen }) => {
           <Typography variant="h3">
             {'Fecha: ' + request.petition.date}
           </Typography>
+          <NextLink href={`profile/${request.petition.userId}`} passHref>
+            <Link underline="hover" target="_blank">
+              Ver perfil del usuario
+            </Link>
+          </NextLink>
+          <CardMedia
+            component="img"
+            height={300}
+            sx={{ objectFit: 'contain' }}
+            image={request.pet.images[0].url}
+          />
           <Divider sx={{ marginY: 2 }} />
           <Typography variant="h3">{request.adopter.email}</Typography>
           <Typography variant="h3">{request.adopter.phoneNumber}</Typography>

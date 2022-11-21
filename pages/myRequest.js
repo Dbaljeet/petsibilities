@@ -1,17 +1,31 @@
-import { Grid, Box, Button, Petition, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import {
+  Grid,
+  Box,
+  Button,
+  Petition,
+  Typography,
+  CardMedia,
+} from '@mui/material'
+import { useContext, useEffect, useState } from 'react'
 import { UserLayout } from '../components/layouts'
 import MyPetition from '../components/MyPetition'
+import { BasicModal } from '../components/ui'
+import { AuthContext } from '../context'
 import { getMyRequestService } from '../services'
 
 const OFFSET = 5
 
 export default function MyRequest() {
+  const { user } = useContext(AuthContext)
+  console.log(user, 'user')
   const [request, setRequest] = useState([])
   const [firstSearch, setFirstSearch] = useState(false)
   const [page, setPage] = useState(0)
 
   const [enableMoreData, setEnableMoreData] = useState(true)
+
+  const [error, setError] = useState(false)
+  const [Unauthorized, setUnauthorized] = useState(false)
 
   console.log(request)
 
@@ -19,7 +33,7 @@ export default function MyRequest() {
     try {
       const res = await getMyRequestService({ page })
       if (res === undefined) {
-        alert('Necesita recargar la página o volver a iniciar sesión')
+        setError(true)
       } else {
         setFirstSearch(true)
         if (res.resp.petitionsPets.length === 0) {
@@ -31,32 +45,53 @@ export default function MyRequest() {
         setPage(page + OFFSET)
       }
     } catch {
-      alert('Necesita recargar la página o volver a iniciar sesión')
+      setError(true)
     }
   }
 
   const getFirstRequest = async () => {
     try {
-      setEnableMoreData(true)
-      const res = await getMyRequestService({ page: 0 })
-      if (res === undefined) {
-        alert('Necesita recargar la página o volver a iniciar sesión')
+      if (user === undefined) {
+        setUnauthorized(true)
       } else {
-        setFirstSearch(true)
-        if (res.resp.petitionsPets.length === 0) {
-          setEnableMoreData(false)
-        }
-        setRequest(res.resp.petitionsPets)
+        setEnableMoreData(true)
+        const res = await getMyRequestService({ page: 0 })
+        if (res === undefined) {
+          setError(true)
+        } else {
+          setFirstSearch(true)
+          if (res.resp.petitionsPets.length === 0) {
+            setEnableMoreData(false)
+          }
+          setRequest(res.resp.petitionsPets)
 
-        setPage(OFFSET)
+          setPage(OFFSET)
+        }
       }
     } catch {
-      alert('Necesita recargar la página o volver a iniciar sesión')
+      setError(true)
     }
   }
 
   return (
     <>
+      <BasicModal
+        open={Unauthorized}
+        setOpen={setUnauthorized}
+        title={'No autorizado'}
+        msg={'Por favor inicia sesión para ver tus peticiones'}
+      >
+        <Box sx={{ marginTop: '12px' }}>
+          <CardMedia component="img" image={'https://http.cat/401'} />
+        </Box>
+      </BasicModal>
+
+      <BasicModal
+        title={'Error'}
+        msg={'Necesita volver a recargar la página'}
+        open={error}
+        setOpen={setError}
+      ></BasicModal>
       <UserLayout title="Mis solicitudes | Petsibilities">
         <Box
           sx={{

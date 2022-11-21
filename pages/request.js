@@ -1,6 +1,17 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
-import { Box, Button, Grid, MenuItem, TextField } from '@mui/material'
+import { AuthContext } from '../context'
+
+import { getRequestService } from '../services'
+
+import {
+  Box,
+  Button,
+  CardMedia,
+  Grid,
+  MenuItem,
+  TextField,
+} from '@mui/material'
 
 import { BasicModal } from '../components/ui'
 import { UserLayout } from '../components/layouts'
@@ -8,12 +19,12 @@ import { UserLayout } from '../components/layouts'
 import MyPetition from '../components/MyPetition'
 import Petition from '../components/Petition'
 
-import { getRequestService } from '../services'
-
 const LIMIT = 5
 const INITIAL_PAGE = 0
 
 export default function Request() {
+  const { user } = useContext(AuthContext)
+
   const [msg, setMsg] = useState('')
   const [title, setTitle] = useState('')
 
@@ -25,6 +36,7 @@ export default function Request() {
   const [page, setPage] = useState(INITIAL_PAGE)
 
   const [enableMoreData, setEnableMoreData] = useState(false)
+  const [Unauthorized, setUnauthorized] = useState(false)
 
   const getRequest = async () => {
     try {
@@ -52,17 +64,21 @@ export default function Request() {
 
   const getFirstRequest = async () => {
     try {
-      setEnableMoreData(false)
-      const res = await getRequestService({ page: INITIAL_PAGE })
-      if (res === undefined) {
-        setOpen(true)
-        setTitle('Necesita recargar la página o volver a iniciar sesión')
+      if (user === undefined) {
+        setUnauthorized(true)
       } else {
-        if (res.resp.petitionsDetails.length !== 0) {
-          console.log(res.resp.petitionsDetails)
-          setRequest(res.resp.petitionsDetails)
-          setEnableMoreData(true)
-          setPage(LIMIT)
+        setEnableMoreData(false)
+        const res = await getRequestService({ page: INITIAL_PAGE })
+        if (res === undefined) {
+          setOpen(true)
+          setTitle('Necesita recargar la página o volver a iniciar sesión')
+        } else {
+          if (res.resp.petitionsDetails.length !== 0) {
+            console.log(res.resp.petitionsDetails)
+            setRequest(res.resp.petitionsDetails)
+            setEnableMoreData(true)
+            setPage(LIMIT)
+          }
         }
       }
     } catch {
@@ -73,6 +89,17 @@ export default function Request() {
 
   return (
     <>
+      <BasicModal
+        open={Unauthorized}
+        setOpen={setUnauthorized}
+        title={'No autorizado'}
+        msg={'Por favor inicia sesión para ver tus peticiones'}
+      >
+        <Box sx={{ marginTop: '12px' }}>
+          <CardMedia component="img" image={'https://http.cat/401'} />
+        </Box>
+      </BasicModal>
+
       <BasicModal title={title} msg={msg} open={open} setOpen={setOpen} />
       <UserLayout
         title="Solicitudes recibidas | Petsibilities"

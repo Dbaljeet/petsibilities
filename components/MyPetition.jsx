@@ -1,9 +1,12 @@
+import NextLink from 'next/link'
+
 import {
   Clear,
   Done,
   ExpandMoreOutlined,
   ForwardToInbox,
 } from '@mui/icons-material'
+
 import {
   Accordion,
   AccordionDetails,
@@ -12,6 +15,7 @@ import {
   Box,
   Divider,
   CardMedia,
+  Link,
 } from '@mui/material'
 const MyPetition = ({ request }) => {
   return (
@@ -44,6 +48,13 @@ const MyPetition = ({ request }) => {
           </Box>
         </AccordionSummary>
         <AccordionDetails>
+          <NextLink href={`profile/${request.petition.userId}`} passHref>
+            <Link underline="hover" target="_blank">
+              <Typography variant="h3">
+                {'Usuario: ' + request.adopter.name}
+              </Typography>
+            </Link>
+          </NextLink>
           <Typography variant="h3">
             {'Comentario: ' + request.petition.comment}
           </Typography>
