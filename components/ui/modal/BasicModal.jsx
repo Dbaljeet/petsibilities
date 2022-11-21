@@ -13,7 +13,8 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  p: 5,
+  /*p:4 old */
 }
 
 export const BasicModal = ({
@@ -44,22 +45,6 @@ export const BasicModal = ({
             {msg}
           </Typography>
 
-          {link ? (
-            <NextLink href={link}>
-              <Link
-                sx={{
-                  backgroundColor: '#d0f5fc',
-                  padding: '20px 40px',
-                  borderRadius: '10px',
-                  cursor: 'pointer',
-                }}
-              >
-                Ir
-              </Link>
-            </NextLink>
-          ) : (
-            ''
-          )}
           {children}
           {extra ? (
             <ExtraInput userPetId={userPetId} handleClose={handleClose} />

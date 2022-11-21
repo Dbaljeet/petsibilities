@@ -122,7 +122,7 @@ export default function Recovery() {
           open={error}
           setOpen={setError}
           title="Error"
-          msg="Su nueva contraseña solo pueden ser números y letras."
+          msg="Su nueva contraseña solo puede contener números y letras."
         >
           <Typography sx={{ marginTop: '5px' }}>
             Recuerda que solo tienes 15 minutos para cambiar tu contraseña desde
