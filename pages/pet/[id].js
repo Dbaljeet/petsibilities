@@ -51,8 +51,7 @@ export default function Pet({ response }) {
       <UserLayout title={`${pet.name} | Petsibilities`}>
         <Grid
           container
-          spacing={8}
-          sx={{ marginTop: '70px' }}
+          sx={{ marginTop: '70px', p: 2 }}
           justifyContent="center"
         >
           <Grid
@@ -138,8 +137,8 @@ export default function Pet({ response }) {
                 <Button
                   onClick={handleClick}
                   sx={{
-                    margin: '20px 0',
-                    width: '100%',
+                    margin: '20px auto',
+                    width: '90%',
                     border: '2px solid #0005',
                   }}
                 >

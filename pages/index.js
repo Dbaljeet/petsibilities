@@ -6,8 +6,10 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <GeneralLayout
-        title={'Inicio-Petsibilities'}
-        pageDescription={'Adopta máscotas en todo Chile'}
+        title={'Inicio | Petsibilities'}
+        pageDescription={
+          'Adopta máscotas en todo Chile a través de Petsibilities'
+        }
       >
         <main className={styles.main}>
           <section className={styles.Content}>

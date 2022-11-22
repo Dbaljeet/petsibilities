@@ -1,3 +1,9 @@
+import { useContext, useEffect, useState } from 'react'
+import { UiContext, AuthContext } from '../../context'
+import { useRouter } from 'next/router'
+
+import { BasicModal } from './modal'
+
 import {
   Box,
   Divider,
@@ -8,6 +14,7 @@ import {
   ListItemText,
   ListSubheader,
 } from '@mui/material'
+
 import {
   AccountCircleOutlined,
   AdminPanelSettings,
@@ -21,15 +28,13 @@ import {
   PostAddOutlined,
 } from '@mui/icons-material'
 
-import { useContext, useEffect, useState } from 'react'
-import { UiContext, AuthContext } from '../../context'
-import { useRouter } from 'next/router'
-
 export const SideMenu = () => {
   const router = useRouter()
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext)
   const { isLoggedIn, logout, user = '' } = useContext(AuthContext)
   const [roleId, setRoleId] = useState('')
+
+  const [isLogout, setIsLogout] = useState(false)
 
   useEffect(() => {
     try {
@@ -43,12 +48,20 @@ export const SideMenu = () => {
     toggleSideMenu()
     router.push(url)
   }
+
   const Logout = async () => {
-    const res = await logout()
-    if (res) {
-      router.reload()
+    try {
+      const res = await logout()
+      if (res) {
+        router.reload()
+      } else {
+        throw new Error('Error logout')
+      }
+    } catch {
+      setIsLogout(true)
     }
   }
+
   return (
     <Drawer
       open={isMenuOpen}
@@ -56,24 +69,14 @@ export const SideMenu = () => {
       anchor="right"
       sx={{ backdropFilter: 'blur(4px)', transition: 'all 0.5s ease-out' }}
     >
+      <BasicModal
+        title={'Ya ha salido de su cuenta'}
+        msg={'Si quiere ver los cambios reflejados recargue la página'}
+        open={isLogout}
+        setOpen={setIsLogout}
+      />
       <Box sx={{ width: 250, paddingTop: 5 }}>
         <List>
-          {/*
-          <ListItem>
-            <Input
-              type="text"
-              placeholder="Buscar..."
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton aria-label="toggle password visibility">
-                    <SearchOutlined />
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </ListItem>
-*/}
-
           <ListItem button onClick={() => navigateTo('/')}>
             <ListItemIcon>
               <HomeOutlined />

@@ -6,7 +6,11 @@ import { AuthContext } from '../../context'
 
 import { getPersonalInformation } from '../../services'
 
-import { BasicModal, ChangePersonalInfoModal } from '../../components/ui'
+import {
+  BasicModal,
+  ChangePersonalInfoModal,
+  StarList,
+} from '../../components/ui'
 
 import ModeEditIcon from '@mui/icons-material/ModeEdit'
 import { Box, Grid, Avatar, Button, Typography, CardMedia } from '@mui/material'
@@ -39,6 +43,7 @@ export default function Profile() {
     description: '',
     urlImage: '',
     phoneNumber: '',
+    score: '',
   })
 
   const [openModal, setOpenModal] = useState(false)
@@ -65,6 +70,7 @@ export default function Profile() {
           description: resp.description || 'sin descripción',
           urlImage: resp.urlImage || defaultImage,
           phoneNumber: resp.phoneNumber,
+          score: resp.score,
         })
       })
       .catch(() => {
@@ -110,6 +116,13 @@ export default function Profile() {
               </Avatar>
 
               <Typography variant="h1">{` ${userForm.name}`}</Typography>
+              <Typography sx={{ textAlign: 'center' }}>
+                {userForm.score ? (
+                  <StarList cant={userForm.score} />
+                ) : (
+                  'Sin valoraciones'
+                )}
+              </Typography>
             </Box>
           </Grid>
           <Grid
