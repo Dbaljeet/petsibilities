@@ -26,19 +26,43 @@ export default function Pet({ response }) {
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
   const [msg, setMsg] = useState('')
+
   const router = useRouter()
   const { user } = useContext(AuthContext)
+
   const { pet, owner, score, userPetId } = response
+
+  const [isNotLogin, setIsNotLogin] = useState(false)
+
   const handleClick = async () => {
     try {
-      setTitle('Rellena el formulario')
-      setMsg('Ingresa un comentario que verá el dueño de la mascota')
-      setOpen(true)
+      if (!user) {
+        setIsNotLogin(true)
+      } else {
+        setTitle('Rellena el formulario')
+        setMsg('Ingresa un comentario que verá el dueño de la mascota')
+        setOpen(true)
+      }
     } catch {}
   }
 
   return (
     <>
+      <BasicModal
+        open={isNotLogin}
+        setOpen={setIsNotLogin}
+        title="Inicia sesión"
+        msg="Antes de adoptar debes iniciar sesión"
+      >
+        <Box sx={{ p: '20px 0' }}>
+          <NextLink href={`/auth/login?p=/pet/${pet.id}`} passHref>
+            <Button sx={{ backgroundColor: 'rgba(0,0,0,0.04)' }}>
+              Iniciar sesión
+            </Button>
+          </NextLink>
+        </Box>
+      </BasicModal>
+
       <BasicModal
         title={title}
         msg={msg}
@@ -124,9 +148,11 @@ export default function Pet({ response }) {
                 }}
               >
                 <Typography variant="h2" textAlign="center">
-                  Dueño(a):
+                  {'Dueño(a): '}
                   <NextLink href={`/profile/${owner.id}`} passHref>
-                    <Link>{owner.name}</Link>
+                    <Button variant="outlined">
+                      <Typography variant="h2">{owner.name}</Typography>
+                    </Button>
                   </NextLink>
                 </Typography>
                 <Typography sx={{ textAlign: 'center' }}>
@@ -162,14 +188,7 @@ export async function getStaticPaths() {
     },
   })
   const pets = await res.json()
-  if (!pets) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
+
   // Get the paths we want to pre-render based on posts
   return {
     paths: pets.map((pet) => ({
@@ -186,10 +205,12 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { id = '' } = params
   const { message } = await getPetById({ id })
-  if (!message) {
+  console.log(message)
+  const error = message.error
+  if (error) {
     return {
       redirect: {
-        destination: '/',
+        destination: '/404',
         permanent: false,
       },
     }

@@ -41,7 +41,7 @@ export function Navbar() {
 
         <Box flex={1}></Box>
 
-        <Box>
+        <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
           <NextLink href="/pets" passHref>
             <a>
               <IconButton name="Buscar">
@@ -49,7 +49,9 @@ export function Navbar() {
               </IconButton>
             </a>
           </NextLink>
+        </Box>
 
+        <Box>
           <Button onClick={toggleSideMenu}>Menú</Button>
         </Box>
       </Toolbar>

@@ -1,7 +1,7 @@
 export function postImagePet({ image }) {
   console.log(image)
 
-  return fetch(`https://api.cloudinary.com/v1_1/dj4ce5tcg/image/upload`, {
+  return fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY}`, {
     method: 'POST',
     body: image,
   }).then((res) => {

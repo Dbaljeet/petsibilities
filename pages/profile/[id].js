@@ -19,7 +19,12 @@ import { styled } from '@mui/material/styles'
 
 import { UserLayout } from '../../components/layouts'
 import { BasicModal, StarList } from '../../components/ui'
-import { AdminPanelSettings, Person, Verified } from '@mui/icons-material'
+import {
+  AdminPanelSettings,
+  Email,
+  Person,
+  Verified,
+} from '@mui/icons-material'
 
 const TypographyStyle = {
   border: '2px solid #0004',
@@ -57,12 +62,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }))
 
-const SmallAvatar = styled(Avatar)(({ theme }) => ({
-  width: 22,
-  height: 22,
-  border: `2px solid ${theme.palette.background.paper}`,
-}))
-
 const defaultImage =
   'https://res.cloudinary.com/dj4ce5tcg/image/upload/v1668916085/Petsibilities/yzcqlcdpglj4wrlvdkgj.png'
 
@@ -87,12 +86,24 @@ export default function Profile() {
 
   const [modalLogin, setModalLogin] = useState(false)
 
+  const [copy, setCopy] = useState(false)
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(userForm.email).then(() => {
+      setCopy(true)
+      setTimeout(() => {
+        setCopy(false)
+      }, 1000)
+    })
+  }
+
   useEffect(() => {
     if (!router.isReady) return
     const getInfo = async () => {
       try {
         const { resp } = await getUserProfile({ id })
         console.log(resp)
+
         setUserForm({
           name: resp.name,
           email: resp.email,
@@ -109,7 +120,7 @@ export default function Profile() {
       }
     }
     getInfo()
-  }, [id, router.isReady, user])
+  }, [id, router.isReady])
 
   return (
     <>
@@ -118,8 +129,14 @@ export default function Profile() {
         pageDescription={`Perfil de usuario`}
       >
         <BasicModal
+          open={copy}
+          setOpen={setCopy}
+          title={'Correo copiado en el portapapeles'}
+        ></BasicModal>
+
+        <BasicModal
           title={'Inicia Sesión'}
-          msg="Para ver el perfil antes necesitas iniciar sesión"
+          msg="Prueba a recargar la web o volver a iniciar sesión"
           open={modalLogin}
           setOpen={setModalLogin}
         >
@@ -132,7 +149,7 @@ export default function Profile() {
           container
           my={2}
           spacing={2}
-          sx={{ marginTop: '70px', padding: '0 40px' }}
+          sx={{ margin: '120px auto', padding: '0 40px', maxWidth: '1200px' }}
           justifyContent="center"
           direction="row"
           alignItems="Center"
@@ -156,7 +173,8 @@ export default function Profile() {
                         height: 50,
                         backgroundColor: '#444040',
                       }}
-                      alt="Remy Sharp"
+                      alt="Admin insignia"
+                      title="Administrador Petsibilities"
                     >
                       {<AdminPanelSettings></AdminPanelSettings>}
                     </Avatar>
@@ -167,7 +185,8 @@ export default function Profile() {
                         height: 50,
                         backgroundColor: '#444040',
                       }}
-                      alt="Remy Sharp"
+                      alt="User insignia"
+                      title="Usuario Petsibilities"
                     >
                       {<Person></Person>}
                     </Avatar>
@@ -178,7 +197,8 @@ export default function Profile() {
                         height: 50,
                         backgroundColor: '#444040',
                       }}
-                      alt="Remy Sharp"
+                      alt="Organización insignia"
+                      title="Organización Petsibilities"
                     >
                       {<Verified></Verified>}
                     </Avatar>
@@ -202,6 +222,14 @@ export default function Profile() {
                   'Sin valoraciones'
                 )}
               </Typography>
+
+              <Button
+                title="Copiar correo"
+                onClick={handleCopy}
+                startIcon={<Email fontSize="large" />}
+              >
+                Correo
+              </Button>
             </Box>
           </Grid>
 
@@ -229,20 +257,15 @@ export default function Profile() {
               sx={TypographyStyle}
             >{`Contacto: ${userForm.phoneNumber}`}</Typography>
 
-            <Typography
-              variant="h2"
-              sx={TypographyStyle}
-            >{`Correo: ${userForm.email}`}</Typography>
+            <Typography variant="h2" sx={TypographyStyle}>
+              {`Tamaño hogar: ${userForm.houseSize}`}
 
-            <Typography
-              variant="h2"
-              sx={TypographyStyle}
-            >{`Descripcion: ${userForm.description}`}</Typography>
-
-            <Typography
-              variant="h2"
-              sx={TypographyStyle}
-            >{`Hogar: ${userForm.houseSize}`}</Typography>
+              {userForm.houseSize !== 'Sin especificar' ? '[m]' : ''}
+            </Typography>
+            <Box sx={TypographyStyle}>
+              <Typography variant="h2">Descripción:</Typography>
+              <Typography>{userForm.description}</Typography>
+            </Box>
           </Grid>
         </Grid>
       </UserLayout>
