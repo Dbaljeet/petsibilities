@@ -1,0 +1,14 @@
+.selectPet{
+    padding: 15px 10px;
+    font-size: 1rem;
+    color:rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+    width: 340px;
+    height: 60px;
+}
+.selectPet:hover{
+    cursor: pointer;
+}
+

@@ -6,7 +6,6 @@ import {
   Button,
   TextField,
   Typography,
-  Box,
 } from '@mui/material'
 
 import styles from '../styles/Pets.module.css'
@@ -20,7 +19,17 @@ import ValueCity from '../components/ValueCity'
 import { Spinner } from '../components/ui'
 
 export default function Pets() {
-  const SPECIES = ['Perro', 'Gato']
+  const SPECIES = [
+    'Perro',
+    'Gato',
+    'Roedor',
+    'Ave',
+    'Reptil',
+    'Pez',
+    'Aracnido',
+    'Mustelido',
+    'Conejo',
+  ]
 
   const [petForm, setPetForm] = useState({
     valueRegion: '',
@@ -34,31 +43,14 @@ export default function Pets() {
   const [noMoreData, setNoMoreData] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  /*
-  const getPets = async () => {
-    try {
-      const { message } = await getPetsFilterService({
-        commune: '',
-        species: '',
-        offset: page,
-      })
-      setPETS(message)
-      setPage(page + 7)
-    } catch {
-      console.log('error get pets')
-    }
-  }*/
-
   const getPetsByFilter = useCallback(async () => {
     try {
-      console.log(petForm, 'petform')
       const { message } = await getPetsFilterService({
         region: petForm.valueRegion,
         commune: petForm.valueCity,
         species: petForm.valueSpecie,
         offset: 0,
       })
-      console.log(message)
       setPage(0)
       setNoMoreData(false)
       setPETS(message)
@@ -70,7 +62,6 @@ export default function Pets() {
   const getMorePets = useCallback(async () => {
     try {
       setLoading(true)
-      console.log(petForm, 'petform')
       const { message } = await getPetsFilterService({
         region: petForm.valueRegion,
         commune: petForm.valueCity,

@@ -74,7 +74,6 @@ export default function Request() {
           setTitle('Necesita recargar la página o volver a iniciar sesión')
         } else {
           if (res.resp.petitionsDetails.length !== 0) {
-            console.log(res.resp.petitionsDetails)
             setRequest(res.resp.petitionsDetails)
             setEnableMoreData(true)
             setPage(LIMIT)

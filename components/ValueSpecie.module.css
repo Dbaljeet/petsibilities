@@ -1,0 +1,11 @@
+.option{
+    background-color: #fff;
+    font-size: 1rem;
+    justify-content: end;
+    padding: 8px;
+
+}
+
+.option:checked { 
+    background: rgba(0, 0, 0, 0.1) !important;
+}

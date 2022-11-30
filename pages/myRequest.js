@@ -17,7 +17,6 @@ const OFFSET = 5
 
 export default function MyRequest() {
   const { user } = useContext(AuthContext)
-  console.log(user, 'user')
   const [request, setRequest] = useState([])
   const [firstSearch, setFirstSearch] = useState(false)
   const [page, setPage] = useState(0)
@@ -26,8 +25,6 @@ export default function MyRequest() {
 
   const [error, setError] = useState(false)
   const [Unauthorized, setUnauthorized] = useState(false)
-
-  console.log(request)
 
   const getRequest = async () => {
     try {

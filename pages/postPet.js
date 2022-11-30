@@ -1,7 +1,16 @@
 import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 
+import { BREEDS } from '../database/breeds'
+
+import { PostPetService, postImagePet } from '../services'
+
+import { ImageList } from '../components/ui/PreviewImages'
+
+import { BasicModal, ButtonSubmit, Spinner } from '../components/ui'
+
 import { UserLayout } from '../components/layouts'
+
 import {
   TextField,
   Box,
@@ -9,17 +18,27 @@ import {
   Autocomplete,
   Checkbox,
   FormControlLabel,
-  Button,
   CardMedia,
   Card,
 } from '@mui/material'
-import { BasicModal, ButtonSubmit, Spinner } from '../components/ui'
-import { PostPetService, postImagePet } from '../services'
-import { ImageList } from '../components/ui/PreviewImages'
+
+import ValueSpecie from '../components/valueSpecie'
+import styles from '../styles/postPet.module.css'
 
 export default function PostPet() {
   const GENDERS = ['Masculino', 'Femenino']
-  const BREEDS = ['Labrador', 'Americano de pelo duro']
+  const SPECIES = [
+    'Perro',
+    'Gato',
+    'Roedor',
+    'Ave',
+    'Reptil',
+    'Pez',
+    'Aracnido',
+    'Mustelido',
+    'Conejo',
+  ]
+
   const [petForm, setPetForm] = useState({
     name: '',
     description: '',
@@ -30,10 +49,17 @@ export default function PostPet() {
     genderId: 1,
     breedId: 1,
     dataImages: [],
+    speciesId: 1,
   })
+
   const router = useRouter()
-  const [inputValueBreed, setInputValueBreed] = useState('')
+
+  const [inputValueSpecie, setInputValueSpecie] = useState('')
+
   const [valueBreed, setValueBreed] = useState('Labrador')
+  const [valueSpecie, setValueSpecie] = useState('Perro')
+
+  console.log(valueBreed)
 
   const [inputValueGender, setInputValueGender] = useState('')
   const [valueGender, setValueGender] = useState('Masculino')
@@ -54,7 +80,6 @@ export default function PostPet() {
       for (const image of dataImages) {
         setIsLoading(true)
         const res2 = await postImagePet({ image: image })
-        console.log(res2, 'res2')
 
         if (res2.secure_url === undefined) {
           throw new Error('Error, post image')
@@ -73,7 +98,6 @@ export default function PostPet() {
       setIsLoading(false)
       setError(true)
       setTimeout(() => setError(false), 2000)
-      console.log(res)
     }
   }
   const handleChange = (ev) => {
@@ -251,48 +275,92 @@ export default function PostPet() {
               )}
             />
 
-            <Autocomplete
-              sx={{ margin: '20px 0px' }}
-              disablePortal
-              name="breedId"
-              value={valueBreed}
-              onChange={(ev, newValue) => {
-                setValueBreed(newValue)
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                minWidth: '300px',
+                marginBottom: '20px',
+                marginTop: '10px',
               }}
-              inputValue={inputValueBreed}
-              onInputChange={(ev, newInputValue) => {
-                setInputValueBreed(newInputValue)
-                setPetForm({
-                  ...petForm,
-                  ['breedId']: BREEDS.indexOf(newInputValue) + 1,
-                })
-              }}
-              options={BREEDS}
-              renderInput={(params) => <TextField {...params} label="Raza*" />}
-            />
-            <FormControlLabel
-              name="sterilized"
-              onChange={() =>
-                setPetForm({
-                  ...petForm,
-                  ['sterilized']: !petForm.sterilized,
-                })
-              }
-              control={<Checkbox />}
-              label="Esterilizado"
-            />
+            >
+              <Autocomplete
+                sx={{ margin: '20px 0px', minWidth: '300px' }}
+                disablePortal
+                name="speciesId"
+                value={valueSpecie}
+                onChange={(ev, newValue) => {
+                  setValueSpecie(newValue)
+                }}
+                inputValue={inputValueSpecie}
+                onInputChange={(ev, newInputValue) => {
+                  setInputValueSpecie(newInputValue)
+                  setPetForm({
+                    ...petForm,
+                    ['speciesId']: SPECIES.indexOf(newInputValue) + 1,
+                  })
+                }}
+                options={SPECIES}
+                renderInput={(params) => (
+                  <TextField {...params} label="Especie*" />
+                )}
+              />
 
-            <FormControlLabel
-              name="wormed"
-              onChange={() =>
-                setPetForm({
-                  ...petForm,
-                  ['wormed']: !petForm.wormed,
-                })
-              }
-              control={<Checkbox />}
-              label="Desparacitado"
-            />
+              <select
+                className={styles.selectPet}
+                name="breedId"
+                defaultValue={''}
+                onChange={(ev) => {
+                  setValueBreed(ev.target.value)
+                  setPetForm({
+                    ...petForm,
+                    ['breedId']: ev.target.value,
+                  })
+                }}
+              >
+                <option value="">Raza</option>
+                {petForm.speciesId !== ''
+                  ? petForm.speciesId
+                    ? BREEDS.map((info) => {
+                        if (petForm.speciesId === info.speciesId) {
+                          return <ValueSpecie key={info.name} info={info} />
+                        }
+                      })
+                    : BREEDS.map((info) => {
+                        return <ValueSpecie key={info.name} info={info} />
+                      })
+                  : ''}
+              </select>
+            </Box>
+
+            <Box sx={{ marginBottom: '20px' }}>
+              <FormControlLabel
+                name="sterilized"
+                onChange={() =>
+                  setPetForm({
+                    ...petForm,
+                    ['sterilized']: !petForm.sterilized,
+                  })
+                }
+                control={<Checkbox />}
+                label="Esterilizado"
+              />
+
+              <FormControlLabel
+                name="wormed"
+                onChange={() =>
+                  setPetForm({
+                    ...petForm,
+                    ['wormed']: !petForm.wormed,
+                  })
+                }
+                control={<Checkbox />}
+                label="Desparacitado"
+              />
+            </Box>
 
             <ImageList setImages={setImages} setDataImages={setDataImages} />
 

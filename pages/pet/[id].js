@@ -22,7 +22,6 @@ import {
 import { BasicModal, StarList } from '../../components/ui'
 
 export default function Pet({ response }) {
-  console.log(response)
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
   const [msg, setMsg] = useState('')
@@ -205,7 +204,6 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { id = '' } = params
   const { message } = await getPetById({ id })
-  console.log(message)
   const error = message.error
   if (error) {
     return {

@@ -44,7 +44,6 @@ export const AuthProvider = ({ children }) => {
       }
       return false
     } catch (err) {
-      console.log('error')
       return false
     }
     //Cookies.remove('token')

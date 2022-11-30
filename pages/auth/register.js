@@ -108,7 +108,7 @@ export default function SignInSide() {
           sm={false}
           md={7}
           sx={{
-            backgroundImage: 'url(/eri.jpg)',
+            backgroundImage: 'url(/Eri.webp)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light'

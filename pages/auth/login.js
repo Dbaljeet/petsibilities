@@ -37,7 +37,6 @@ export default function Login() {
     ev.preventDefault()
     setLoading(true)
     const res = await loginUser(loginForm)
-    console.log(res, 'res')
     if (res) {
       setLoading(false)
       setOpenError(false)
@@ -91,7 +90,7 @@ export default function Login() {
           <section className={styles.section2}>
             <Image
               className={styles.section2_img}
-              src="/dogl.jpg"
+              src="/dogl.webp"
               width={1200}
               height={2100}
               alt="Regístrate o vuelve al inicio de sesión"

@@ -69,7 +69,7 @@ export default function Recovery() {
             sm={false}
             md={5}
             sx={{
-              backgroundImage: 'url(/pexels-karolina-grabowska.jpg)',
+              backgroundImage: 'url(/pexels-karolina-grabowska.webp)',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               backgroundPosition: 'center',

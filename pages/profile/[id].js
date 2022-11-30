@@ -102,7 +102,6 @@ export default function Profile() {
     const getInfo = async () => {
       try {
         const { resp } = await getUserProfile({ id })
-        console.log(resp)
 
         setUserForm({
           name: resp.name,

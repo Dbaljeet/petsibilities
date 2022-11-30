@@ -50,7 +50,7 @@ export default function Home() {
                   <Image
                     alt="punto 1, visibilidad para cada mascota"
                     className={styles.li_image}
-                    src="/pexels-alex-andrews1.jpg"
+                    src="/pexels-alex-andrews1.webp"
                     width={300}
                     height={450}
                     layout="fixed"
@@ -66,7 +66,7 @@ export default function Home() {
                   <Image
                     alt="punto 2, Valoración entre perfiles"
                     className={styles.li_image}
-                    src="/pexels-dominika-roseclay.jpg"
+                    src="/pexels-dominika-roseclay.webp"
                     width={300}
                     height={450}
                     layout="fixed"
@@ -82,7 +82,7 @@ export default function Home() {
                   <Image
                     alt="punto 3, Condiciones de adopción"
                     className={styles.li_image}
-                    src="/pexels-nataliya-vaitkevich.jpg"
+                    src="/pexels-nataliya-vaitkevich.webp"
                     width={300}
                     height={450}
                     layout="fixed"
