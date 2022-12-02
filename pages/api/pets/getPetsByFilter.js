@@ -21,6 +21,7 @@ export default async function getpets(req, res) {
   return fetch(endpoint, {
     method: 'GET',
     headers: {
+      api: process.env.API_KEY,
       'Content-Type': 'application/json',
     },
   })

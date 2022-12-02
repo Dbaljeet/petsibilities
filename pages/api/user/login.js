@@ -8,6 +8,7 @@ export default async function login(req, res) {
   return fetch(`${process.env.ENDPOINT}/auth/login`, {
     method: 'POST',
     headers: {
+      api: process.env.API_KEY,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),

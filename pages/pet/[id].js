@@ -180,12 +180,14 @@ export default function Pet({ response }) {
 
 export async function getStaticPaths() {
   //fetch all pets---/82 v
-  const res = await fetch('http://localhost:3000/api/v1/pets/filter', {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/pets/filter`, {
     method: 'GET',
     headers: {
+      api: process.env.NEXT_PUBLIC_API_KEY,
       'Content-Type': 'application/json',
     },
   })
+
   const pets = await res.json()
 
   // Get the paths we want to pre-render based on posts

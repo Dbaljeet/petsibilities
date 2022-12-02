@@ -13,6 +13,7 @@ export default async function register(req, res) {
   return fetch(`${process.env.ENDPOINT}/users`, {
     method: 'POST',
     headers: {
+      api: process.env.API_KEY,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({

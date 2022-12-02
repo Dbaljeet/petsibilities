@@ -1,5 +1,5 @@
 export function getPetService({ id }) {
-  return fetch(`http://localhost:3000/api/v1/pets/1`, {
+  return fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/pets/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

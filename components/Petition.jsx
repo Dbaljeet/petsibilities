@@ -130,7 +130,7 @@ const Petition = ({ request, setTitle, setMsg, setOpen }) => {
             <Typography variant="h2">{request.pet.name}</Typography>
           </Box>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails sx={{ wordBreak: 'break-word' }}>
           <Typography variant="h3">
             {'Comentario: ' + request.petition.comment}
           </Typography>

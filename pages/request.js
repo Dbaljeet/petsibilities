@@ -156,18 +156,34 @@ export default function Request() {
                 /*aceptadas */
                 requestU.petition.accepted === true ? (
                   filter === true ? (
-                    <MyPetition key={requestU.petition.id} request={requestU} />
+                    <MyPetition
+                      adopter={true}
+                      key={requestU.petition.id}
+                      request={requestU}
+                    />
                   ) : filter === 'Ver todas' ? (
-                    <MyPetition key={requestU.petition.id} request={requestU} />
+                    <MyPetition
+                      adopter={true}
+                      key={requestU.petition.id}
+                      request={requestU}
+                    />
                   ) : (
                     ''
                   )
                 ) : /*rechazadas */
                 requestU.petition.accepted === false ? (
                   !filter ? (
-                    <MyPetition key={requestU.petition.id} request={requestU} />
+                    <MyPetition
+                      adopter={true}
+                      key={requestU.petition.id}
+                      request={requestU}
+                    />
                   ) : filter === 'Ver todas' ? (
-                    <MyPetition key={requestU.petition.id} request={requestU} />
+                    <MyPetition
+                      adopter={true}
+                      key={requestU.petition.id}
+                      request={requestU}
+                    />
                   ) : (
                     ''
                   )

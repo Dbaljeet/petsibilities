@@ -3,6 +3,7 @@ export default async function getpets(req, res) {
   return fetch(`${process.env.ENDPOINT}/pets/${id}`, {
     method: 'GET',
     headers: {
+      api: process.env.API_KEY,
       'Content-Type': 'application/json',
     },
   })
