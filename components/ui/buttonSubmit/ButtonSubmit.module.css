@@ -1,5 +1,6 @@
 .submit {
     cursor: pointer;
+    transition: 1s transform, 1s opacity;
     min-width: 200px;
     font-size: 2rem;
     padding: 20px;
@@ -15,3 +16,8 @@
       #99925e
     );
   }
+
+.submit:hover{
+  transform: scale(1.1);
+  opacity: .9;
+}

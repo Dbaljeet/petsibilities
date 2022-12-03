@@ -5,12 +5,13 @@ import { useRouter } from 'next/router'
 
 import styles from '../../styles/Login.module.css'
 
-import { GeneralLayout } from '../../components/layouts'
+import { GeneralLayout, UserLayout } from '../../components/layouts'
 import { BasicModal, ButtonSubmit, Switch } from '../../components/ui'
 import { AuthContext } from '../../context'
 import { Spinner } from '../../components/ui'
-import { Box, Button, TextField } from '@mui/material'
+import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 import RecoveryPassword from '../../components/RecoveryPassword'
+import { LoginOutlined } from '@mui/icons-material'
 
 export default function Login() {
   const router = useRouter()
@@ -53,25 +54,80 @@ export default function Login() {
 
   return (
     <>
-      <GeneralLayout title={'Iniciar sesión-Petsibilities'}>
+      <UserLayout title={'Iniciar sesión-Petsibilities'}>
         {loading && <Spinner />}
-        <h2 className={styles.title}>Iniciar sesión</h2>
-        <main className={styles.main}>
-          <section className={styles.section1}>
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <input
-                className={styles.input}
+
+        <Box
+          className={styles.allContent}
+          sx={{ display: 'flex', flexWrap: 'wrap', paddingTop: '70px' }}
+        >
+          <Box
+            className={styles.ContainerForm}
+            sx={{
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              padding: '40px',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LoginOutlined></LoginOutlined>
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Inicia sesión en Petsibilities
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 5,
+                marginTop: '50px',
+              }}
+            >
+              <TextField
+                required
+                fullWidth
+                margin="normal"
                 onChange={handleChange}
-                placeholder="correo"
+                label="correo"
                 name="email"
                 type="email"
+                InputProps={{
+                  style: {
+                    fontSize: '1.2rem',
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontSize: '1.2rem',
+                    color: '#000',
+                  },
+                }}
               />
-              <input
-                className={styles.input}
+
+              <TextField
+                required
+                fullWidth
+                margin="normal"
                 type={`${isVisiblePassword ? 'text' : 'password'}`}
                 onChange={handleChange}
-                placeholder="contraseña"
+                label="contraseña"
                 name="password"
+                InputProps={{
+                  style: {
+                    fontSize: '1.2rem',
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontSize: '1.2rem',
+                    color: '#000',
+                  },
+                }}
               />
 
               {openError && (
@@ -85,37 +141,69 @@ export default function Login() {
 
               <Switch text={'Ver contraseña'} showPassword={showPassword} />
               <ButtonSubmit />
-            </form>
-          </section>
-          <section className={styles.section2}>
-            <Image
-              className={styles.section2_img}
-              src="/dogl.webp"
-              width={1200}
-              height={2100}
-              alt="Regístrate o vuelve al inicio de sesión"
-            />
-            <div className={styles.section2_info}>
-              ¿Aún no tienes una cuenta?
+            </Box>
+          </Box>
+
+          <Grid
+            className={styles.ContainerImg}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              backgroundImage: 'url(/dogl.webp)',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              minHeight: '90vh',
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                gap: 2,
+                backgroundColor: 'rgba(0,0,0,0.2)',
+                padding: '20px',
+                backdropFilter: 'blur(2px)',
+                borderRadius: '10px',
+                maxWidth: '300px',
+                margin: 'auto',
+                marginBottom: '30px',
+              }}
+            >
               <Link
                 href={`/auth/register?=${router.query.p?.toString() || ''}`}
               >
-                <a className={styles.goRegister}>Regístrate</a>
+                <Button
+                  variant="text"
+                  sx={{ border: 'none', backgroundColor: '#fff' }}
+                >
+                  Regístrate
+                </Button>
               </Link>
               <Link href="/">
-                <a className={styles.goHome}>Ir a la página principal</a>
+                <Button
+                  variant="text"
+                  sx={{ border: 'none', backgroundColor: '#fff' }}
+                >
+                  Ir a la página principal
+                </Button>
               </Link>
-              <Button onClick={() => setOpenRecovery(true)} variant="outlined">
+              <Button
+                onClick={() => setOpenRecovery(true)}
+                variant="outlined"
+                sx={{ border: 'none', backgroundColor: '#fff' }}
+              >
                 ¿Olvidaste tu contraseña?
               </Button>
-            </div>
+            </Box>
             <RecoveryPassword
               setOpenRecovery={setOpenRecovery}
               openRecovery={openRecovery}
             />
-          </section>
-        </main>
-      </GeneralLayout>
+          </Grid>
+        </Box>
+      </UserLayout>
     </>
   )
 }
