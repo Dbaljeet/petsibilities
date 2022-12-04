@@ -13,7 +13,6 @@ export default async function postScore(req, res) {
     }),
   })
     .then((res) => {
-      console.log(res)
       if (!res.ok) throw new Error('error response to post rating - score')
       return res.json()
     })

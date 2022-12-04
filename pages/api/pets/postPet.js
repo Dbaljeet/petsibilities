@@ -30,7 +30,6 @@ export default async function postpets(req, res) {
     }),
   })
     .then((res) => {
-      console.log(res)
       if (!res.ok) throw new Error('error response to post')
       return res.json()
     })

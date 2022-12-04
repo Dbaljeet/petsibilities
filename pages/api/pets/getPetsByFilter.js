@@ -31,8 +31,6 @@ export default async function getpets(req, res) {
       return res.json()
     })
     .then((resp) => {
-      console.log(resp, 'res api get pets by filter')
-
       return res.status(200).json({ message: resp })
     })
 }

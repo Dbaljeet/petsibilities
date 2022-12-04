@@ -9,8 +9,6 @@ export default async function getRequest(req, res) {
     phoneNumber,
   } = req.body
 
-  console.log(urlImage, 'url')
-
   const PARAMS = [
     name,
     email,

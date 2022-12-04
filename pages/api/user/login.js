@@ -1,9 +1,6 @@
 import cookie from 'cookie'
 
 export default async function login(req, res) {
-  console.log('______________________________')
-  console.log(req.cookies.refresh, 'cookie refresh login debería ser vacío')
-  console.log('______________________________')
   const { email, password } = req.body
   return fetch(`${process.env.ENDPOINT}/auth/login`, {
     method: 'POST',
@@ -18,7 +15,6 @@ export default async function login(req, res) {
       return res.json()
     })
     .then((resp) => {
-      console.log('response login "backend" resfresh:', resp)
       res.setHeader('Set-Cookie', [
         cookie.serialize('refresh', resp.refreshToken, {
           httpOnly: true,

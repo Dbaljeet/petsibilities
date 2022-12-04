@@ -20,25 +20,28 @@ import {
   FormControlLabel,
   CardMedia,
   Card,
+  Button,
 } from '@mui/material'
 
 import ValueSpecie from '../components/valueSpecie'
 import styles from '../styles/postPet.module.css'
+import { AuthContext } from '../context'
+import Link from 'next/link'
+
+const GENDERS = ['Masculino', 'Femenino']
+const SPECIES = [
+  'Perro',
+  'Gato',
+  'Roedor',
+  'Ave',
+  'Reptil',
+  'Pez',
+  'Aracnido',
+  'Mustelido',
+  'Conejo',
+]
 
 export default function PostPet() {
-  const GENDERS = ['Masculino', 'Femenino']
-  const SPECIES = [
-    'Perro',
-    'Gato',
-    'Roedor',
-    'Ave',
-    'Reptil',
-    'Pez',
-    'Aracnido',
-    'Mustelido',
-    'Conejo',
-  ]
-
   const [petForm, setPetForm] = useState({
     name: '',
     description: '',
@@ -52,14 +55,14 @@ export default function PostPet() {
     speciesId: 1,
   })
 
+  const { isLoggedIn } = useContext(AuthContext)
+
   const router = useRouter()
 
   const [inputValueSpecie, setInputValueSpecie] = useState('')
 
   const [valueBreed, setValueBreed] = useState('Labrador')
   const [valueSpecie, setValueSpecie] = useState('Perro')
-
-  console.log(valueBreed)
 
   const [inputValueGender, setInputValueGender] = useState('')
   const [valueGender, setValueGender] = useState('Masculino')
@@ -70,13 +73,20 @@ export default function PostPet() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
   const [open, setOpen] = useState(true)
+  const [plsLogin, setPlsLogin] = useState(false)
 
   const [allowChangeDescription, setAllowChangeDescription] = useState(false)
 
   const urls = []
+
   const handleSubmit = async (ev) => {
     ev.preventDefault()
     try {
+      if (!isLoggedIn) {
+        setPlsLogin(true)
+        return
+      }
+
       for (const image of dataImages) {
         setIsLoading(true)
         const res2 = await postImagePet({ image: image })
@@ -407,6 +417,17 @@ export default function PostPet() {
             ) : (
               ''
             )}
+
+            <BasicModal
+              setOpen={setPlsLogin}
+              open={plsLogin}
+              title="Por favor inicia sesión"
+              msg="Para publicar una mascota necesitas tener tu sesión activa"
+            >
+              <Link href="auth/login?p=/postPet">
+                <Button sx={{ backgroundColor: '#c0c0c085' }}>Ir</Button>
+              </Link>
+            </BasicModal>
           </Box>
         </Box>
       </UserLayout>

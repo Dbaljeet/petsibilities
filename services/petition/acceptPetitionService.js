@@ -11,7 +11,6 @@ export function acceptPetitionService({ accepted, idPetition }) {
     }),
   })
     .then((res) => {
-      console.log(res, 'res de accept')
       if (!res.ok) {
         throw new Error('error, no se pudo aceptar o rechazar la petición')
       }
