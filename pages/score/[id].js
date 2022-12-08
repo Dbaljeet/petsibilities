@@ -28,7 +28,7 @@ const PostScore = () => {
     const { id, name = '' } = router.query
     setId(id)
     setName(name)
-  }, [router.isReady])
+  }, [router.isReady, router.query])
 
   const handleSubmit = async () => {
     try {

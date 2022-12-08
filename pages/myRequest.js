@@ -6,7 +6,7 @@ import {
   Typography,
   CardMedia,
 } from '@mui/material'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { UserLayout } from '../components/layouts'
 import MyPetition from '../components/MyPetition'
 import { BasicModal } from '../components/ui'

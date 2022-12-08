@@ -142,7 +142,7 @@ export const SideMenu = () => {
                     <ListItemText primary={'Usuarios'} />
                   </ListItem>
                 </>
-              ) : roleId === 3 ? (
+              ) : roleId === 3 || roleId === 2 ? (
                 <>
                   <ListItem button onClick={() => navigateTo('/request')}>
                     <ListItemIcon>

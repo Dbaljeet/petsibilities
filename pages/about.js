@@ -88,14 +88,14 @@ export default function About() {
                 de la mascota tiene que ver si acepta o rechaza su petición,
                 posiblemente se ponga en contacto con usted con la información
                 que nos entregó. Será notificado en la misma web en su historial
-                de adopciones
+                de adopciones y mediante un correo
               </Typography>
             </CardContent>
           </Box>
           <CardMedia
             component="img"
             sx={{ minWidth: '300px', maxWidth: '500px' }}
-            image="https://images.pexels.com/photos/33152/european-rabbits-bunnies-grass-wildlife.jpg?auto=compress&cs=tinysrgb&w=1600"
+            image="/european-rabbits-bunnies-grass-wildlife.webp"
             alt="Live from space album cover"
           />
         </Card>
@@ -109,7 +109,7 @@ export default function About() {
         <Box
           sx={{
             display: 'flex',
-            padding: '60px',
+            padding: '30px',
             margin: 'auto',
             flexDirection: 'column',
             marginTop: '10px',
@@ -122,9 +122,7 @@ export default function About() {
             color="text.secondary"
             sx={{ fontSize: '1.5rem', textAlign: 'center' }}
           >
-            Solo pueden poner en adopción las entidades aprobadas por nosotros,
-            puedes realizar la solicitud iniciando sesión. Por varios motivos
-            solo consideramos quienes harán uso correcto de la web.
+            Cualquier usuario de Petsibilities puede poner en adopción, solo debes iniciar sesión y hacer click en el menu lateral
           </Typography>
         </Box>
       </UserLayout>
