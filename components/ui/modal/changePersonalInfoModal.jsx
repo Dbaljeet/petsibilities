@@ -21,6 +21,8 @@ import { Spinner } from '../spinner'
 
 import styles from './changePersonalInfoModal.module.css'
 
+const folder = 'PetsibilitiesProfile'
+
 export const ChangePersonalInfoModal = ({ open, setOpen, nameOrig }) => {
   const router = useRouter()
   const title = 'Cambia tu información personal'

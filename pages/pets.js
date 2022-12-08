@@ -78,6 +78,8 @@ export default function Pets() {
         setPETS((prevPets) => prevPets.concat(message))
       }
     } catch {
+      setNoMoreData(true)
+      setLoading(false)
       setPETS([])
     }
   }, [page, petForm])

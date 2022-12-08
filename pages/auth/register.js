@@ -44,7 +44,7 @@ function Copyright(props) {
   )
 }
 
-export default function SignInSide() {
+export default function Register() {
   const router = useRouter()
   //const { Register, error, infoResponse } = useUser()
   const { registerUser } = useContext(AuthContext)
@@ -106,7 +106,7 @@ export default function SignInSide() {
           item
           xs={false}
           sm={false}
-          md={7}
+          md={5}
           sx={{
             backgroundImage: 'url(/Eri.webp)',
             backgroundRepeat: 'no-repeat',
@@ -123,7 +123,7 @@ export default function SignInSide() {
           item
           xs={12}
           sm={12}
-          md={5}
+          md={7}
           component={Paper}
           elevation={6}
           square

@@ -9,7 +9,7 @@ export const ImageList = ({ setImages, setDataImages }) => {
         if (file && file.type.substring(0, 5) === 'image') {
           const formData = new FormData()
           formData.append('file', file)
-          formData.append('upload_preset', 'Petsibilities')
+          formData.append('upload_preset', 'PetsibilitiesPets')
           //setLoading
 
           setDataImages((prev) => prev.concat([formData]))
