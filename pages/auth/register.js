@@ -68,7 +68,10 @@ export default function Register() {
 
   const [openRecovery, setOpenRecovery] = useState(false)
 
+
   const handleSubmit = async (ev) => {
+
+    
     ev.preventDefault()
     setLoading(true)
     const res = await registerUser(registerForm)
@@ -187,7 +190,7 @@ export default function Register() {
                 type="email"
                 error={registerForm.email === ''}
                 helperText={
-                  registerForm.email === '' ? 'Debe rellenar el campo' : ''
+                  registerForm.email === '' ? 'Debe rellenar el campo' : '.com | .net | .cl'
                 }
                 InputProps={{
                   style: {
@@ -225,7 +228,7 @@ export default function Register() {
                   helperText={
                     registerForm.phoneNumber === ''
                       ? 'Debe rellenar el campo'
-                      : 'deben ser 9 números'
+                      : `deben ser 9 números - actual ${registerForm.phoneNumber.length}`
                   }
                   InputProps={{
                     style: {
@@ -274,7 +277,7 @@ export default function Register() {
                 type={`${isVisiblePassword ? 'text' : 'password'}`}
                 error={registerForm.password === ''}
                 helperText={
-                  registerForm.password === '' ? 'Debe rellenar el campo' : ''
+                  registerForm.password === '' ? 'Debe rellenar el campo' : `mínimo 8 máximo 12 caracteres - actual ${registerForm.password.length}`
                 }
                 InputProps={{
                   style: {
@@ -302,7 +305,7 @@ export default function Register() {
                 helperText={
                   registerForm.confirmPassword === ''
                     ? 'Debe rellenar el campo'
-                    : ''
+                    : `mínimo 8 máximo 12 caracteres - actual ${registerForm.confirmPassword.length}`
                 }
                 InputProps={{
                   style: {
@@ -322,14 +325,11 @@ export default function Register() {
                   display: 'flex',
                   alignItems: 'center',
                   flexDirection: 'column',
-                  gap: '10px',
+                  gap: '30px',
                 }}
               >
                 <Switch text={'Ver contraseña'} showPassword={showPassword} />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Recordar correo"
-                />
+                
                 <ButtonSubmit />
                 {error && (
                   <span className={styles.spann}>
