@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 
 import { AuthContext } from '../../context'
 
-import { getPetById, postPetitionService } from '../../services'
+import { getPetById } from '../../services'
 
 import { PetSlideShow } from '../../components/pets/PetSlideShow'
 import { UserLayout } from '../../components/layouts'
@@ -14,9 +14,6 @@ import {
   Box,
   Button,
   Grid,
-  Link,
-  TextareaAutosize,
-  TextField,
   Typography,
 } from '@mui/material'
 import { BasicModal, StarList } from '../../components/ui'
@@ -26,7 +23,10 @@ export default function Pet({ response }) {
   const [title, setTitle] = useState('')
   const [msg, setMsg] = useState('')
 
-  const router = useRouter()
+  const {isFallback} = useRouter()
+
+  
+
   const { user } = useContext(AuthContext)
 
   const { pet, owner, score, userPetId } = response
@@ -43,6 +43,10 @@ export default function Pet({ response }) {
         setOpen(true)
       }
     } catch {}
+  }
+
+  if(isFallback){
+    return <Typography>Loading...</Typography>;
   }
 
   return (
@@ -112,7 +116,7 @@ export default function Pet({ response }) {
               </Typography>
             </Box>
 
-            <Typography variant="h3">{`Edad: ${pet.age} año(s)`}</Typography>
+            <Typography variant="h3">{`Edad: ${pet.age} Mes(s)`}</Typography>
             <Typography variant="h3">{`Sexo: ${pet.gender.name}`}</Typography>
             <Typography variant="h3">{`Desparasitado: ${
               pet.wormed ? 'Sí' : 'No'
@@ -192,7 +196,7 @@ export async function getStaticPaths() {
 
   // Get the paths we want to pre-render based on posts
   return {
-    paths: pets.map((pet) => ({
+    paths: pets?.map((pet) => ({
       params: { id: `${pet.id}` },
     })),
 

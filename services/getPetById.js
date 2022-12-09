@@ -1,7 +1,5 @@
-const ENDPOINT = 'http://localhost:3001/api/pets'
-
 export function getPetById({ id }) {
-  return fetch(`${ENDPOINT}/getPetbyId`, {
+  return fetch(`${process.env.NEXT_PUBLIC_NEXTBACKEND}/pets/getPetbyId`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
