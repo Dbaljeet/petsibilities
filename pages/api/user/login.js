@@ -18,14 +18,14 @@ export default async function login(req, res) {
       res.setHeader('Set-Cookie', [
         cookie.serialize('refresh', resp.refreshToken, {
           httpOnly: true,
-          maxAge: 60 * 60 * 2,
+          maxAge: 60*90,
           sameSite: 'strict',
           path: '/',
           secure: true,
         }),
         cookie.serialize('access', resp.accessToken, {
           httpOnly: true,
-          maxAge: 60 * 3,
+          maxAge: 60*10,
           sameSite: 'strict',
           path: '/',
           secure: true,

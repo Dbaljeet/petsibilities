@@ -5,8 +5,6 @@ import NextLink from 'next/link'
 
 import { AuthContext } from '../../context'
 
-import { getPetById } from '../../services'
-
 import { PetSlideShow } from '../../components/pets/PetSlideShow'
 import { UserLayout } from '../../components/layouts'
 
@@ -209,9 +207,17 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { id = '' } = params
-  const { message } = await getPetById({ id })
-  const error = message.error
-  if (error) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/pets/${id}`, {
+    method: 'GET',
+    headers: {
+      api: process.env.NEXT_PUBLIC_API_KEY,
+      'Content-Type': 'application/json',
+    },
+  })
+
+  const json = await res.json()
+
+  if (res.status !== 200) {
     return {
       redirect: {
         destination: '/404',
@@ -220,9 +226,11 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  console.log(json,'msggggggggggggggggggggg')
+
   return {
     props: {
-      response: message,
+      response: json,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
