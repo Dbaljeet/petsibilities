@@ -28,7 +28,7 @@ import styles from '../styles/postPet.module.css'
 import { AuthContext } from '../context'
 import Link from 'next/link'
 
-const GENDERS = ['Masculino', 'Femenino']
+const GENDERS = ['Macho', 'Hembra']
 const SPECIES = [
   'Perro',
   'Gato',
@@ -65,7 +65,7 @@ export default function PostPet() {
   const [valueSpecie, setValueSpecie] = useState('Perro')
 
   const [inputValueGender, setInputValueGender] = useState('')
-  const [valueGender, setValueGender] = useState('Masculino')
+  const [valueGender, setValueGender] = useState('Macho')
 
   const [images, setImages] = useState([])
   const [dataImages, setDataImages] = useState([])
@@ -225,7 +225,7 @@ export default function PostPet() {
               onChange={handleChange}
               name="age"
               error={petForm.age === ''}
-              helperText={petForm.age === '' ? 'Debe rellenar el campo' : ''}
+              helperText={petForm.age === '' ? 'Debe rellenar el campo (meses)' : '(meses)'}
               InputProps={{
                 style: {
                   fontSize: '1.2rem',
@@ -248,7 +248,7 @@ export default function PostPet() {
               onChange={handleChange}
               name="size"
               error={petForm.size === ''}
-              helperText={petForm.size === '' ? 'Debe rellenar el campo' : ''}
+              helperText={petForm.size === '' ? 'Debe rellenar el campo (largo en cms)' : '(largo en cms)'}
               InputProps={{
                 style: {
                   fontSize: '1.2rem',

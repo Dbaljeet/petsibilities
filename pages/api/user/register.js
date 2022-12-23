@@ -21,7 +21,7 @@ export default async function register(req, res) {
       email,
       phoneNumber: realphoneNumber,
       password,
-      houseSize: 10,
+      houseSize: 0,
       roleId: 2,
       cityId: city,
     }),

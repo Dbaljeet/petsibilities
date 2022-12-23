@@ -25,7 +25,7 @@ export default async function login(req, res) {
         }),
         cookie.serialize('access', resp.accessToken, {
           httpOnly: true,
-          maxAge: 60*10,
+          maxAge: 60*30,
           sameSite: 'strict',
           path: '/',
           secure: true,

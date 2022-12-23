@@ -135,7 +135,9 @@ const Petition = ({ request, setTitle, setMsg, setOpen }) => {
             {'Comentario: ' + request.petition.comment}
           </Typography>
           <Typography variant="h3">
-            {'Tamaño hogar: ' + request.adopter.houseSize + ' [mt^2]'}
+            {request.adopter.houseSize !== 0
+              ? 'Tamaño hogar: ' + request.adopter.houseSize + ' [mt^2]'
+              : 'Sin especificar'}
           </Typography>
           <Typography variant="h3">
             {'Fecha: ' + request.petition.date}
